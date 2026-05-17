@@ -76,8 +76,7 @@ section{padding:84px 0}.section-title{display:flex;justify-content:space-between
   transform-style:preserve-3d;
 }
 .flip-card:hover .flip-inner,
-.flip-card:focus-within .flip-inner,
-.flip-card.active .flip-inner{
+.flip-card:focus-within .flip-inner{
   transform:rotateY(180deg);
 }
 .flip-face{
@@ -134,7 +133,7 @@ section{padding:84px 0}.section-title{display:flex;justify-content:space-between
 <main class="hero"><div><div class="badge"><span class="pulse"></span> Quality ecosystem online</div><h1><span class="glitch" data-text="ODIRLEI ALVES">ODIRLEI ALVES</span></h1><div class="subtitle">QA Engineer • AI Automation • DevOps • Quality Architect</div><p class="desc">QA Sênior com atuação em automação Desktop, Web, API e Performance. Especializado em construir bases sólidas para processos de qualidade, modernizar frameworks de automação, integrar DevOps e aplicar IA para reduzir risco, aumentar rastreabilidade e acelerar entregas.</p><div class="actions"><a class="btn primary" href="#ecosystem">Explorar Neural Engine</a><button class="btn" onclick="openCommand()">Abrir Command Center</button><a class="btn" href="https://github.com/Dilei27" target="_blank">GitHub</a></div></div>
 <div class="panel"><div class="panel-top"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span>qa-core.boot</span></div><div class="panel-body"><div class="metrics"><div class="metric"><span>Mindset</span><strong>Quality First</strong></div><div class="metric"><span>Engine</span><strong>AI + Python</strong></div><div class="metric"><span>Delivery</span><strong>CI/CD</strong></div><div class="metric"><span>Impacto</span><strong>Escala</strong></div></div><div class="terminal" id="terminal"><span class="cursor"></span></div></div></div></main>
 <section id="especialidades"><div class="section-title"><h2>Especialidades</h2><p>Não apenas execução de testes: desenho de processo, engenharia de automação, governança, métricas e IA aplicada.</p></div><div class="cards">
-  <div class="flip-card" tabindex="0" onclick="this.classList.toggle('active')">
+  <div class="flip-card" tabindex="0" >
     <div class="flip-inner">
       <div class="flip-face flip-front">
         <div class="icon">🧪</div><h3>Automação real</h3><p>Robot Framework, Sikuli, Playwright, Cypress e k6 aplicados em cenários Desktop, Web, API e Performance.</p>
@@ -150,7 +149,7 @@ section{padding:84px 0}.section-title{display:flex;justify-content:space-between
     </div>
   </div>
 
-  <div class="flip-card" tabindex="0" onclick="this.classList.toggle('active')">
+  <div class="flip-card" tabindex="0" >
     <div class="flip-inner">
       <div class="flip-face flip-front">
         <div class="icon">🏗️</div><h3>Bases sólidas de QA</h3><p>Estruturação de processos, critérios de qualidade, rastreabilidade, templates, padrões e maturidade para squads.</p>
@@ -166,7 +165,7 @@ section{padding:84px 0}.section-title{display:flex;justify-content:space-between
     </div>
   </div>
 
-  <div class="flip-card" tabindex="0" onclick="this.classList.toggle('active')">
+  <div class="flip-card" tabindex="0" >
     <div class="flip-inner">
       <div class="flip-face flip-front">
         <div class="icon">🤖</div><h3>IA aplicada</h3><p>Uso de LLMs, RAG e agentes inteligentes para análise de requisitos, geração de cenários e validação de consistência.</p>
