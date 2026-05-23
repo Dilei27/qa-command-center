@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Odirlei Alves | QA Neural Command Center</title>
+<title>Odirlei Alves | QA Command Center Impact Lab</title>
 <style>
 :root{
-  --bg:#030712;
-  --panel:rgba(15,23,42,.62);
+  --bg:#020617;
+  --panel:rgba(15,23,42,.66);
   --line:rgba(255,255,255,.13);
   --text:#f8fafc;
   --muted:#94a3b8;
@@ -15,180 +15,69 @@
   --blue:#4f8cff;
   --purple:#9b5cff;
   --green:#36f2a6;
-  --pink:#ff4fd8;
+  --yellow:#ffd166;
+  --red:#ff6b6b;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
 html{scroll-behavior:smooth}
 body{
   min-height:100vh;
-  color:var(--text);
   overflow-x:hidden;
   background:
-    radial-gradient(circle at 14% 8%,rgba(56,213,255,.2),transparent 28%),
-    radial-gradient(circle at 82% 10%,rgba(155,92,255,.22),transparent 30%),
-    radial-gradient(circle at 60% 90%,rgba(54,242,166,.10),transparent 25%),
-    linear-gradient(135deg,#020617,#050816 45%,#0b1028);
+    radial-gradient(circle at 10% 8%,rgba(56,213,255,.19),transparent 30%),
+    radial-gradient(circle at 84% 12%,rgba(155,92,255,.22),transparent 32%),
+    radial-gradient(circle at 55% 92%,rgba(54,242,166,.09),transparent 28%),
+    linear-gradient(135deg,#020617,#050816 46%,#0b1028);
+  color:var(--text);
 }
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
   background-size:72px 72px;
-  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.18));
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.16));
 }
 body::after{
-  content:"";position:fixed;width:420px;height:420px;border-radius:50%;
-  left:var(--mx,50%);top:var(--my,50%);transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(56,213,255,.18),transparent 65%);
-  pointer-events:none;z-index:0;filter:blur(10px);
+  content:"";position:fixed;width:430px;height:430px;border-radius:50%;left:var(--mx,50%);top:var(--my,50%);transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(56,213,255,.18),transparent 67%);pointer-events:none;z-index:0;filter:blur(10px);
 }
-.wrap{width:min(1220px,calc(100% - 42px));margin:auto;position:relative;z-index:1}
-.nav{
-  margin:22px 0 36px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;
-  border:1px solid var(--line);border-radius:24px;background:rgba(3,7,18,.68);backdrop-filter:blur(20px);
-  box-shadow:0 24px 90px rgba(0,0,0,.38);position:sticky;top:18px;z-index:20
-}
-.logo{font-weight:950;font-size:22px;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}
-.nav a{color:#b9c4d8;text-decoration:none;margin-left:18px;font-size:14px;font-weight:800;transition:.25s}
-.nav a:hover{color:var(--cyan);text-shadow:0 0 18px rgba(56,213,255,.65)}
-.kbd{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:12px;color:#dbeafe}
-.hero{min-height:82vh;display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center;padding:22px 0 70px}
-.badge{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(56,213,255,.095);border:1px solid rgba(56,213,255,.35);color:#c6f4ff;font-size:14px;margin-bottom:24px}
-.pulse{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 22px var(--green);animation:pulse 1.6s infinite}
-@keyframes pulse{50%{transform:scale(1.45);opacity:.55}}
-h1{font-size:clamp(48px,7vw,92px);line-height:1;letter-spacing:-4px;margin-bottom:24px;white-space:nowrap}
-.glitch{position:relative;display:inline-block;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;opacity:.35;pointer-events:none}.glitch::before{color:var(--cyan);transform:translate(2px,-1px);clip-path:inset(0 0 55% 0)}.glitch::after{color:var(--pink);transform:translate(-2px,1px);clip-path:inset(55% 0 0 0)}
-.subtitle{font-size:clamp(22px,2.1vw,30px);color:#dbeafe;font-weight:850;margin-bottom:20px}
-.desc{color:#aeb9cf;font-size:17px;line-height:1.85;max-width:760px}.actions{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}.btn{padding:15px 22px;border-radius:16px;text-decoration:none;color:#fff;font-weight:900;border:1px solid var(--line);background:rgba(255,255,255,.065);transition:.25s;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#031023;border:none;box-shadow:0 18px 45px rgba(56,213,255,.25)}.btn:hover{transform:translateY(-4px);filter:brightness(1.08)}
-.panel{border-radius:32px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(22px);box-shadow:0 30px 100px rgba(0,0,0,.46);overflow:hidden;animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-14px)}}
-.panel-top{height:54px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(0,0,0,.18);color:#9aa8bd;font-size:13px}.dots{display:flex;gap:8px}.dot{width:12px;height:12px;border-radius:50%;background:#ff5f57}.dot:nth-child(2){background:#ffbd2e}.dot:nth-child(3){background:#28c840}.panel-body{padding:26px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}.metric{padding:18px;border-radius:20px;background:rgba(2,6,23,.55);border:1px solid rgba(255,255,255,.10)}.metric span{color:#94a3b8;font-size:13px}.metric strong{display:block;margin-top:8px;font-size:26px}.terminal{min-height:236px;padding:20px;border-radius:22px;background:rgba(0,0,0,.45);border:1px solid rgba(56,213,255,.18);font-family:Consolas,monospace;color:#dbeafe;line-height:1.75;font-size:14px}.term-line{display:block}.cursor{display:inline-block;width:9px;height:16px;background:var(--cyan);vertical-align:-3px;animation:blink .75s infinite}@keyframes blink{50%{opacity:0}}
-section{padding:84px 0}.section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:30px}.section-title h2{font-size:clamp(36px,4vw,58px);letter-spacing:-2px}.section-title p{max-width:560px;color:#aeb9cf;line-height:1.75}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{min-height:270px;padding:28px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid var(--line);box-shadow:0 18px 60px rgba(0,0,0,.24);transition:.25s;position:relative;overflow:hidden}.card::after{content:"";position:absolute;inset:auto -42% -66% -42%;height:190px;background:radial-gradient(circle,rgba(56,213,255,.28),transparent 68%);opacity:0;transition:.25s}.card:hover{transform:perspective(800px) rotateX(3deg) rotateY(-4deg) translateY(-8px);border-color:rgba(56,213,255,.48)}.card:hover::after{opacity:1}.icon{width:60px;height:60px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(56,213,255,.22),rgba(155,92,255,.22));border:1px solid var(--line);font-size:27px;margin-bottom:22px}.card h3{font-size:24px;margin-bottom:12px}.card p{color:#aeb9cf;line-height:1.75}
-.flip-card{
-  min-height:300px;
-  perspective:1200px;
-  cursor:pointer;
-}
-.flip-inner{
-  position:relative;
-  width:100%;
-  min-height:300px;
-  transition:transform .75s cubic-bezier(.2,.8,.2,1);
-  transform-style:preserve-3d;
-}
-.flip-card:hover .flip-inner{
-  transform: rotateY(180deg);
-}
-.flip-face{
-  position:absolute;
-  inset:0;
-  min-height:300px;
-  padding:28px;
-  border-radius:30px;
-  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));
-  border:1px solid var(--line);
-  box-shadow:0 18px 60px rgba(0,0,0,.24);
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
-  overflow:hidden;
-}
-.flip-face::after{
-  content:"";
-  position:absolute;
-  inset:auto -42% -66% -42%;
-  height:190px;
-  background:radial-gradient(circle,rgba(56,213,255,.28),transparent 68%);
-  opacity:.75;
-  pointer-events:none;
-}
-.flip-front{transform:rotateY(0deg)}
-.flip-back{
-  transform:rotateY(180deg);
-  background:linear-gradient(180deg,rgba(56,213,255,.10),rgba(155,92,255,.055));
-}
-.flip-face h3{font-size:24px;margin-bottom:12px}
-.flip-face p{color:#aeb9cf;line-height:1.75}
-.experience-list{margin-top:12px;display:grid;gap:10px}
-.experience-list span{
-  display:block;
-  padding:10px 12px;
-  border-radius:14px;
-  background:rgba(2,6,23,.46);
-  border:1px solid rgba(255,255,255,.09);
-  color:#dbeafe;
-  font-size:14px;
-  line-height:1.45;
-}
-
-.ecosystem{display:grid;grid-template-columns:1fr 1fr;gap:20px}.neural-card{min-height:460px;border-radius:34px;border:1px solid var(--line);background:rgba(255,255,255,.045);position:relative;overflow:hidden;box-shadow:inset 0 0 80px rgba(56,213,255,.04)}#neuralCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:158px;height:158px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,var(--cyan),var(--blue));color:#031023;font-size:23px;font-weight:950;box-shadow:0 0 70px rgba(56,213,255,.42);z-index:3}.tech-node{position:absolute;padding:10px 14px;border-radius:999px;background:rgba(2,6,23,.80);border:1px solid rgba(255,255,255,.14);color:#dbeafe;font-weight:850;font-size:13px;z-index:4;box-shadow:0 0 26px rgba(56,213,255,.13);backdrop-filter:blur(12px);transition:.2s}.tech-node:hover{color:var(--cyan);border-color:rgba(56,213,255,.55);transform:scale(1.05)}
-.stack{display:flex;flex-wrap:wrap;gap:12px}.tag{padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#dbeafe;font-weight:900;font-size:14px}footer{padding:70px 0 90px;text-align:center;color:#94a3b8}
-.command-modal{position:fixed;inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(12px);z-index:99;display:none;align-items:flex-start;justify-content:center;padding-top:90px}.command-modal.open{display:flex}.command-box{width:min(680px,calc(100% - 36px));border-radius:26px;overflow:hidden;background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 120px rgba(0,0,0,.55)}.command-input{padding:20px;border-bottom:1px solid var(--line);color:#dbeafe;font-weight:900}.command-list a{display:block;padding:18px 20px;color:#dbeafe;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.07)}.command-list a:hover{background:rgba(56,213,255,.10);color:var(--cyan)}
-@media(max-width:980px){.hero,.ecosystem{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.nav-links{display:none}h1{white-space:normal;font-size:52px;letter-spacing:-2px}}
+.wrap{width:min(1240px,calc(100% - 40px));margin:auto;position:relative;z-index:1}
+.nav{margin:22px 0 38px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:24px;background:rgba(3,7,18,.70);backdrop-filter:blur(20px);box-shadow:0 24px 90px rgba(0,0,0,.38);position:sticky;top:18px;z-index:50}
+.logo{font-weight:950;font-size:21px;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.nav a{color:#b9c4d8;text-decoration:none;margin-left:18px;font-size:14px;font-weight:800}.nav a:hover{color:var(--cyan)}.kbd{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:12px;color:#dbeafe}
+.hero{min-height:82vh;display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center;padding:18px 0 72px}.badge{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(56,213,255,.095);border:1px solid rgba(56,213,255,.35);color:#c6f4ff;font-size:14px;margin-bottom:24px}.pulse{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 22px var(--green);animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.45);opacity:.55}}
+h1{font-size:clamp(48px,7vw,92px);line-height:1;letter-spacing:-4px;margin-bottom:22px}.gradient{background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.subtitle{font-size:clamp(22px,2.1vw,30px);color:#dbeafe;font-weight:850;margin-bottom:20px}.desc{color:#aeb9cf;font-size:17px;line-height:1.85;max-width:760px}.actions{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}.btn{padding:15px 22px;border-radius:16px;text-decoration:none;color:#fff;font-weight:900;border:1px solid var(--line);background:rgba(255,255,255,.065);transition:.25s;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#031023;border:none;box-shadow:0 18px 45px rgba(56,213,255,.25)}.btn:hover{transform:translateY(-4px)}
+.panel{border-radius:32px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(22px);box-shadow:0 30px 100px rgba(0,0,0,.46);overflow:hidden;animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-14px)}}.panel-top{height:54px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(0,0,0,.18);color:#9aa8bd;font-size:13px}.dots{display:flex;gap:8px}.dot{width:12px;height:12px;border-radius:50%;background:#ff5f57}.dot:nth-child(2){background:#ffbd2e}.dot:nth-child(3){background:#28c840}.panel-body{padding:26px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}.metric{padding:18px;border-radius:20px;background:rgba(2,6,23,.55);border:1px solid rgba(255,255,255,.10)}.metric span{color:#94a3b8;font-size:13px}.metric strong{display:block;margin-top:8px;font-size:26px}.terminal{min-height:236px;padding:20px;border-radius:22px;background:rgba(0,0,0,.45);border:1px solid rgba(56,213,255,.18);font-family:Consolas,monospace;color:#dbeafe;line-height:1.75;font-size:14px}.term-line{display:block}.cursor{display:inline-block;width:9px;height:16px;background:var(--cyan);vertical-align:-3px;animation:blink .75s infinite}@keyframes blink{50%{opacity:0}}
+section{padding:86px 0}.section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:30px}.section-title h2{font-size:clamp(36px,4vw,58px);letter-spacing:-2px}.section-title p{max-width:580px;color:#aeb9cf;line-height:1.75}.grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{padding:28px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid var(--line);box-shadow:0 18px 60px rgba(0,0,0,.24);position:relative;overflow:hidden;transition:.25s}.card:hover{transform:translateY(-7px);border-color:rgba(56,213,255,.45)}.card h3{font-size:24px;margin-bottom:12px}.card p{color:#aeb9cf;line-height:1.75}.icon{width:58px;height:58px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(56,213,255,.22),rgba(155,92,255,.22));border:1px solid var(--line);font-size:26px;margin-bottom:20px}
+.graph-shell{height:560px;border-radius:34px;border:1px solid var(--line);background:rgba(255,255,255,.045);position:relative;overflow:hidden;box-shadow:inset 0 0 90px rgba(56,213,255,.04)}#graphCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.graph-node{position:absolute;z-index:3;padding:10px 14px;border-radius:999px;background:rgba(2,6,23,.82);border:1px solid rgba(255,255,255,.14);color:#dbeafe;font-weight:850;font-size:13px;box-shadow:0 0 26px rgba(56,213,255,.13);backdrop-filter:blur(12px);cursor:grab;user-select:none}.graph-node.core{width:142px;height:142px;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,var(--cyan),var(--blue));color:#031023;font-size:22px;font-weight:950;border:none;box-shadow:0 0 80px rgba(56,213,255,.42)}.graph-node.active{border-color:rgba(56,213,255,.75);color:var(--cyan)}.detail-panel{min-height:560px;border-radius:34px;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:28px}.detail-panel .label{color:var(--cyan);font-size:13px;font-weight:900;margin-bottom:10px}.detail-panel h3{font-size:32px;margin-bottom:16px}.detail-panel p{color:#aeb9cf;line-height:1.8}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chip{padding:9px 12px;border-radius:999px;background:rgba(56,213,255,.09);border:1px solid rgba(56,213,255,.22);color:#dbeafe;font-size:13px;font-weight:800}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.impact{padding:28px;border-radius:30px;background:rgba(255,255,255,.05);border:1px solid var(--line);text-align:center}.impact strong{display:block;font-size:42px;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.impact span{display:block;color:#aeb9cf;margin-top:8px;line-height:1.45}
+.real-terminal{border-radius:32px;border:1px solid var(--line);background:rgba(0,0,0,.50);overflow:hidden}.terminal-header{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);color:#9aa8bd;font-size:13px}.terminal-body{min-height:330px;padding:22px;font-family:Consolas,monospace;color:#dbeafe;line-height:1.75}.cmd-line{display:flex;gap:10px;margin-top:14px}.prompt{color:var(--green)}.cmd-input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:Consolas,monospace;font-size:15px}.cmd-output{white-space:pre-wrap;color:#aeb9cf}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.status{padding:22px;border-radius:24px;background:rgba(255,255,255,.05);border:1px solid var(--line)}.status-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.status-dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 20px var(--green)}.status h3{font-size:20px}.status p{color:#aeb9cf;line-height:1.6;font-size:14px}.stack{display:flex;flex-wrap:wrap;gap:12px}.tag{padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#dbeafe;font-weight:900;font-size:14px}footer{padding:70px 0 90px;text-align:center;color:#94a3b8}
+@media(max-width:980px){.hero,.grid-2{grid-template-columns:1fr}.cards,.impact-grid,.status-grid{grid-template-columns:1fr}.nav-links{display:none}h1{font-size:52px;letter-spacing:-2px}.graph-shell,.detail-panel{min-height:460px;height:auto}}
 </style>
 </head>
 <body>
-<div class="command-modal" id="commandModal"><div class="command-box"><div class="command-input">Command Center — ESC para fechar</div><div class="command-list"><a href="#especialidades">→ Especialidades</a><a href="#ecosystem">→ AI QA Ecosystem</a><a href="#stack">→ Stack</a><a href="https://github.com/Dilei27" target="_blank">→ GitHub</a><a href="https://www.linkedin.com/in/odirlei-alves-a9b14923/" target="_blank">→ LinkedIn</a></div></div></div>
 <div class="wrap">
-<nav class="nav"><div class="logo">QA COMMAND CENTER</div><div class="nav-links"><a href="#especialidades">Especialidades</a><a href="#ecosystem">IA Ecosystem</a><a href="#stack">Stack</a><span class="kbd">Ctrl + K</span></div></nav>
-<main class="hero"><div><div class="badge"><span class="pulse"></span> Quality ecosystem online</div><h1><span class="glitch" data-text="ODIRLEI ALVES">ODIRLEI ALVES</span></h1><div class="subtitle">QA Engineer • AI Automation • DevOps • Quality Architect</div><p class="desc">QA Sênior com atuação em automação Desktop, Web, API e Performance. Especializado em construir bases sólidas para processos de qualidade, modernizar frameworks de automação, integrar DevOps e aplicar IA para reduzir risco, aumentar rastreabilidade e acelerar entregas.</p><div class="actions"><a class="btn primary" href="#ecosystem">Explorar Neural Engine</a><button class="btn" onclick="openCommand()">Abrir Command Center</button><a class="btn" href="https://github.com/Dilei27" target="_blank">GitHub</a></div></div>
-<div class="panel"><div class="panel-top"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span>qa-core.boot</span></div><div class="panel-body"><div class="metrics"><div class="metric"><span>Mindset</span><strong>Quality First</strong></div><div class="metric"><span>Engine</span><strong>AI + Python</strong></div><div class="metric"><span>Delivery</span><strong>CI/CD</strong></div><div class="metric"><span>Impacto</span><strong>Escala</strong></div></div><div class="terminal" id="terminal"><span class="cursor"></span></div></div></div></main>
-<section id="especialidades"><div class="section-title"><h2>Especialidades</h2><p>Não apenas execução de testes: desenho de processo, engenharia de automação, governança, métricas e IA aplicada.</p></div><div class="cards">
-  <div class="flip-card" tabindex="0" >
-    <div class="flip-inner">
-      <div class="flip-face flip-front">
-        <div class="icon">🧪</div><h3>Automação real</h3><p>Robot Framework, Sikuli, Playwright, Cypress e k6 aplicados em cenários Desktop, Web, API e Performance.</p>
-      </div>
-      <div class="flip-face flip-back">
-        <h3>Experiência aplicada</h3>
-        <div class="experience-list">
-          <span>Automação de regressão em ERP desktop legado com Robot Framework + Sikuli.</span>
-          <span>Estrutura modular com pastas de base, actions, tests e elements.</span>
-          <span>Projetos Web/API/Performance com Playwright, Cypress e k6.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<nav class="nav"><div class="logo">QA COMMAND CENTER</div><div class="nav-links"><a href="#graph">Neural Graph</a><a href="#impact">Impacto</a><a href="#terminal">Terminal</a><a href="#status">Status</a><span class="kbd">Ctrl + K</span></div></nav>
+<main class="hero"><div><div class="badge"><span class="pulse"></span> Quality ecosystem online</div><h1><span class="gradient">ODIRLEI ALVES</span></h1><div class="subtitle">QA Engineer • AI Automation • DevOps • Quality Architect</div><p class="desc">Portfólio interativo em formato de Command Center, demonstrando automação, IA aplicada, construção de processos sólidos, arquitetura de qualidade e pensamento orientado a impacto.</p><div class="actions"><a class="btn primary" href="#graph">Explorar grafo</a><a class="btn" href="#terminal">Abrir terminal</a><a class="btn" href="https://github.com/Dilei27" target="_blank">GitHub</a></div></div>
+<div class="panel"><div class="panel-top"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span>qa-impact.boot</span></div><div class="panel-body"><div class="metrics"><div class="metric"><span>Engine</span><strong>AI + QA</strong></div><div class="metric"><span>Process</span><strong>Solid Base</strong></div><div class="metric"><span>Delivery</span><strong>CI/CD</strong></div><div class="metric"><span>Mode</span><strong>On Fire</strong></div></div><div class="terminal" id="bootTerminal"><span class="cursor"></span></div></div></div></main>
 
-  <div class="flip-card" tabindex="0" >
-    <div class="flip-inner">
-      <div class="flip-face flip-front">
-        <div class="icon">🏗️</div><h3>Bases sólidas de QA</h3><p>Estruturação de processos, critérios de qualidade, rastreabilidade, templates, padrões e maturidade para squads.</p>
-      </div>
-      <div class="flip-face flip-back">
-        <h3>Experiência aplicada</h3>
-        <div class="experience-list">
-          <span>Criação de processos de qualidade desde discovery, refinamento, testes e entrega.</span>
-          <span>Padronização de cenários, documentação, evidências, métricas e governança QA.</span>
-          <span>Construção de ecossistemas de qualidade orientados à automação, IA e eficiência operacional.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<section id="graph"><div class="section-title"><h2>QA Neural Graph</h2><p>Substitui os cards comuns por uma rede explorável: arraste nós, clique em cada especialidade e veja detalhes da experiência aplicada.</p></div><div class="grid-2"><div class="graph-shell" id="graphBox"><canvas id="graphCanvas"></canvas></div><div class="detail-panel" id="detailPanel"><div class="label">SELECTED NODE</div><h3>QA CORE</h3><p>Clique em um nó do grafo para explorar experiências, stacks e como cada ponto conecta automação, IA, processos e arquitetura de qualidade.</p><div class="chips"><span class="chip">Automation</span><span class="chip">AI</span><span class="chip">DevOps</span><span class="chip">Quality Architecture</span></div></div></div></section>
 
-  <div class="flip-card" tabindex="0" >
-    <div class="flip-inner">
-      <div class="flip-face flip-front">
-        <div class="icon">🤖</div><h3>IA aplicada</h3><p>Uso de LLMs, RAG e agentes inteligentes para análise de requisitos, geração de cenários e validação de consistência.</p>
-      </div>
-      <div class="flip-face flip-back">
-        <h3>Experiência aplicada</h3>
-        <div class="experience-list">
-          <span>Projetos com agentes QA para gerar tasks de teste a partir de User Stories.</span>
-          <span>Aplicação de IA para apoiar documentação, análise de regras e consistência de requisitos.</span>
-          <span>Uso de Python, LLMs, RAG e automações para modernizar processos de qualidade.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div></section>
-<section id="ecosystem"><div class="section-title"><h2>AI QA Ecosystem</h2><p>Agora em formato de rede neural viva, estilo Obsidian, mantendo o visual premium do Command Center.</p></div><div class="ecosystem"><div class="neural-card" id="neuralBox"><canvas id="neuralCanvas"></canvas><div class="core">QA CORE</div></div><div class="cards" style="grid-template-columns:1fr;"><div class="card"><div class="icon">🛰️</div><h3>Agente QA</h3><p>Criação de tasks de teste a partir de User Stories, classificação de automação e apoio ao refinamento.</p></div><div class="card"><div class="icon">📡</div><h3>Quality Architecture</h3><p>Construção de bases sólidas para qualidade: requisitos, revisão, estratégia, automação, métricas e IA.</p></div></div></div></section>
+<section id="impact"><div class="section-title"><h2>Impacto gerado</h2><p>Métricas animadas para transformar experiência em argumento de venda. Use números reais quando fechar a versão final.</p></div><div class="impact-grid"><div class="impact"><strong data-target="95">0</strong><span>% foco em rastreabilidade e cobertura de regressão</span></div><div class="impact"><strong data-target="50">0</strong><span>+ projetos e automações estruturadas</span></div><div class="impact"><strong data-target="10">0</strong><span>x aceleração potencial com CI/CD e automação</span></div><div class="impact"><strong data-target="3">0</strong><span>frentes modernas: QA, IA e DevOps</span></div></div></section>
+
+<section id="terminal"><div class="section-title"><h2>Terminal real</h2><p>Digite comandos e veja respostas. Isso deixa o portfólio memorável e alinhado ao conceito de Command Center.</p></div><div class="real-terminal"><div class="terminal-header"><span>odirlei.shell</span><span class="kbd">commands: skills | projects | contact | impact</span></div><div class="terminal-body"><div class="cmd-output" id="cmdOutput">Digite: odirlei --skills, odirlei --projects, odirlei --impact ou odirlei --contact</div><div class="cmd-line"><span class="prompt">$</span><input class="cmd-input" id="cmdInput" autocomplete="off" placeholder="odirlei --skills" /></div></div></div></section>
+
+<section id="status"><div class="section-title"><h2>Project Status</h2><p>Um painel estilo status.page para reforçar o tema Command Center. Pode ser simulado agora e via GitHub API depois.</p></div><div class="status-grid"><div class="status"><div class="status-top"><h3>QA Command Center</h3><span class="status-dot"></span></div><p>Portfolio live com GitHub Pages, terminal, grafo neural e narrativa de qualidade moderna.</p></div><div class="status"><div class="status-top"><h3>Agente QA Azure</h3><span class="status-dot"></span></div><p>Conceito de agente para gerar tasks de teste a partir de User Stories e apoiar refinamento.</p></div><div class="status"><div class="status-top"><h3>Automation Stack</h3><span class="status-dot"></span></div><p>Robot Framework, Playwright, Cypress, k6, Python, Docker e pipelines CI/CD.</p></div></div></section>
+
 <section id="stack"><div class="section-title"><h2>Stack Técnica</h2><p>Ferramentas que sustentam automação moderna, processos escaláveis e inteligência aplicada.</p></div><div class="stack"><span class="tag">Python</span><span class="tag">Robot Framework</span><span class="tag">SikuliLibrary</span><span class="tag">Playwright</span><span class="tag">Cypress</span><span class="tag">k6</span><span class="tag">Docker</span><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Agentes IA</span></div></section>
 <footer>Odirlei Alves • QA Engineer • Automação, IA, DevOps e Arquitetura de Qualidade</footer>
 </div>
 <script>
 document.addEventListener('mousemove',e=>{document.body.style.setProperty('--mx',e.clientX+'px');document.body.style.setProperty('--my',e.clientY+'px')});
-const modal=document.getElementById('commandModal');function openCommand(){modal.classList.add('open')}function closeCommand(){modal.classList.remove('open')}modal.addEventListener('click',e=>{if(e.target===modal)closeCommand()});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand()}if(e.key==='Escape')closeCommand()});document.querySelectorAll('.command-list a').forEach(a=>a.addEventListener('click',closeCommand));
-const term=document.getElementById('terminal');const lines=['[BOOT] Initializing QA Core...','[AI] Loading intelligent agents...','[PROCESS] Building solid quality foundations...','[DEVOPS] Connecting Azure Pipelines...','[AUTOMATION] Robot + Playwright modules active...','[METRICS] Quality signals online...','[OK] Quality ecosystem ready.'];let li=0,ci=0;function typeTerminal(){const cursor='<span class="cursor"></span>';let out='';for(let i=0;i<li;i++)out+='<span class="term-line">'+lines[i]+'</span>';out+='<span class="term-line">'+lines[li].slice(0,ci)+cursor+'</span>';term.innerHTML=out;ci++;if(ci>lines[li].length){li++;ci=0;if(li>=lines.length){setTimeout(()=>{li=0;ci=0;typeTerminal()},1600);return}setTimeout(typeTerminal,420)}else setTimeout(typeTerminal,32)}typeTerminal();
-const box=document.getElementById('neuralBox');const canvas=document.getElementById('neuralCanvas');const ctx=canvas.getContext('2d');const labels=['Azure DevOps','Robot','Python','LLMs','RAG','Pipelines','Dashboards','Playwright','Cypress','Quality Strategy'];let nodes=[];let mouse={x:null,y:null};function setupNeural(){canvas.width=box.clientWidth;canvas.height=box.clientHeight;box.querySelectorAll('.tech-node').forEach(n=>n.remove());nodes=labels.map((label,i)=>{const angle=(Math.PI*2/labels.length)*i;const radius=Math.min(canvas.width,canvas.height)*(.27+Math.random()*.13);const x=canvas.width/2+Math.cos(angle)*radius;const y=canvas.height/2+Math.sin(angle)*radius;const el=document.createElement('div');el.className='tech-node';el.textContent=label;box.appendChild(el);return {label,x,y,baseX:x,baseY:y,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,el,r:5+Math.random()*3}})}function animateNeural(){ctx.clearRect(0,0,canvas.width,canvas.height);nodes.forEach((n,i)=>{const ax=(n.baseX-n.x)*.002;const ay=(n.baseY-n.y)*.002;n.vx+=ax;n.vy+=ay;n.x+=n.vx;n.y+=n.vy;n.vx*=.988;n.vy*=.988;if(mouse.x!==null){const dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);if(d<150){n.vx+=(dx/d)*.55;n.vy+=(dy/d)*.55}}nodes.forEach((m,j)=>{if(j<=i)return;const dx=n.x-m.x,dy=n.y-m.y,d=Math.sqrt(dx*dx+dy*dy);if(d<220){ctx.strokeStyle='rgba(56,213,255,'+(1-d/220)*.35+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke()}});ctx.fillStyle='rgba(56,213,255,.95)';ctx.shadowColor='rgba(56,213,255,.9)';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;n.el.style.left=(n.x-n.el.offsetWidth/2)+'px';n.el.style.top=(n.y-n.el.offsetHeight/2)+'px'});const cx=canvas.width/2,cy=canvas.height/2;nodes.forEach(n=>{ctx.strokeStyle='rgba(155,92,255,.16)';ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(n.x,n.y);ctx.stroke()});requestAnimationFrame(animateNeural)}box.addEventListener('mousemove',e=>{const r=box.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top});box.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null});window.addEventListener('resize',setupNeural);setupNeural();animateNeural();
+const boot=document.getElementById('bootTerminal');const bootLines=['[BOOT] Initializing QA Command Center...','[GRAPH] Loading knowledge network...','[IMPACT] Animating quality metrics...','[SHELL] odirlei terminal ready...','[STATUS] Portfolio systems online.'];let bi=0,bc=0;function typeBoot(){const cursor='<span class="cursor"></span>';let out='';for(let i=0;i<bi;i++)out+='<span class="term-line">'+bootLines[i]+'</span>';out+='<span class="term-line">'+bootLines[bi].slice(0,bc)+cursor+'</span>';boot.innerHTML=out;bc++;if(bc>bootLines[bi].length){bi++;bc=0;if(bi>=bootLines.length){setTimeout(()=>{bi=0;bc=0;typeBoot()},1800);return}setTimeout(typeBoot,420)}else setTimeout(typeBoot,34)}typeBoot();
+const detailData={core:{title:'QA CORE',desc:'Construção de ecossistemas de qualidade orientados à automação, IA e eficiência operacional.',chips:['Quality Architecture','Automation','AI','DevOps']},robot:{title:'Robot + Sikuli',desc:'Automação de regressão em ERP desktop legado usando Robot Framework, SikuliLibrary, estrutura modular e keywords customizadas.',chips:['Desktop','ERP','Regression','Sikuli']},web:{title:'Web Automation',desc:'Automação moderna com Playwright e Cypress, integrando testes web, API, evidências e execução em pipeline.',chips:['Playwright','Cypress','E2E','API']},ai:{title:'AI Applied to QA',desc:'Uso de LLMs, RAG e agentes para análise de requisitos, geração de cenários e validação de consistência.',chips:['LLMs','RAG','Agents','User Stories']},devops:{title:'DevOps Quality',desc:'Integração com GitHub Actions, Azure DevOps, Docker, artifacts, logs e métricas de execução.',chips:['CI/CD','Docker','Pipelines','Artifacts']},process:{title:'Bases sólidas de QA',desc:'Padronização de processos, documentação, critérios de aceite, rastreabilidade, templates e governança de qualidade.',chips:['Governance','Metrics','Process','Quality Gates']},perf:{title:'Performance Testing',desc:'Testes de performance com k6, thresholds, cenários de carga e análise de comportamento sob pressão.',chips:['k6','Load','SLA','Thresholds']}};
+const graphBox=document.getElementById('graphBox');const canvas=document.getElementById('graphCanvas');const ctx=canvas.getContext('2d');let nodes=[];let drag=null;let mouse={x:null,y:null};const graphLabels=[['core','QA CORE',.5,.5],['robot','Robot',.22,.28],['web','Web/API',.78,.26],['ai','IA/RAG',.25,.73],['devops','DevOps',.75,.72],['process','Processos',.50,.18],['perf','k6 Perf',.50,.84]];const edges=[['core','robot'],['core','web'],['core','ai'],['core','devops'],['core','process'],['core','perf'],['ai','process'],['web','devops'],['perf','devops'],['robot','process']];function buildGraph(){canvas.width=graphBox.clientWidth;canvas.height=graphBox.clientHeight;graphBox.querySelectorAll('.graph-node').forEach(e=>e.remove());nodes=graphLabels.map(g=>{const el=document.createElement('div');el.className='graph-node '+(g[0]==='core'?'core':'');el.textContent=g[1];graphBox.appendChild(el);return{id:g[0],label:g[1],x:g[2]*canvas.width,y:g[3]*canvas.height,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,el}});nodes.forEach(n=>{n.baseX=n.x;n.baseY=n.y});}function getNode(id){return nodes.find(n=>n.id===id)}function renderGraph(){ctx.clearRect(0,0,canvas.width,canvas.height);nodes.forEach(n=>{if(n!==drag){n.vx+=(n.baseX-n.x)*.002;n.vy+=(n.baseY-n.y)*.002;n.x+=n.vx;n.y+=n.vy;n.vx*=.985;n.vy*=.985;if(mouse.x!==null){const dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){n.vx+=(dx/d)*.45;n.vy+=(dy/d)*.45}}}});edges.forEach(e=>{const a=getNode(e[0]),b=getNode(e[1]);ctx.strokeStyle='rgba(56,213,255,.24)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()});nodes.forEach(n=>{ctx.fillStyle='rgba(56,213,255,.95)';ctx.shadowColor='rgba(56,213,255,.9)';ctx.shadowBlur=15;ctx.beginPath();ctx.arc(n.x,n.y,n.id==='core'?7:4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;n.el.style.left=(n.x-n.el.offsetWidth/2)+'px';n.el.style.top=(n.y-n.el.offsetHeight/2)+'px'});requestAnimationFrame(renderGraph)}function selectNode(n){document.querySelectorAll('.graph-node').forEach(e=>e.classList.remove('active'));n.el.classList.add('active');const d=detailData[n.id];document.getElementById('detailPanel').innerHTML='<div class="label">SELECTED NODE</div><h3>'+d.title+'</h3><p>'+d.desc+'</p><div class="chips">'+d.chips.map(c=>'<span class="chip">'+c+'</span>').join('')+'</div>'}
+graphBox.addEventListener('mousemove',e=>{const r=graphBox.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;if(drag){drag.x=mouse.x;drag.y=mouse.y;drag.baseX=mouse.x;drag.baseY=mouse.y}});graphBox.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null;drag=null});graphBox.addEventListener('mousedown',e=>{if(e.target.classList.contains('graph-node')){drag=nodes.find(n=>n.el===e.target);selectNode(drag)}});window.addEventListener('mouseup',()=>drag=null);graphBox.addEventListener('click',e=>{if(e.target.classList.contains('graph-node'))selectNode(nodes.find(n=>n.el===e.target))});window.addEventListener('resize',buildGraph);buildGraph();renderGraph();
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.querySelectorAll('strong[data-target]').forEach(el=>{const target=+el.dataset.target;let v=0;const step=Math.max(1,Math.ceil(target/50));const timer=setInterval(()=>{v+=step;if(v>=target){v=target;clearInterval(timer)}el.textContent=v+(target===95?'':'')},28)})}})},{threshold:.35});observer.observe(document.getElementById('impact'));
+const input=document.getElementById('cmdInput');const output=document.getElementById('cmdOutput');const responses={'odirlei --skills':'Python • Robot Framework • Sikuli • Playwright • Cypress • k6 • Docker • Azure DevOps • GitHub Actions • LLMs • RAG • Agentes IA','odirlei --projects':'QA Command Center\nAgente QA para Azure DevOps\nFramework Desktop ERP\nAtualizador Inteligente UAU\nProjetos Web/API/Performance','odirlei --impact':'Foco em eliminar gargalos com automação, processos sólidos, CI/CD, IA aplicada e arquitetura de qualidade.','odirlei --contact':'GitHub: github.com/Dilei27\nLinkedIn: linkedin.com/in/odirlei-alves-a9b14923'};input.addEventListener('keydown',e=>{if(e.key==='Enter'){const cmd=input.value.trim();output.textContent='$ '+cmd+'\n\n'+(responses[cmd]||'Comando não encontrado. Tente: odirlei --skills, --projects, --impact, --contact');input.value=''}});
 </script>
 </body>
 </html>
