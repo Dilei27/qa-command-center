@@ -1,83 +1,1691 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Odirlei Alves | QA Command Center Impact Lab</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Neural Command Center — Odirlei Alves</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#020617;
-  --panel:rgba(15,23,42,.66);
-  --line:rgba(255,255,255,.13);
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --cyan:#38d5ff;
-  --blue:#4f8cff;
-  --purple:#9b5cff;
-  --green:#36f2a6;
-  --yellow:#ffd166;
-  --red:#ff6b6b;
+  --bg:#030609;--green:#00ffb3;--blue:#00c8ff;--purple:#b57bff;
+  --yellow:#ffd166;--text:#cbd5e1;--dim:#475569;--border:rgba(0,255,180,0.1);
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-html{scroll-behavior:smooth}
-body{
-  min-height:100vh;
-  overflow-x:hidden;
-  background:
-    radial-gradient(circle at 10% 8%,rgba(56,213,255,.19),transparent 30%),
-    radial-gradient(circle at 84% 12%,rgba(155,92,255,.22),transparent 32%),
-    radial-gradient(circle at 55% 92%,rgba(54,242,166,.09),transparent 28%),
-    linear-gradient(135deg,#020617,#050816 46%,#0b1028);
-  color:var(--text);
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:72px 72px;
-  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.16));
-}
-body::after{
-  content:"";position:fixed;width:430px;height:430px;border-radius:50%;left:var(--mx,50%);top:var(--my,50%);transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(56,213,255,.18),transparent 67%);pointer-events:none;z-index:0;filter:blur(10px);
-}
-.wrap{width:min(1240px,calc(100% - 40px));margin:auto;position:relative;z-index:1}
-.nav{margin:22px 0 38px;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:24px;background:rgba(3,7,18,.70);backdrop-filter:blur(20px);box-shadow:0 24px 90px rgba(0,0,0,.38);position:sticky;top:18px;z-index:50}
-.logo{font-weight:950;font-size:21px;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.nav a{color:#b9c4d8;text-decoration:none;margin-left:18px;font-size:14px;font-weight:800}.nav a:hover{color:var(--cyan)}.kbd{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-size:12px;color:#dbeafe}
-.hero{min-height:82vh;display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center;padding:18px 0 72px}.badge{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:rgba(56,213,255,.095);border:1px solid rgba(56,213,255,.35);color:#c6f4ff;font-size:14px;margin-bottom:24px}.pulse{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 22px var(--green);animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.45);opacity:.55}}
-h1{font-size:clamp(48px,7vw,92px);line-height:1;letter-spacing:-4px;margin-bottom:22px}.gradient{background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.subtitle{font-size:clamp(22px,2.1vw,30px);color:#dbeafe;font-weight:850;margin-bottom:20px}.desc{color:#aeb9cf;font-size:17px;line-height:1.85;max-width:760px}.actions{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}.btn{padding:15px 22px;border-radius:16px;text-decoration:none;color:#fff;font-weight:900;border:1px solid var(--line);background:rgba(255,255,255,.065);transition:.25s;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#031023;border:none;box-shadow:0 18px 45px rgba(56,213,255,.25)}.btn:hover{transform:translateY(-4px)}
-.panel{border-radius:32px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(22px);box-shadow:0 30px 100px rgba(0,0,0,.46);overflow:hidden;animation:float 6s ease-in-out infinite}@keyframes float{50%{transform:translateY(-14px)}}.panel-top{height:54px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(0,0,0,.18);color:#9aa8bd;font-size:13px}.dots{display:flex;gap:8px}.dot{width:12px;height:12px;border-radius:50%;background:#ff5f57}.dot:nth-child(2){background:#ffbd2e}.dot:nth-child(3){background:#28c840}.panel-body{padding:26px}.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}.metric{padding:18px;border-radius:20px;background:rgba(2,6,23,.55);border:1px solid rgba(255,255,255,.10)}.metric span{color:#94a3b8;font-size:13px}.metric strong{display:block;margin-top:8px;font-size:26px}.terminal{min-height:236px;padding:20px;border-radius:22px;background:rgba(0,0,0,.45);border:1px solid rgba(56,213,255,.18);font-family:Consolas,monospace;color:#dbeafe;line-height:1.75;font-size:14px}.term-line{display:block}.cursor{display:inline-block;width:9px;height:16px;background:var(--cyan);vertical-align:-3px;animation:blink .75s infinite}@keyframes blink{50%{opacity:0}}
-section{padding:86px 0}.section-title{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:30px}.section-title h2{font-size:clamp(36px,4vw,58px);letter-spacing:-2px}.section-title p{max-width:580px;color:#aeb9cf;line-height:1.75}.grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{padding:28px;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));border:1px solid var(--line);box-shadow:0 18px 60px rgba(0,0,0,.24);position:relative;overflow:hidden;transition:.25s}.card:hover{transform:translateY(-7px);border-color:rgba(56,213,255,.45)}.card h3{font-size:24px;margin-bottom:12px}.card p{color:#aeb9cf;line-height:1.75}.icon{width:58px;height:58px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(56,213,255,.22),rgba(155,92,255,.22));border:1px solid var(--line);font-size:26px;margin-bottom:20px}
-.graph-shell{height:560px;border-radius:34px;border:1px solid var(--line);background:rgba(255,255,255,.045);position:relative;overflow:hidden;box-shadow:inset 0 0 90px rgba(56,213,255,.04)}#graphCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.graph-node{position:absolute;z-index:3;padding:10px 14px;border-radius:999px;background:rgba(2,6,23,.82);border:1px solid rgba(255,255,255,.14);color:#dbeafe;font-weight:850;font-size:13px;box-shadow:0 0 26px rgba(56,213,255,.13);backdrop-filter:blur(12px);cursor:grab;user-select:none}.graph-node.core{width:142px;height:142px;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,var(--cyan),var(--blue));color:#031023;font-size:22px;font-weight:950;border:none;box-shadow:0 0 80px rgba(56,213,255,.42)}.graph-node.active{border-color:rgba(56,213,255,.75);color:var(--cyan)}.detail-panel{min-height:560px;border-radius:34px;border:1px solid var(--line);background:rgba(255,255,255,.05);padding:28px}.detail-panel .label{color:var(--cyan);font-size:13px;font-weight:900;margin-bottom:10px}.detail-panel h3{font-size:32px;margin-bottom:16px}.detail-panel p{color:#aeb9cf;line-height:1.8}.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chip{padding:9px 12px;border-radius:999px;background:rgba(56,213,255,.09);border:1px solid rgba(56,213,255,.22);color:#dbeafe;font-size:13px;font-weight:800}
-.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.impact{padding:28px;border-radius:30px;background:rgba(255,255,255,.05);border:1px solid var(--line);text-align:center}.impact strong{display:block;font-size:42px;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;color:transparent}.impact span{display:block;color:#aeb9cf;margin-top:8px;line-height:1.45}
-.real-terminal{border-radius:32px;border:1px solid var(--line);background:rgba(0,0,0,.50);overflow:hidden}.terminal-header{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);color:#9aa8bd;font-size:13px}.terminal-body{min-height:330px;padding:22px;font-family:Consolas,monospace;color:#dbeafe;line-height:1.75}.cmd-line{display:flex;gap:10px;margin-top:14px}.prompt{color:var(--green)}.cmd-input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:Consolas,monospace;font-size:15px}.cmd-output{white-space:pre-wrap;color:#aeb9cf}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.status{padding:22px;border-radius:24px;background:rgba(255,255,255,.05);border:1px solid var(--line)}.status-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.status-dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 20px var(--green)}.status h3{font-size:20px}.status p{color:#aeb9cf;line-height:1.6;font-size:14px}.stack{display:flex;flex-wrap:wrap;gap:12px}.tag{padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#dbeafe;font-weight:900;font-size:14px}footer{padding:70px 0 90px;text-align:center;color:#94a3b8}
-@media(max-width:980px){.hero,.grid-2{grid-template-columns:1fr}.cards,.impact-grid,.status-grid{grid-template-columns:1fr}.nav-links{display:none}h1{font-size:52px;letter-spacing:-2px}.graph-shell,.detail-panel{min-height:460px;height:auto}}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,180,0.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,180,0.025) 1px,transparent 1px);
+  background-size:40px 40px;}
+.shell{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;background:rgba(3,6,9,0.97);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none;}
+.topbar::-webkit-scrollbar{display:none;}
+.logo{display:flex;align-items:center;gap:10px;padding:0 18px;border-right:1px solid var(--border);flex-shrink:0;height:50px;}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.logo-text{font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--green);letter-spacing:.1em;white-space:nowrap;}
+.tabs{display:flex;flex:1;}
+.tab{display:flex;align-items:center;gap:7px;padding:0 16px;height:50px;cursor:pointer;border-right:1px solid var(--border);font-size:10px;color:var(--dim);white-space:nowrap;transition:all .2s;flex-shrink:0;border-bottom:2px solid transparent;}
+.tab:hover{color:var(--text);background:rgba(0,255,180,0.03);}
+.tab.active{color:var(--green);background:rgba(0,255,180,0.04);border-bottom-color:var(--green);}
+.tab-icon{font-size:13px;}
+.topbar-right{display:flex;align-items:center;padding:0 14px;flex-shrink:0;border-left:1px solid var(--border);height:50px;}
+.live{font-size:9px;padding:2px 8px;border-radius:3px;border:1px solid rgba(0,255,180,0.25);color:var(--green);animation:blink 2s step-start infinite;}
+@keyframes blink{50%{opacity:.3}}
+/* CONTENT */
+.content{flex:1;position:relative;overflow:hidden;}
+iframe.frame{position:absolute;inset:0;width:100%;height:100%;border:none;display:none;}
+iframe.frame.active{display:block;}
+/* HOME */
+.home{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+.home-title{font-family:'Syne',sans-serif;font-size:clamp(24px,5vw,44px);font-weight:800;color:var(--green);text-align:center;letter-spacing:.04em;line-height:1.1;margin-bottom:6px;}
+.home-sub{font-size:clamp(9px,1.8vw,12px);color:var(--dim);letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:32px;}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;max-width:580px;}
+@media(max-width:460px){.home-grid{grid-template-columns:1fr;}}
+.hcard{background:rgba(7,12,20,0.85);border:1px solid rgba(0,255,180,0.08);border-radius:12px;padding:18px;cursor:pointer;transition:all .25s;animation:fadeUp .5s ease both;}
+.hcard:hover{border-color:rgba(0,255,180,0.3);transform:translateY(-3px);background:rgba(0,255,180,0.04);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hcard-icon{font-size:22px;margin-bottom:8px;}
+.hcard-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px;}
+.hcard-desc{font-size:10px;color:var(--dim);line-height:1.6;}
+.home-footer{margin-top:24px;font-size:10px;color:var(--dim);text-align:center;line-height:2;}
+.home-footer span{color:rgba(0,255,180,0.35);}
 </style>
 </head>
 <body>
-<div class="wrap">
-<nav class="nav"><div class="logo">QA COMMAND CENTER</div><div class="nav-links"><a href="#graph">Neural Graph</a><a href="#impact">Impacto</a><a href="#terminal">Terminal</a><a href="#status">Status</a><span class="kbd">Ctrl + K</span></div></nav>
-<main class="hero"><div><div class="badge"><span class="pulse"></span> Quality ecosystem online</div><h1><span class="gradient">ODIRLEI ALVES</span></h1><div class="subtitle">QA Engineer • AI Automation • DevOps • Quality Architect</div><p class="desc">Portfólio interativo em formato de Command Center, demonstrando automação, IA aplicada, construção de processos sólidos, arquitetura de qualidade e pensamento orientado a impacto.</p><div class="actions"><a class="btn primary" href="#graph">Explorar grafo</a><a class="btn" href="#terminal">Abrir terminal</a><a class="btn" href="https://github.com/Dilei27" target="_blank">GitHub</a></div></div>
-<div class="panel"><div class="panel-top"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><span>qa-impact.boot</span></div><div class="panel-body"><div class="metrics"><div class="metric"><span>Engine</span><strong>AI + QA</strong></div><div class="metric"><span>Process</span><strong>Solid Base</strong></div><div class="metric"><span>Delivery</span><strong>CI/CD</strong></div><div class="metric"><span>Mode</span><strong>On Fire</strong></div></div><div class="terminal" id="bootTerminal"><span class="cursor"></span></div></div></div></main>
+<div class="shell">
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-dot"></div>
+      <div class="logo-text">QA · COMMAND CENTER</div>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="go('home')"><span class="tab-icon">⬡</span> HOME</div>
+      <div class="tab" onclick="go('neural')"><span class="tab-icon">🧠</span> NEURAL GRAPH</div>
+      <div class="tab" onclick="go('agent')"><span class="tab-icon">🤖</span> QA AGENT</div>
+      <div class="tab" onclick="go('terminal')"><span class="tab-icon">🖥️</span> TERMINAL</div>
+      <div class="tab" onclick="go('status')"><span class="tab-icon">📡</span> STATUS</div>
+    </div>
+    <div class="topbar-right"><span class="live">● LIVE</span></div>
+  </div>
 
-<section id="graph"><div class="section-title"><h2>QA Neural Graph</h2><p>Rede neural interativa conectando automação, IA aplicada, arquitetura de qualidade e engenharia de processos.</p></div><div class="grid-2"><div class="graph-shell" id="graphBox"><canvas id="graphCanvas"></canvas></div><div class="detail-panel" id="detailPanel"><div class="label">SELECTED NODE</div><h3>QA CORE</h3><p>Clique em um nó do grafo para explorar experiências, stacks e como cada ponto conecta automação, IA, processos e arquitetura de qualidade.</p><div class="chips"><span class="chip">Automation</span><span class="chip">AI</span><span class="chip">DevOps</span><span class="chip">Quality Architecture</span></div></div></div></section>
+  <div class="content">
+    <div id="home" class="home">
+      <div class="home-title">ODIRLEI ALVES</div>
+      <div class="home-sub">QA Engineer · AI Automation · DevOps · Quality Architect</div>
+      <div class="home-grid">
+        <div class="hcard" style="animation-delay:.05s" onclick="go('neural')">
+          <div class="hcard-icon">🧠</div>
+          <div class="hcard-name" style="color:#00ffb3">Neural Graph</div>
+          <div class="hcard-desc">Mapa interativo do knowledge network. Explore conexões entre tecnologias e especialidades.</div>
+        </div>
+        <div class="hcard" style="animation-delay:.1s" onclick="go('agent')">
+          <div class="hcard-icon">🤖</div>
+          <div class="hcard-name" style="color:#00c8ff">QA Agent</div>
+          <div class="hcard-desc">Converse com o agente sobre experiência, projetos e especialidades do Odirlei.</div>
+        </div>
+        <div class="hcard" style="animation-delay:.15s" onclick="go('terminal')">
+          <div class="hcard-icon">🖥️</div>
+          <div class="hcard-name" style="color:#b57bff">Terminal</div>
+          <div class="hcard-desc">Interface de linha de comando. Digite odirlei --help para começar.</div>
+        </div>
+        <div class="hcard" style="animation-delay:.2s" onclick="go('status')">
+          <div class="hcard-icon">📡</div>
+          <div class="hcard-name" style="color:#ffd166">Status Board</div>
+          <div class="hcard-desc">Repositórios GitHub ao vivo com métricas e histórico de atividade.</div>
+        </div>
+      </div>
+      <div class="home-footer">
+        <span>///</span> github.com/Dilei27 &nbsp;·&nbsp; linkedin.com/in/odirlei-alves-a9b14923 <span>///</span>
+      </div>
+    </div>
 
-<section id="impact"><div class="section-title"><h2>Impacto gerado</h2><p>Indicadores orientados à eficiência operacional, modernização de processos e aceleração de qualidade.</p></div><div class="impact-grid"><div class="impact"><strong data-target="95">0</strong><span>% foco em rastreabilidade e cobertura de regressão</span></div><div class="impact"><strong data-target="50">0</strong><span>+ projetos e automações estruturadas</span></div><div class="impact"><strong data-target="10">0</strong><span>x aceleração potencial com CI/CD e automação</span></div><div class="impact"><strong data-target="3">0</strong><span>frentes modernas: QA, IA e DevOps</span></div></div></section>
+    <iframe id="neural"   class="frame" srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>QA Neural Graph</title>
+<script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js&quot;></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#050810; font-family:monospace; overflow:hidden; width:100vw; height:100vh; }
+#graph { width:100vw; height:100vh; }
+.link { stroke-opacity:0.25; }
+.node circle { cursor:pointer; }
+.node text { pointer-events:none; font-family:monospace; fill:#e2e8f0; }
+.header {
+  position:fixed; top:0; left:0; right:0; z-index:10;
+  background:rgba(5,8,16,0.92); border-bottom:1px solid rgba(0,255,180,0.12);
+  padding:12px 16px; display:flex; justify-content:space-between; align-items:center;
+}
+.htitle { color:#00ffb3; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+.hsub { color:#475569; font-size:10px; margin-top:2px; }
+.badge { font-size:9px; padding:2px 8px; border-radius:3px; border:1px solid rgba(0,255,180,0.3); color:#00ffb3; }
+.legend {
+  position:fixed; bottom:14px; left:14px; z-index:10;
+  background:rgba(5,8,16,0.92); border:1px solid rgba(0,255,180,0.1);
+  border-radius:7px; padding:10px 13px;
+}
+.lt { font-size:9px; color:#475569; letter-spacing:.1em; text-transform:uppercase; margin-bottom:5px; }
+.li { display:flex; align-items:center; gap:7px; font-size:10px; color:#94a3b8; line-height:1.9; }
+.ld { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.hint { position:fixed; bottom:14px; right:14px; z-index:10; font-size:10px; color:#475569; text-align:right; line-height:1.9; }
+.hint b { color:#00ffb3; font-weight:normal; }
+.panel {
+  position:fixed; top:0; right:0; bottom:0; width:280px; z-index:20;
+  background:rgba(5,8,16,0.98); border-left:1px solid rgba(0,255,180,0.15);
+  transform:translateX(100%); transition:transform .3s ease;
+  display:flex; flex-direction:column;
+}
+.panel.open { transform:translateX(0); }
+.ph { padding:16px; border-bottom:1px solid rgba(255,255,255,0.06); position:relative; }
+.pcat { font-size:9px; letter-spacing:.15em; text-transform:uppercase; margin-bottom:3px; }
+.ptitle { font-size:18px; font-weight:700; line-height:1.15; }
+.pclose { position:absolute; top:13px; right:13px; background:none; border:1px solid rgba(255,255,255,0.1); color:#64748b; cursor:pointer; width:25px; height:25px; border-radius:4px; font-size:12px; }
+.pb { flex:1; overflow-y:auto; padding:14px 16px; }
+.pdesc { font-size:11px; line-height:1.75; color:#94a3b8; margin-bottom:12px; }
+.pmets { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:12px; }
+.met { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:5px; padding:8px 10px; }
+.mv { font-size:17px; font-weight:700; }
+.ml { font-size:9px; color:#64748b; margin-top:1px; }
+.ptags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:12px; }
+.tag { font-size:9px; padding:2px 6px; border-radius:3px; text-transform:uppercase; letter-spacing:.06em; }
+.ctitle { font-size:9px; color:#64748b; letter-spacing:.12em; text-transform:uppercase; margin-bottom:7px; }
+.citem { display:flex; align-items:center; gap:7px; font-size:11px; padding:6px 9px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:4px; cursor:pointer; margin-bottom:4px; }
+.cd { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+</style>
+</head>
+<body>
 
-<section id="terminal"><div class="section-title"><h2>Terminal real</h2><p>Interface inspirada em ambientes operacionais para exploração técnica do ecossistema QA.</p></div><div class="real-terminal"><div class="terminal-header"><span>odirlei.shell</span><span class="kbd">commands: skills | projects | contact | impact | clear</span></div><div class="terminal-body"><div class="cmd-output" id="cmdOutput">QA Command Terminal initialized.\nAwaiting commands...</div><div class="cmd-line"><span class="prompt">$</span><input class="cmd-input" id="cmdInput" autocomplete="off" placeholder="odirlei --skills" /></div></div></div></section>
+<div class=&quot;header&quot;>
+  <div>
+    <div class=&quot;htitle&quot;>⬡ QA Neural Graph</div>
+    <div class=&quot;hsub&quot;>Odirlei Alves — Knowledge Network</div>
+  </div>
+  <span class=&quot;badge&quot;>● LIVE</span>
+</div>
 
-<section id="status"><div class="section-title"><h2>Project Status</h2><p>Um painel estilo status.page para reforçar o tema Command Center. Pode ser simulado agora e via GitHub API depois.</p></div><div class="status-grid"><div class="status"><div class="status-top"><h3>QA Command Center</h3><span class="status-dot"></span></div><p>Portfolio live com GitHub Pages, terminal, grafo neural e narrativa de qualidade moderna.</p></div><div class="status"><div class="status-top"><h3>Agente QA Azure</h3><span class="status-dot"></span></div><p>Conceito de agente para gerar tasks de teste a partir de User Stories e apoiar refinamento.</p></div><div class="status"><div class="status-top"><h3>Automation Stack</h3><span class="status-dot"></span></div><p>Robot Framework, Playwright, Cypress, k6, Python, Docker e pipelines CI/CD.</p></div></div></section>
+<div class=&quot;legend&quot;>
+  <div class=&quot;lt&quot;>Categorias</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#00ffb3&quot;></div>Core QA</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#00c8ff&quot;></div>Automação</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#b57bff&quot;></div>IA &amp; ML</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#ffd166&quot;></div>DevOps</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#ff6b6b&quot;></div>Performance</div>
+  <div class=&quot;li&quot;><div class=&quot;ld&quot; style=&quot;background:#ff9f43&quot;></div>Arquitetura</div>
+</div>
 
-<section id="stack"><div class="section-title"><h2>Stack Técnica</h2><p>Ferramentas que sustentam automação moderna, processos escaláveis e inteligência aplicada.</p></div><div class="stack"><span class="tag">Python</span><span class="tag">Robot Framework</span><span class="tag">SikuliLibrary</span><span class="tag">Playwright</span><span class="tag">Cypress</span><span class="tag">k6</span><span class="tag">Docker</span><span class="tag">Azure DevOps</span><span class="tag">GitHub Actions</span><span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">Agentes IA</span></div></section>
-<footer>Odirlei Alves • QA Engineer • Automação, IA, DevOps e Arquitetura de Qualidade</footer>
+<div class=&quot;hint&quot;><b>Toque</b> nos nós<br><b>Arraste</b> para mover<br><b>Pinça</b> para zoom</div>
+
+<svg id=&quot;graph&quot;></svg>
+
+<div class=&quot;panel&quot; id=&quot;panel&quot;>
+  <div class=&quot;ph&quot;>
+    <div class=&quot;pcat&quot; id=&quot;pcat&quot;></div>
+    <div class=&quot;ptitle&quot; id=&quot;ptitle&quot;></div>
+    <button class=&quot;pclose&quot; id=&quot;pclose&quot;>✕</button>
+  </div>
+  <div class=&quot;pb&quot;>
+    <div class=&quot;pdesc&quot; id=&quot;pdesc&quot;></div>
+    <div class=&quot;pmets&quot; id=&quot;pmets&quot;></div>
+    <div class=&quot;ptags&quot; id=&quot;ptags&quot;></div>
+    <div class=&quot;ctitle&quot;>Conexões</div>
+    <div id=&quot;pconns&quot;></div>
+  </div>
+</div>
+
+<script>
+var COLORS = { core:'#00ffb3', auto:'#00c8ff', ai:'#b57bff', devops:'#ffd166', perf:'#ff6b6b', arch:'#ff9f43' };
+var TYPE_LABEL = { core:'Core QA', auto:'Automação', ai:'IA &amp; ML', devops:'DevOps', perf:'Performance', arch:'Arquitetura' };
+
+var nodes = [
+  { id:'odirlei', label:'ODIRLEI ALVES', type:'core', r:38,
+    desc:'QA Engineer Sênior especializado em automação, IA aplicada, DevOps e arquitetura de qualidade.',
+    tags:['QA Sênior','Automação','IA','DevOps','Python'],
+    mets:[{v:'8+',l:'Anos QA'},{v:'50+',l:'Projetos'},{v:'10x',l:'CI Speed'},{v:'95%',l:'Cobertura'}],
+    conns:['robot','playwright','cypress','k6','llm','rag','agente','azure','gha','docker','qual','fwk'] },
+  { id:'robot', label:'Robot Framework', type:'auto', r:22,
+    desc:'Automação modular em ERP desktop com Robot Framework + Sikuli para interação visual.',
+    tags:['Robot','Sikuli','Desktop','ERP'],
+    mets:[{v:'Legacy',l:'ERP'},{v:'Modular',l:'Estrutura'}],
+    conns:['odirlei','sikuli','qual'] },
+  { id:'sikuli', label:'Sikuli', type:'auto', r:16,
+    desc:'Automação visual por reconhecimento de imagem para apps desktop.',
+    tags:['Visual','Desktop','OCR'],
+    mets:[{v:'Visual',l:'Recognition'}],
+    conns:['robot','odirlei'] },
+  { id:'playwright', label:'Playwright', type:'auto', r:21,
+    desc:'Web E2E multi-browser com interceptação de rede e integração CI/CD.',
+    tags:['Web E2E','Multi-browser','TypeScript'],
+    mets:[{v:'Multi',l:'Browser'},{v:'API',l:'Mock'}],
+    conns:['odirlei','cypress','azure','gha'] },
+  { id:'cypress', label:'Cypress', type:'auto', r:19,
+    desc:'Testes de UI com execução em tempo real e dashboard visual.',
+    tags:['Web','Real-time','JS'],
+    mets:[{v:'Live',l:'Reload'}],
+    conns:['odirlei','playwright','gha'] },
+  { id:'k6', label:'k6', type:'perf', r:19,
+    desc:'Testes de carga com SLAs, thresholds e cenários spike. Integrado ao Grafana.',
+    tags:['Load Test','SLA','Grafana'],
+    mets:[{v:'SLA',l:'Compliance'},{v:'Spike',l:'Testing'}],
+    conns:['odirlei','azure','docker'] },
+  { id:'llm', label:'LLMs', type:'ai', r:22,
+    desc:'LLMs para análise de requisitos, geração de cenários e revisão de User Stories.',
+    tags:['GPT','Claude','NLP'],
+    mets:[{v:'Auto',l:'Scenarios'},{v:'NLP',l:'Analysis'}],
+    conns:['odirlei','rag','agente'] },
+  { id:'rag', label:'RAG', type:'ai', r:17,
+    desc:'Retrieval-Augmented Generation com documentação interna para contexto de qualidade.',
+    tags:['Vector DB','Embeddings','LangChain'],
+    mets:[{v:'Context',l:'Aware'}],
+    conns:['llm','agente','odirlei'] },
+  { id:'agente', label:'Agente QA', type:'ai', r:24,
+    desc:'Agente que recebe User Stories e gera tasks de teste, critérios e classificação.',
+    tags:['Autonomous','Tasks','Python'],
+    mets:[{v:'Auto',l:'Task Gen'},{v:'Smart',l:'Classify'}],
+    conns:['odirlei','llm','rag','qual','fwk'] },
+  { id:'azure', label:'Azure DevOps', type:'devops', r:21,
+    desc:'Pipelines CI/CD com quality gates, relatórios automáticos e rastreabilidade.',
+    tags:['CI/CD','Pipelines','Gates'],
+    mets:[{v:'Gates',l:'Quality'},{v:'Full',l:'Trace'}],
+    conns:['odirlei','gha','docker','playwright','k6'] },
+  { id:'gha', label:'GitHub Actions', type:'devops', r:19,
+    desc:'Workflows com triggers PR/push, execução paralela e artifacts de teste.',
+    tags:['Workflows','Triggers','Parallel'],
+    mets:[{v:'PR',l:'Triggers'}],
+    conns:['odirlei','azure','playwright','cypress','docker'] },
+  { id:'docker', label:'Docker', type:'devops', r:17,
+    desc:'Containerização de ambientes de teste para consistência cross-environment.',
+    tags:['Containers','Compose'],
+    mets:[{v:'Isolated',l:'Envs'}],
+    conns:['odirlei','azure','gha','k6'] },
+  { id:'qual', label:'Quality Arch.', type:'arch', r:24,
+    desc:'Ecossistemas de qualidade: processos, templates, métricas e governança end-to-end.',
+    tags:['Governance','Metrics','Templates'],
+    mets:[{v:'E2E',l:'Flow'},{v:'KPIs',l:'Dashboard'}],
+    conns:['odirlei','agente','fwk','robot','playwright'] },
+  { id:'fwk', label:'Framework Design', type:'arch', r:19,
+    desc:'Frameworks de automação com POM, Screenplay Pattern e estruturas modulares.',
+    tags:['POM','Screenplay','Modular'],
+    mets:[{v:'POM',l:'Pattern'}],
+    conns:['odirlei','qual','agente'] }
+];
+
+var seen = {};
+var links = [];
+nodes.forEach(function(n) {
+  n.conns.forEach(function(tid) {
+    var key = [n.id, tid].sort().join('|');
+    if (!seen[key]) { seen[key] = 1; links.push({ source: n.id, target: tid }); }
+  });
+});
+
+var nodeMap = {};
+nodes.forEach(function(n) { nodeMap[n.id] = n; });
+
+var W = window.innerWidth, H = window.innerHeight;
+var svg = d3.select('#graph')
+  .attr('width', W).attr('height', H);
+
+// defs for glow filter
+var defs = svg.append('defs');
+nodes.forEach(function(n) {
+  var f = defs.append('filter').attr('id', 'glow-' + n.type).attr('x','-50%').attr('y','-50%').attr('width','200%').attr('height','200%');
+  f.append('feGaussianBlur').attr('stdDeviation','3').attr('result','blur');
+  var merge = f.append('feMerge');
+  merge.append('feMergeNode').attr('in','blur');
+  merge.append('feMergeNode').attr('in','SourceGraphic');
+});
+
+var g = svg.append('g');
+
+// zoom
+var zoom = d3.zoom().scaleExtent([0.2, 3]).on('zoom', function(event) {
+  g.attr('transform', event.transform);
+});
+svg.call(zoom);
+
+// simulation
+var sim = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(function(d){ return d.id; }).distance(150).strength(0.5))
+  .force('charge', d3.forceManyBody().strength(-600))
+  .force('center', d3.forceCenter(W/2, H/2))
+  .force('collision', d3.forceCollide().radius(function(d){ return d.r + 15; }));
+
+// draw links
+var link = g.append('g').selectAll('line')
+  .data(links).enter().append('line')
+  .attr('class','link')
+  .attr('stroke', function(d) { return COLORS[nodeMap[d.source.id || d.source].type]; })
+  .attr('stroke-width', 1.2);
+
+// draw nodes
+var node = g.append('g').selectAll('g')
+  .data(nodes).enter().append('g')
+  .attr('class','node')
+  .call(d3.drag()
+    .on('start', function(event, d) {
+      if (!event.active) sim.alphaTarget(0.3).restart();
+      d.fx = d.x; d.fy = d.y;
+    })
+    .on('drag', function(event, d) { d.fx = event.x; d.fy = event.y; })
+    .on('end', function(event, d) {
+      if (!event.active) sim.alphaTarget(0);
+      d.fx = null; d.fy = null;
+    })
+  )
+  .on('click', function(event, d) {
+    event.stopPropagation();
+    openPanel(d);
+  });
+
+node.append('circle')
+  .attr('r', function(d){ return d.r; })
+  .attr('fill', function(d){ return COLORS[d.type] + '18'; })
+  .attr('stroke', function(d){ return COLORS[d.type]; })
+  .attr('stroke-width', function(d){ return d.id === 'odirlei' ? 2.5 : 1.5; })
+  .attr('filter', function(d){ return 'url(#glow-' + d.type + ')'; });
+
+node.append('text')
+  .attr('text-anchor','middle')
+  .attr('dy','0.35em')
+  .attr('font-size', function(d){ return Math.max(8, Math.min(11, d.r * 0.42)) + 'px'; })
+  .attr('font-weight','700')
+  .attr('fill', function(d){ return COLORS[d.type]; })
+  .text(function(d){ return d.label; });
+
+// pulse rings for core
+var coreNode = nodes.find(function(n){ return n.id === 'odirlei'; });
+var ring1 = g.insert('circle','g')
+  .attr('fill','none')
+  .attr('stroke', COLORS.core + '30')
+  .attr('stroke-width','1');
+var ring2 = g.insert('circle','g')
+  .attr('fill','none')
+  .attr('stroke', COLORS.core + '15')
+  .attr('stroke-width','0.6');
+
+svg.on('click', function() { closePanel(); });
+
+sim.on('tick', function() {
+  link
+    .attr('x1', function(d){ return d.source.x; })
+    .attr('y1', function(d){ return d.source.y; })
+    .attr('x2', function(d){ return d.target.x; })
+    .attr('y2', function(d){ return d.target.y; });
+  node.attr('transform', function(d){ return 'translate(' + d.x + ',' + d.y + ')'; });
+  if (coreNode) {
+    var t = Date.now() / 1000;
+    ring1.attr('cx', coreNode.x).attr('cy', coreNode.y).attr('r', coreNode.r + 12 + Math.sin(t * 1.2) * 4);
+    ring2.attr('cx', coreNode.x).attr('cy', coreNode.y).attr('r', coreNode.r + 24 + Math.sin(t * 0.7) * 7);
+  }
+});
+
+// keep animating after sim cools
+function animate() {
+  requestAnimationFrame(animate);
+  if (coreNode) {
+    var t = Date.now() / 1000;
+    ring1.attr('r', coreNode.r + 12 + Math.sin(t * 1.2) * 4);
+    ring2.attr('r', coreNode.r + 24 + Math.sin(t * 0.7) * 7);
+  }
+}
+animate();
+
+window.addEventListener('resize', function() {
+  W = window.innerWidth; H = window.innerHeight;
+  svg.attr('width', W).attr('height', H);
+  sim.force('center', d3.forceCenter(W/2, H/2)).alpha(0.3).restart();
+});
+
+// panel
+function openPanel(n) {
+  var c = COLORS[n.type];
+  // highlight
+  node.select('circle')
+    .attr('stroke-opacity', function(d) {
+      return d.id === n.id || n.conns.indexOf(d.id) >= 0 ? 1 : 0.15;
+    })
+    .attr('fill-opacity', function(d) {
+      return d.id === n.id || n.conns.indexOf(d.id) >= 0 ? 1 : 0.3;
+    });
+  link.attr('stroke-opacity', function(d) {
+    var sid = d.source.id || d.source, tid = d.target.id || d.target;
+    return sid === n.id || tid === n.id ? 0.7 : 0.04;
+  });
+
+  document.getElementById('pcat').textContent = TYPE_LABEL[n.type];
+  document.getElementById('pcat').style.color = c;
+  document.getElementById('ptitle').textContent = n.label;
+  document.getElementById('ptitle').style.color = c;
+  document.getElementById('pdesc').textContent = n.desc || '';
+
+  var pm = document.getElementById('pmets'); pm.innerHTML = '';
+  (n.mets || []).forEach(function(m) {
+    var el = document.createElement('div'); el.className = 'met';
+    el.innerHTML = '<div class=&quot;mv&quot; style=&quot;color:' + c + '&quot;>' + m.v + '</div><div class=&quot;ml&quot;>' + m.l + '</div>';
+    pm.appendChild(el);
+  });
+
+  var pt = document.getElementById('ptags'); pt.innerHTML = '';
+  (n.tags || []).forEach(function(t) {
+    var s = document.createElement('span'); s.className = 'tag'; s.textContent = t;
+    s.style.cssText = 'background:' + c + '20;border:1px solid ' + c + '45;color:' + c;
+    pt.appendChild(s);
+  });
+
+  var pc = document.getElementById('pconns'); pc.innerHTML = '';
+  n.conns.forEach(function(id) {
+    var cn = nodeMap[id]; if (!cn) return;
+    var item = document.createElement('div'); item.className = 'citem';
+    item.innerHTML = '<div class=&quot;cd&quot; style=&quot;background:' + COLORS[cn.type] + '&quot;></div>' + cn.label;
+    item.onclick = function(e) { e.stopPropagation(); openPanel(cn); };
+    pc.appendChild(item);
+  });
+
+  document.getElementById('panel').classList.add('open');
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('open');
+  node.select('circle').attr('stroke-opacity', 1).attr('fill-opacity', 1);
+  link.attr('stroke-opacity', 0.25);
+}
+document.getElementById('pclose').onclick = function(e) { e.stopPropagation(); closePanel(); };
+</script>
+</body>
+</html>
+"></iframe>
+    <iframe id="agent"    class="frame" srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>QA Agent — Odirlei Alves</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#030609;--green:#00ffb3;--blue:#00c8ff;--purple:#b57bff;
+  --yellow:#ffd166;--text:#cbd5e1;--dim:#475569;--border:rgba(0,255,180,0.1);
+}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,180,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,180,0.025) 1px,transparent 1px);
+  background-size:36px 36px;}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);}
+
+.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100vh;max-width:720px;margin:0 auto;}
+
+/* HEADER */
+.header{padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(3,6,9,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.avatar{width:40px;height:40px;border-radius:8px;background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.25);display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;flex-shrink:0;}
+.avatar-dot{position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg);animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hinfo{flex:1;}
+.aname{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--green);}
+.asub{font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+.status-pill{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;border:1px solid rgba(0,255,180,0.25);color:var(--green);animation:blink 3s ease-in-out infinite;}
+@keyframes blink{0%,80%,100%{opacity:1}90%{opacity:.4}}
+
+/* MESSAGES */
+.messages{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:rgba(0,255,180,0.15) transparent;}
+.messages::-webkit-scrollbar{width:3px;}
+.messages::-webkit-scrollbar-thumb{background:rgba(0,255,180,0.15);border-radius:2px;}
+
+.msg{display:flex;gap:10px;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse;}
+.msg-avatar{width:28px;height:28px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px;}
+.msg.agent .msg-avatar{background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.2);color:var(--green);}
+.msg.user  .msg-avatar{background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);color:var(--blue);}
+.msg-body{max-width:84%;display:flex;flex-direction:column;gap:3px;}
+.msg.user .msg-body{align-items:flex-end;}
+.msg-name{font-size:9px;letter-spacing:.1em;text-transform:uppercase;}
+.msg.agent .msg-name{color:rgba(0,255,180,0.45);}
+.msg.user  .msg-name{color:rgba(0,200,255,0.45);}
+.bubble{padding:10px 14px;border-radius:10px;font-size:12px;line-height:1.75;}
+.msg.agent .bubble{background:rgba(0,255,180,0.04);border:1px solid rgba(0,255,180,0.1);border-top-left-radius:3px;}
+.msg.user  .bubble{background:rgba(0,200,255,0.06);border:1px solid rgba(0,200,255,0.12);border-top-right-radius:3px;}
+.bubble strong{color:var(--green);}
+.bubble em{color:var(--blue);font-style:normal;}
+.bubble code{font-family:'Space Mono',monospace;background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.15);padding:1px 5px;border-radius:3px;font-size:11px;color:var(--green);}
+.bubble ul{padding-left:16px;margin-top:4px;}
+.bubble li{margin-bottom:3px;}
+
+/* TYPING */
+.dots{display:flex;gap:4px;align-items:center;padding:4px 0;}
+.dots span{width:5px;height:5px;border-radius:50%;background:var(--green);opacity:.4;animation:db 1.2s ease-in-out infinite;}
+.dots span:nth-child(2){animation-delay:.2s;}
+.dots span:nth-child(3){animation-delay:.4s;}
+@keyframes db{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+
+/* SUGGESTIONS */
+.suggestions{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0;}
+.sug{font-size:10px;padding:5px 11px;border-radius:5px;border:1px solid var(--border);color:var(--dim);cursor:pointer;background:rgba(0,255,180,0.02);transition:all .2s;font-family:'Space Mono',monospace;}
+.sug:hover{border-color:rgba(0,255,180,0.4);color:var(--green);background:rgba(0,255,180,0.05);}
+
+/* INPUT */
+.input-area{padding:10px 16px 14px;border-top:1px solid var(--border);background:rgba(3,6,9,0.92);backdrop-filter:blur(12px);flex-shrink:0;}
+.input-row{display:flex;gap:10px;align-items:flex-end;}
+textarea{flex:1;background:rgba(0,255,180,0.03);border:1px solid rgba(0,255,180,0.15);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;line-height:1.6;resize:none;outline:none;min-height:42px;max-height:120px;transition:border-color .2s;}
+textarea::placeholder{color:var(--dim);}
+textarea:focus{border-color:rgba(0,255,180,0.35);}
+.send-btn{width:42px;height:42px;border-radius:8px;flex-shrink:0;background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.25);color:var(--green);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.send-btn:hover{background:rgba(0,255,180,0.15);border-color:var(--green);}
+.input-hint{font-size:9px;color:var(--dim);margin-top:5px;letter-spacing:.04em;}
+.input-hint b{color:rgba(0,255,180,0.35);font-weight:normal;}
+
+.sys-msg{text-align:center;font-size:10px;color:var(--dim);letter-spacing:.08em;padding:2px 0;}
+.sys-msg span{color:rgba(0,255,180,0.3);}
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <div class=&quot;header&quot;>
+    <div class=&quot;avatar&quot;>🤖<div class=&quot;avatar-dot&quot;></div></div>
+    <div class=&quot;hinfo&quot;>
+      <div class=&quot;aname&quot;>QA Agent · Odirlei Alves</div>
+      <div class=&quot;asub&quot;>Automação · IA · Quality Architecture · DevOps</div>
+    </div>
+    <div class=&quot;status-pill&quot;>● Online</div>
+  </div>
+
+  <div class=&quot;messages&quot; id=&quot;messages&quot;>
+    <div class=&quot;sys-msg&quot;><span>///</span> Sessão iniciada <span>///</span></div>
+  </div>
+
+  <div class=&quot;suggestions&quot; id=&quot;sugs&quot;>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Qual sua experiência com Playwright?</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Como você aplica IA no QA?</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Me fale sobre o Agente QA</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Quais são seus diferenciais?</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Experiência com Robot Framework?</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Como estrutura um processo QA?</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Fale sobre DevOps e CI/CD</button>
+    <button class=&quot;sug&quot; onclick=&quot;sendSug(this)&quot;>Como entrar em contato?</button>
+  </div>
+
+  <div class=&quot;input-area&quot;>
+    <div class=&quot;input-row&quot;>
+      <textarea id=&quot;inp&quot; placeholder=&quot;Pergunte sobre a experiência do Odirlei...&quot; rows=&quot;1&quot;></textarea>
+      <button class=&quot;send-btn&quot; onclick=&quot;send()&quot;>➤</button>
+    </div>
+    <div class=&quot;input-hint&quot;>Enter para enviar &amp;nbsp;·&amp;nbsp; <b>Shift+Enter</b> nova linha</div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  KNOWLEDGE BASE — baseada no perfil e repos
+// ══════════════════════════════════════════════
+var KB = [
+  {
+    keys: ['oi','olá','ola','hey','hello','bom dia','boa tarde','boa noite','tudo bem','tudo bom'],
+    answer: '👋 Olá! Sou o QA Agent do **Odirlei Alves**.\n\nPode me perguntar sobre experiência em **automação**, **IA aplicada ao QA**, **arquitetura de qualidade**, **DevOps** ou qualquer especialidade dele. Estou aqui para te apresentar o Odirlei da melhor forma!'
+  },
+  {
+    keys: ['playwright'],
+    answer: 'O Odirlei trabalha com **Playwright** para automação Web E2E com uma abordagem bem estruturada:\n\n• **Multi-browser** — Chrome, Firefox e Safari na mesma suíte\n• **Page Object Model** — estrutura modular e reutilizável\n• **API Mocking** — interceptação de rede para testes isolados\n• **CI/CD nativo** — integrado ao Azure DevOps e GitHub Actions\n\nO repositório `playwright-e2e-suite` no GitHub mostra essa estrutura na prática.'
+  },
+  {
+    keys: ['cypress'],
+    answer: 'Com **Cypress**, o Odirlei foca em testes de interface com execução em tempo real:\n\n• Live reload durante o desenvolvimento\n• Dashboard visual com histórico de execuções\n• Integração com **GitHub Actions** para rodar em todo PR\n• Testes de fluxos críticos de usuário'
+  },
+  {
+    keys: ['robot','robot framework','sikuli'],
+    answer: 'Esse é um dos grandes diferenciais do Odirlei — automação de **ERP desktop legado** com **Robot Framework + Sikuli**.\n\nA stack resolve um problema que a maioria das ferramentas não consegue: sistemas onde não há seletores CSS/XPath disponíveis.\n\n• **Sikuli** reconhece elementos por imagem (screenshot)\n• **Robot Framework** orquestra os fluxos com arquitetura modular\n• Estrutura: `base/`, `actions/`, `tests/`, `elements/`\n\nRepositório: `robot-framework-qa` no GitHub.'
+  },
+  {
+    keys: ['k6','performance','carga','load','spike','sla'],
+    answer: 'Para **testes de performance**, o Odirlei usa **k6** com uma abordagem orientada a SLA:\n\n• Cenários de **spike**, **ramp-up** e **soak test**\n• **Thresholds** configurados por contrato de SLA\n• Dashboard em **Grafana** com métricas em tempo real\n• Pipeline integrado ao **Azure DevOps**\n\nO repositório `k6-performance-pipeline` tem toda essa estrutura documentada.'
+  },
+  {
+    keys: ['ia','inteligência artificial','llm','gpt','claude','agente','rag','langchain','machine learning','ml'],
+    answer: 'IA aplicada ao QA é uma das especialidades mais fortes do Odirlei — e ele foi early adopter antes de virar tendência.\n\n**Agente QA Autônomo** (`agente-qa-ia`):\n• Recebe User Stories no refinamento\n• Gera tasks de teste automaticamente\n• Classifica candidatos à automação\n• Stack: `Python + LLM + RAG + LangChain`\n\n**RAG com documentação interna:**\n• Embeddings das regras de negócio\n• Contexto real nos prompts de geração\n• Vector DB para busca semântica\n\n**Análise de requisitos:**\n• Identifica ambiguidades em User Stories\n• Sugere critérios de aceite faltantes'
+  },
+  {
+    keys: ['azure','azure devops','pipeline','ci','cd','ci/cd'],
+    answer: 'No **Azure DevOps**, o Odirlei monta pipelines de qualidade completos:\n\n• **Quality gates** — bloqueia deploy se testes críticos falharem\n• Publicação automática de **relatórios HTML**\n• **Rastreabilidade** — work items linkados aos testes\n• Execução paralela de suítes por ambiente\n\nOs pipelines são configurados para rodar em push, PR e agendamento.'
+  },
+  {
+    keys: ['github actions','github','actions','workflow'],
+    answer: 'Com **GitHub Actions**, o Odirlei automatiza o ciclo completo:\n\n• Triggers em `push` e `pull_request`\n• Execução **paralela** de suítes para velocidade\n• Publicação de artifacts de teste\n• Matrix de browsers/ambientes\n\nTodos os repositórios públicos já têm workflows configurados.'
+  },
+  {
+    keys: ['docker','container','containeriz'],
+    answer: 'O Odirlei usa **Docker** para garantir consistência nos ambientes de teste:\n\n• Ambientes 100% **isolados** e reproduzíveis\n• **Docker Compose** para orquestração de serviços\n• Mesma imagem rodando local e no CI\n• Elimina o clássico &quot;funciona na minha máquina&quot; 😄'
+  },
+  {
+    keys: ['qualidade','quality','processo','governance','governança','template','métricas','metricas','kpi'],
+    answer: 'Arquitetura de qualidade é onde o Odirlei vai além do &quot;apenas testar&quot;.\n\nRepositório `quality-architecture-templates` cobre:\n\n• **Discovery** — critérios de aceite desde o refinamento\n• **Templates** padronizados de planos e casos de teste\n• **Métricas** conectadas ao impacto de negócio (não só cobertura)\n• **Governança** — processos do discovery à entrega\n• **KPIs** de qualidade com dashboard executivo\n\nO objetivo é construir cultura de qualidade, não só executar testes.'
+  },
+  {
+    keys: ['diferencial','diferencia','destaque','especial','único','unico','melhor'],
+    answer: '3 grandes diferenciais do Odirlei:\n\n**1. Pensa como arquiteto, não só testador**\nConstrói o ecossistema inteiro: processos, pipelines, métricas e cultura.\n\n**2. IA antes de virar moda**\nJá tem Agente QA autônomo em produção — não é papo, é repositório público.\n\n**3. Resolve o que outros não resolvem**\nAutomação de ERP desktop legado com Sikuli quando ninguém mais consegue automatizar.'
+  },
+  {
+    keys: ['experiência','experiencia','trajetória','trajetoria','carreira','anos','perfil','background','história','historia'],
+    answer: '**Odirlei Alves** — QA Engineer Sênior\n\n• **8+ anos** de experiência em qualidade de software\n• Especializado em automação, IA aplicada e arquitetura de QA\n• Já atuou em projetos de ERP, sistemas web, APIs e aplicações desktop\n• Conecta qualidade ao negócio com métricas de impacto real\n\n**Stack principal:**\nRobot Framework · Playwright · Cypress · k6 · Python · TypeScript · Azure DevOps · GitHub Actions · Docker · LLMs · RAG'
+  },
+  {
+    keys: ['stack','tecnologia','tech','ferramenta','linguagem','python','typescript','javascript'],
+    answer: 'A stack completa do Odirlei:\n\n**Automação Web/API**\n`Playwright` · `Cypress`\n\n**Automação Desktop/ERP**\n`Robot Framework` · `Sikuli`\n\n**Performance**\n`k6` · `Grafana`\n\n**IA &amp; ML**\n`LLMs` · `RAG` · `LangChain` · `Vector DB`\n\n**DevOps**\n`Azure DevOps` · `GitHub Actions` · `Docker`\n\n**Linguagens**\n`Python` · `TypeScript` · `JavaScript`'
+  },
+  {
+    keys: ['projeto','projetos','repositório','repositorio','repo','github','portfólio','portfolio'],
+    answer: 'Repositórios em destaque no GitHub (`Dilei27`):\n\n• `qa-command-center` — este portfolio interativo\n• `agente-qa-ia` — Agente QA com LLM + RAG\n• `robot-framework-qa` — automação ERP desktop\n• `playwright-e2e-suite` — suite E2E com POM\n• `k6-performance-pipeline` — pipeline de performance\n• `quality-architecture-templates` — templates de QA\n\nAcesse: **github.com/Dilei27**'
+  },
+  {
+    keys: ['contato','contact','linkedin','email','contratar','contratar','disponível','disponivel','trabalho','trabalhar','freela','freelance'],
+    answer: 'Para entrar em contato com o Odirlei:\n\n• **GitHub:** github.com/Dilei27\n• **LinkedIn:** linkedin.com/in/odirlei-alves-a9b14923\n\nDisponível para:\n• Automação de testes (Desktop, Web, API, Performance)\n• Arquitetura e estruturação de processos QA\n• IA aplicada à qualidade de software\n• Consultoria e mentoria em QA'
+  },
+  {
+    keys: ['obrigado','obrigada','valeu','thanks','thank','ótimo','otimo','incrível','incrivel','top','show','massa','foda'],
+    answer: 'Fico feliz que tenha gostado! 😄\n\nSe quiser conhecer mais sobre o trabalho do Odirlei, dá uma olhada nos repositórios no **GitHub** ou manda mensagem no **LinkedIn**. Ele vai adorar trocar uma ideia sobre QA, automação e IA!'
+  },
+];
+
+var FALLBACK = 'Boa pergunta! 🤔 Não tenho uma resposta específica para isso.\n\nVocê pode perguntar sobre:\n• **Automação** — Playwright, Cypress, Robot Framework, Sikuli\n• **IA aplicada** — Agente QA, RAG, LLMs\n• **Performance** — k6, Grafana, SLA\n• **DevOps** — Azure DevOps, GitHub Actions, Docker\n• **Arquitetura de QA** — processos, métricas, governance\n• **Projetos e contato**\n\nOu use as sugestões abaixo! 👇';
+
+// ══════════════════════════════════════════════
+//  ENGINE
+// ══════════════════════════════════════════════
+function findAnswer(text) {
+  var q = text.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove acentos
+    .replace(/[^\w\s]/g, ' ');
+
+  var best = null, bestScore = 0;
+  for (var i = 0; i < KB.length; i++) {
+    var score = 0;
+    for (var j = 0; j < KB[i].keys.length; j++) {
+      if (q.indexOf(KB[i].keys[j]) >= 0) {
+        score += KB[i].keys[j].length; // longer match = higher priority
+      }
+    }
+    if (score > bestScore) { bestScore = score; best = KB[i]; }
+  }
+  return best ? best.answer : FALLBACK;
+}
+
+function formatText(t) {
+  return t
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`(.*?)`/g,'<code>$1</code>')
+    .replace(/•/g,'•')
+    .replace(/\n/g,'<br>');
+}
+
+var msgs = document.getElementById('messages');
+
+function addMsg(role, text) {
+  var div = document.createElement('div');
+  div.className = 'msg ' + role;
+  var isAgent = role === 'agent';
+  div.innerHTML =
+    '<div class=&quot;msg-avatar&quot;>'+(isAgent?'🤖':'◈')+'</div>'+
+    '<div class=&quot;msg-body&quot;>'+
+      '<div class=&quot;msg-name&quot;>'+(isAgent?'QA Agent':'Você')+'</div>'+
+      '<div class=&quot;bubble&quot;>'+formatText(text)+'</div>'+
+    '</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  var div = document.createElement('div');
+  div.className = 'msg agent'; div.id = 'typing';
+  div.innerHTML =
+    '<div class=&quot;msg-avatar&quot;>🤖</div>'+
+    '<div class=&quot;msg-body&quot;><div class=&quot;msg-name&quot;>QA Agent</div>'+
+    '<div class=&quot;bubble&quot;><div class=&quot;dots&quot;><span></span><span></span><span></span></div></div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  var el = document.getElementById('typing');
+  if (el) el.remove();
+}
+
+var busy = false;
+
+function send() {
+  if (busy) return;
+  var inp = document.getElementById('inp');
+  var text = inp.value.trim();
+  if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+  document.getElementById('sugs').style.display = 'none';
+  busy = true;
+
+  addMsg('user', text);
+  showTyping();
+
+  // simulate thinking delay (400–900ms)
+  var delay = 400 + Math.random() * 500;
+  setTimeout(function() {
+    removeTyping();
+    addMsg('agent', findAnswer(text));
+    busy = false;
+  }, delay);
+}
+
+function sendSug(btn) {
+  document.getElementById('inp').value = btn.textContent;
+  send();
+}
+
+var inp = document.getElementById('inp');
+inp.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+inp.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' &amp;&amp; !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+// boot
+setTimeout(function() {
+  addMsg('agent', '👋 Olá! Sou o **QA Agent** do Odirlei Alves.\n\nPode me perguntar sobre experiência em **automação**, **IA aplicada ao QA**, **arquitetura de qualidade**, **DevOps** ou qualquer especialidade. Estou aqui para apresentar o Odirlei da melhor forma! 🚀');
+}, 600);
+</script>
+</body>
+</html>
+"></iframe>
+    <iframe id="terminal" class="frame" srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>QA Terminal — Odirlei Alves</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #020508;
+  --bg2: #060d14;
+  --green: #00ffb3;
+  --green-dim: rgba(0,255,180,0.4);
+  --blue: #00c8ff;
+  --purple: #b57bff;
+  --yellow: #ffd166;
+  --red: #ff6b6b;
+  --orange: #ff9f43;
+  --text: #c8d8e8;
+  --dim: #3a5068;
+  --border: rgba(0,255,180,0.1);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  font-family: 'Space Mono', monospace;
+  overflow: hidden;
+}
+
+/* CRT scanlines */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+}
+
+/* glow vignette */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(2,5,8,0.7) 100%);
+}
+
+.terminal {
+  position: relative; z-index: 1;
+  width: 100%; height: 100vh;
+  display: flex; flex-direction: column;
+  max-width: 860px; margin: 0 auto;
+}
+
+/* ── TITLE BAR ── */
+.titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  background: rgba(6,13,20,0.95);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.tb-dots { display: flex; gap: 6px; }
+.tb-dot { width: 11px; height: 11px; border-radius: 50%; }
+.tb-title {
+  flex: 1; text-align: center;
+  font-size: 11px; color: var(--dim);
+  letter-spacing: 0.1em;
+}
+.tb-badge {
+  font-size: 9px; color: var(--green);
+  border: 1px solid rgba(0,255,180,0.2);
+  padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.1em;
+  animation: blink 2s step-start infinite;
+}
+@keyframes blink { 50% { opacity: 0.3; } }
+
+/* ── OUTPUT AREA ── */
+.output {
+  flex: 1; overflow-y: auto; padding: 16px 20px 8px;
+  scrollbar-width: thin; scrollbar-color: rgba(0,255,180,0.15) transparent;
+}
+.output::-webkit-scrollbar { width: 3px; }
+.output::-webkit-scrollbar-thumb { background: rgba(0,255,180,0.15); }
+
+.line {
+  font-size: 12px; line-height: 1.7; white-space: pre-wrap; word-break: break-word;
+  animation: fadeIn 0.15s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.line.empty { height: 10px; }
+.line.prompt { color: var(--green); }
+.line.prompt .path { color: var(--blue); }
+.line.prompt .symbol { color: var(--purple); }
+.line.output-text { color: var(--text); padding-left: 0; }
+.line.comment { color: var(--dim); font-style: italic; }
+.line.header-line { color: var(--green); font-weight: 700; }
+.line.error { color: var(--red); }
+.line.success { color: var(--green); }
+.line.info { color: var(--blue); }
+.line.warn { color: var(--yellow); }
+.line.cmd-echo { color: var(--green-dim); }
+
+/* colored spans inside lines */
+.g  { color: var(--green); }
+.b  { color: var(--blue); }
+.p  { color: var(--purple); }
+.y  { color: var(--yellow); }
+.r  { color: var(--red); }
+.o  { color: var(--orange); }
+.d  { color: var(--dim); }
+.w  { color: #fff; font-weight: 700; }
+
+/* progress bar */
+.progress-wrap { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--dim); }
+.progress-bar-bg { flex: 1; height: 4px; background: rgba(0,255,180,0.08); border-radius: 2px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 0.05s linear; }
+
+/* skill badge row */
+.badge-row { display: flex; flex-wrap: wrap; gap: 7px; padding: 4px 0; }
+.skill-badge {
+  font-size: 10px; padding: 3px 9px; border-radius: 3px;
+  letter-spacing: 0.06em;
+}
+
+/* ── INPUT ROW ── */
+.input-row {
+  display: flex; align-items: center; gap: 0;
+  padding: 10px 20px 14px;
+  border-top: 1px solid var(--border);
+  background: rgba(6,13,20,0.95);
+  flex-shrink: 0;
+}
+.prompt-label { font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+.prompt-label .path { color: var(--blue); }
+.prompt-label .sym  { color: var(--purple); margin: 0 6px; }
+
+input[type=&quot;text&quot;] {
+  flex: 1; background: none; border: none; outline: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; color: var(--text);
+  caret-color: var(--green);
+}
+
+/* blinking cursor on input */
+input[type=&quot;text&quot;]:focus + .cursor { display: inline-block; }
+.cursor {
+  display: inline-block;
+  width: 7px; height: 14px; background: var(--green);
+  animation: cursor-blink 1s step-start infinite;
+  vertical-align: middle; margin-left: -2px;
+  flex-shrink: 0;
+}
+@keyframes cursor-blink { 50% { opacity: 0; } }
+
+/* hint bar */
+.hints {
+  padding: 6px 20px 10px;
+  display: flex; flex-wrap: wrap; gap: 6px;
+  flex-shrink: 0;
+}
+.hint-chip {
+  font-size: 9px; padding: 3px 9px; border-radius: 3px;
+  border: 1px solid rgba(0,255,180,0.12);
+  color: var(--dim); cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.06em;
+}
+.hint-chip:hover { border-color: rgba(0,255,180,0.35); color: var(--green); }
+</style>
+</head>
+<body>
+<div class=&quot;terminal&quot;>
+
+  <div class=&quot;titlebar&quot;>
+    <div class=&quot;tb-dots&quot;>
+      <div class=&quot;tb-dot&quot; style=&quot;background:#ff5f57&quot;></div>
+      <div class=&quot;tb-dot&quot; style=&quot;background:#febc2e&quot;></div>
+      <div class=&quot;tb-dot&quot; style=&quot;background:#28c840&quot;></div>
+    </div>
+    <div class=&quot;tb-title&quot;>odirlei@qa-command-center ~ zsh</div>
+    <div class=&quot;tb-badge&quot;>● LIVE</div>
+  </div>
+
+  <div class=&quot;output&quot; id=&quot;output&quot;></div>
+
+  <div class=&quot;hints&quot; id=&quot;hints&quot;>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --help')&quot;>--help</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --skills')&quot;>--skills</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --experience')&quot;>--experience</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --ai')&quot;>--ai</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --devops')&quot;>--devops</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --projects')&quot;>--projects</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('odirlei --contact')&quot;>--contact</span>
+    <span class=&quot;hint-chip&quot; onclick=&quot;runCmd('clear')&quot;>clear</span>
+  </div>
+
+  <div class=&quot;input-row&quot;>
+    <span class=&quot;prompt-label&quot;>
+      <span class=&quot;path&quot;>~/qa-command-center</span>
+      <span class=&quot;sym&quot;>❯</span>
+    </span>
+    <input type=&quot;text&quot; id=&quot;cmd-input&quot; placeholder=&quot;Digite um comando...&quot; autocomplete=&quot;off&quot; autocorrect=&quot;off&quot; spellcheck=&quot;false&quot; />
+    <div class=&quot;cursor&quot;></div>
+  </div>
+
+</div>
+
+<script>
+var output = document.getElementById('output');
+var cmdInput = document.getElementById('cmd-input');
+var isTyping = false;
+var cmdHistory = [];
+var histIdx = -1;
+
+// ── COMMAND DEFINITIONS ──────────────────────────────────────
+var COMMANDS = {
+
+  'odirlei --help': function(cb) {
+    var lines = [
+      { t: 'header-line', h: '╔══════════════════════════════════════════════╗' },
+      { t: 'header-line', h: '║       ODIRLEI ALVES — QA COMMAND CENTER      ║' },
+      { t: 'header-line', h: '╚══════════════════════════════════════════════╝' },
+      { t: 'empty' },
+      { t: 'info',    h: 'USAGE:  odirlei [COMMAND]' },
+      { t: 'empty' },
+      { t: 'comment', h: '# Comandos disponíveis:' },
+      { t: 'output-text', h: '  <g>--skills</g>       Stack técnica completa' },
+      { t: 'output-text', h: '  <g>--experience</g>   Trajetória e especialidades' },
+      { t: 'output-text', h: '  <g>--ai</g>           IA aplicada ao QA' },
+      { t: 'output-text', h: '  <g>--devops</g>       Pipelines e CI/CD' },
+      { t: 'output-text', h: '  <g>--projects</g>     Projetos em destaque' },
+      { t: 'output-text', h: '  <g>--contact</g>      Links e contato' },
+      { t: 'output-text', h: '  <g>clear</g>          Limpa o terminal' },
+      { t: 'empty' },
+      { t: 'success', h: '✓ Sistema online. QA Neural Engine ativo.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --skills': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Carregando stack técnica...' },
+      { t: 'progress', label: 'Indexando módulos', pct: 100 },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ AUTOMAÇÃO ]' },
+      { t: 'badges', items: [
+        { label: 'Robot Framework', c: '#00c8ff' },
+        { label: 'Sikuli', c: '#00c8ff' },
+        { label: 'Playwright', c: '#00c8ff' },
+        { label: 'Cypress', c: '#00c8ff' },
+      ]},
+      { t: 'empty' },
+      { t: 'header-line', h: '[ PERFORMANCE ]' },
+      { t: 'badges', items: [
+        { label: 'k6', c: '#ff6b6b' },
+        { label: 'Grafana', c: '#ff6b6b' },
+        { label: 'SLA Testing', c: '#ff6b6b' },
+      ]},
+      { t: 'empty' },
+      { t: 'header-line', h: '[ IA &amp; ML ]' },
+      { t: 'badges', items: [
+        { label: 'LLMs', c: '#b57bff' },
+        { label: 'RAG', c: '#b57bff' },
+        { label: 'Agentes IA', c: '#b57bff' },
+        { label: 'LangChain', c: '#b57bff' },
+      ]},
+      { t: 'empty' },
+      { t: 'header-line', h: '[ DEVOPS ]' },
+      { t: 'badges', items: [
+        { label: 'Azure DevOps', c: '#ffd166' },
+        { label: 'GitHub Actions', c: '#ffd166' },
+        { label: 'Docker', c: '#ffd166' },
+        { label: 'CI/CD', c: '#ffd166' },
+      ]},
+      { t: 'empty' },
+      { t: 'header-line', h: '[ LINGUAGENS ]' },
+      { t: 'badges', items: [
+        { label: 'Python', c: '#ff9f43' },
+        { label: 'JavaScript', c: '#ff9f43' },
+        { label: 'TypeScript', c: '#ff9f43' },
+      ]},
+      { t: 'empty' },
+      { t: 'success', h: '✓ 18 tecnologias indexadas.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --experience': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Carregando trajetória profissional...' },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ PERFIL ]' },
+      { t: 'output-text', h: '  <w>Odirlei Alves</w> — QA Engineer Sênior' },
+      { t: 'output-text', h: '  <b>8+ anos</b> de experiência em qualidade de software' },
+      { t: 'output-text', h: '  Foco em automação, IA aplicada e arquitetura de QA' },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ ESPECIALIDADES CORE ]' },
+      { t: 'output-text', h: '  <g>►</g> Automação Desktop com Robot Framework + Sikuli' },
+      { t: 'output-text', h: '    <d>└─ ERP legado, reconhecimento visual, estrutura modular</d>' },
+      { t: 'output-text', h: '  <g>►</g> Automação Web E2E com Playwright e Cypress' },
+      { t: 'output-text', h: '    <d>└─ Multi-browser, API mocking, integração CI/CD</d>' },
+      { t: 'output-text', h: '  <g>►</g> Performance Testing com k6' },
+      { t: 'output-text', h: '    <d>└─ SLAs, thresholds, cenários de spike e rampa</d>' },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ ARQUITETURA DE QUALIDADE ]' },
+      { t: 'output-text', h: '  <g>►</g> Estruturação de processos do <b>discovery à entrega</b>' },
+      { t: 'output-text', h: '  <g>►</g> Critérios de aceite, templates, métricas e governança' },
+      { t: 'output-text', h: '  <g>►</g> KPIs de qualidade conectados ao impacto de negócio' },
+      { t: 'empty' },
+      { t: 'success', h: '✓ Perfil carregado com sucesso.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --ai': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Inicializando módulo de IA...' },
+      { t: 'progress', label: 'Carregando modelos', pct: 100 },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ IA APLICADA AO QA ]' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <p>►</p> <w>Agente QA Autônomo</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Recebe User Stories no refinamento' },
+      { t: 'output-text', h: '    <d>│</d>  Gera tasks de teste automaticamente' },
+      { t: 'output-text', h: '    <d>│</d>  Classifica candidatos à automação' },
+      { t: 'output-text', h: '    <d>└─ Stack: Python + LLM + RAG</d>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <p>►</p> <w>RAG com Documentação Interna</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Embeddings de regras de negócio' },
+      { t: 'output-text', h: '    <d>│</d>  Contexto real nos prompts de geração' },
+      { t: 'output-text', h: '    <d>└─ Stack: Vector DB + LangChain</d>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <p>►</p> <w>Análise de Requisitos com LLMs</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Identifica ambiguidades em User Stories' },
+      { t: 'output-text', h: '    <d>│</d>  Sugere critérios de aceite faltantes' },
+      { t: 'output-text', h: '    <d>└─ Integrado ao fluxo de refinamento</d>' },
+      { t: 'empty' },
+      { t: 'warn',    h: '⚡ IA aplicada antes de virar tendência de mercado.' },
+      { t: 'success', h: '✓ Módulo IA online.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --devops': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Verificando pipelines...' },
+      { t: 'progress', label: 'Conectando ao CI/CD', pct: 100 },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ DEVOPS &amp; CI/CD ]' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <y>►</y> <w>Azure DevOps</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Pipelines para execução de suítes de automação' },
+      { t: 'output-text', h: '    <d>│</d>  Quality gates bloqueando deploys com falhas' },
+      { t: 'output-text', h: '    <d>│</d>  Relatórios automáticos e rastreabilidade' },
+      { t: 'output-text', h: '    <d>└─ Work items linkados aos testes</d>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <y>►</y> <w>GitHub Actions</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Triggers em push e pull requests' },
+      { t: 'output-text', h: '    <d>│</d>  Execução paralela de suítes' },
+      { t: 'output-text', h: '    <d>└─ Publicação de artifacts e relatórios HTML</d>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <y>►</y> <w>Docker</w>' },
+      { t: 'output-text', h: '    <d>│</d>  Ambientes de teste 100% isolados' },
+      { t: 'output-text', h: '    <d>│</d>  Compose para orquestração de serviços' },
+      { t: 'output-text', h: '    <d>└─ Consistência entre local e CI</d>' },
+      { t: 'empty' },
+      { t: 'success', h: '✓ Todos os pipelines operacionais.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --projects': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Indexando projetos...' },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ PROJETOS EM DESTAQUE ]' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <g>[01]</g> <w>QA Neural Command Center</w>' },
+      { t: 'output-text', h: '       Portfolio interativo com grafo neural,' },
+      { t: 'output-text', h: '       terminal, agente IA e audit de User Stories.' },
+      { t: 'output-text', h: '       <b>Stack:</b> <b>HTML · JS · D3.js · Claude API</b>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <g>[02]</g> <w>Agente QA Autônomo</w>' },
+      { t: 'output-text', h: '       Gera tasks de teste a partir de User Stories' },
+      { t: 'output-text', h: '       com classificação de automação via LLM + RAG.' },
+      { t: 'output-text', h: '       <b>Stack:</b> <b>Python · LangChain · Vector DB</b>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <g>[03]</g> <w>Framework ERP Desktop</w>' },
+      { t: 'output-text', h: '       Automação de regressão em sistema legado' },
+      { t: 'output-text', h: '       usando Robot Framework + Sikuli (visual).' },
+      { t: 'output-text', h: '       <b>Stack:</b> <b>Robot Framework · Sikuli · Python</b>' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <g>[04]</g> <w>Pipeline de Performance</w>' },
+      { t: 'output-text', h: '       Suite k6 integrada ao Azure DevOps e Grafana.' },
+      { t: 'output-text', h: '       SLAs, cenários de spike e relatórios automáticos.' },
+      { t: 'output-text', h: '       <b>Stack:</b> <b>k6 · Grafana · Azure DevOps</b>' },
+      { t: 'empty' },
+      { t: 'success', h: '✓ 4 projetos listados.' },
+    ];
+    typelines(lines, cb);
+  },
+
+  'odirlei --contact': function(cb) {
+    var lines = [
+      { t: 'comment', h: '# Carregando canais de contato...' },
+      { t: 'empty' },
+      { t: 'header-line', h: '[ CONTATO ]' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <g>GitHub</g>    →  github.com/Dilei27' },
+      { t: 'output-text', h: '  <b>LinkedIn</b>  →  linkedin.com/in/odirlei-alves-a9b14923' },
+      { t: 'empty' },
+      { t: 'output-text', h: '  <d>Disponível para projetos de:</d>' },
+      { t: 'output-text', h: '  <g>►</g> Automação de testes (Desktop, Web, API, Perf)' },
+      { t: 'output-text', h: '  <g>►</g> Arquitetura e estruturação de processos QA' },
+      { t: 'output-text', h: '  <g>►</g> IA aplicada à qualidade de software' },
+      { t: 'output-text', h: '  <g>►</g> Consultoria e mentoria em QA' },
+      { t: 'empty' },
+      { t: 'success', h: '✓ Contato carregado. Manda mensagem! 🚀' },
+    ];
+    typelines(lines, cb);
+  },
+
+};
+
+// ── RENDERING ─────────────────────────────────────────────────
+
+function addLine(type, html) {
+  var el = document.createElement('div');
+  if (type === 'empty') {
+    el.className = 'line empty';
+  } else if (type === 'badges') {
+    // handled separately
+  } else {
+    el.className = 'line ' + type;
+    el.innerHTML = html
+      .replace(/<g>(.*?)<\/g>/g, '<span class=&quot;g&quot;>$1</span>')
+      .replace(/<b>(.*?)<\/b>/g, '<span class=&quot;b&quot;>$1</span>')
+      .replace(/<p>(.*?)<\/p>/g, '<span class=&quot;p&quot;>$1</span>')
+      .replace(/<y>(.*?)<\/y>/g, '<span class=&quot;y&quot;>$1</span>')
+      .replace(/<r>(.*?)<\/r>/g, '<span class=&quot;r&quot;>$1</span>')
+      .replace(/<o>(.*?)<\/o>/g, '<span class=&quot;o&quot;>$1</span>')
+      .replace(/<d>(.*?)<\/d>/g, '<span class=&quot;d&quot;>$1</span>')
+      .replace(/<w>(.*?)<\/w>/g, '<span class=&quot;w&quot;>$1</span>');
+  }
+  output.appendChild(el);
+  output.scrollTop = output.scrollHeight;
+  return el;
+}
+
+function addBadges(items) {
+  var el = document.createElement('div');
+  el.className = 'line';
+  var row = document.createElement('div');
+  row.className = 'badge-row';
+  items.forEach(function(item) {
+    var span = document.createElement('span');
+    span.className = 'skill-badge';
+    span.textContent = item.label;
+    span.style.cssText = 'background:' + item.c + '18;border:1px solid ' + item.c + '40;color:' + item.c;
+    row.appendChild(span);
+  });
+  el.appendChild(row);
+  output.appendChild(el);
+  output.scrollTop = output.scrollHeight;
+}
+
+function addProgress(label, pct, cb) {
+  var el = document.createElement('div');
+  el.className = 'line';
+  var wrap = document.createElement('div');
+  wrap.className = 'progress-wrap';
+  wrap.innerHTML = '<span style=&quot;color:var(--dim);min-width:160px&quot;>' + label + '</span>' +
+    '<div class=&quot;progress-bar-bg&quot;><div class=&quot;progress-bar-fill&quot; id=&quot;pbar-' + Date.now() + '&quot; style=&quot;width:0%&quot;></div></div>' +
+    '<span style=&quot;color:var(--green);min-width:35px;text-align:right&quot; id=&quot;pct-' + Date.now() + '&quot;>0%</span>';
+  el.appendChild(wrap);
+  output.appendChild(el);
+  output.scrollTop = output.scrollHeight;
+
+  var bar = wrap.querySelector('.progress-bar-fill');
+  var pctEl = wrap.querySelector('span:last-child');
+  var cur = 0;
+  var step = pct / 20;
+  var iv = setInterval(function() {
+    cur = Math.min(cur + step + Math.random() * step, pct);
+    var p = Math.round(cur);
+    bar.style.width = p + '%';
+    pctEl.textContent = p + '%';
+    if (cur >= pct) { clearInterval(iv); setTimeout(cb, 100); }
+  }, 40);
+}
+
+function addPromptLine(cmd) {
+  var el = document.createElement('div');
+  el.className = 'line prompt';
+  el.innerHTML = '<span class=&quot;path&quot;>~/qa-command-center</span><span class=&quot;symbol&quot;> ❯ </span>' +
+    '<span class=&quot;cmd-echo&quot; style=&quot;color:rgba(0,255,180,0.6)&quot;>' + escHtml(cmd) + '</span>';
+  output.appendChild(el);
+  output.scrollTop = output.scrollHeight;
+}
+
+function escHtml(s) {
+  return s.replace(/&amp;/g,'&amp;amp;').replace(/</g,'&amp;lt;').replace(/>/g,'&amp;gt;');
+}
+
+// ── TYPEWRITER ────────────────────────────────────────────────
+
+function typelines(lines, done) {
+  isTyping = true;
+  var i = 0;
+  function next() {
+    if (i >= lines.length) { isTyping = false; if (done) done(); return; }
+    var l = lines[i++];
+    if (l.t === 'progress') {
+      addProgress(l.label, l.pct, function() { setTimeout(next, 60); });
+    } else if (l.t === 'badges') {
+      addBadges(l.items);
+      setTimeout(next, 60);
+    } else {
+      addLine(l.t, l.h || '');
+      setTimeout(next, 28);
+    }
+  }
+  next();
+}
+
+// ── COMMAND RUNNER ─────────────────────────────────────────────
+
+function runCmd(raw) {
+  if (isTyping) return;
+  var cmd = raw.trim().toLowerCase();
+  cmdInput.value = '';
+  cmdHistory.unshift(raw);
+  histIdx = -1;
+
+  addLine('empty', '');
+  addPromptLine(raw);
+  addLine('empty', '');
+
+  if (cmd === 'clear') {
+    output.innerHTML = '';
+    isTyping = false;
+    return;
+  }
+
+  if (COMMANDS[cmd]) {
+    COMMANDS[cmd](function() {
+      addLine('empty', '');
+    });
+  } else if (cmd === '' ) {
+    // do nothing
+  } else {
+    typelines([
+      { t: 'error', h: 'zsh: command not found: ' + escHtml(raw) },
+      { t: 'comment', h: '# Tente: odirlei --help' },
+    ]);
+  }
+
+  output.scrollTop = output.scrollHeight;
+}
+
+// ── INPUT HANDLING ─────────────────────────────────────────────
+
+cmdInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    runCmd(cmdInput.value || '');
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (histIdx < cmdHistory.length - 1) histIdx++;
+    cmdInput.value = cmdHistory[histIdx] || '';
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (histIdx > 0) histIdx--; else histIdx = -1;
+    cmdInput.value = histIdx >= 0 ? cmdHistory[histIdx] : '';
+  }
+});
+
+// focus input on click anywhere
+document.addEventListener('click', function() { cmdInput.focus(); });
+cmdInput.focus();
+
+// ── BOOT SEQUENCE ──────────────────────────────────────────────
+setTimeout(function() {
+  typelines([
+    { t: 'comment',     h: '# QA Neural Command Center — boot sequence' },
+    { t: 'progress',    label: 'Inicializando kernel QA', pct: 100 },
+    { t: 'output-text', h: '  <g>✓</g> Robot Framework    <d>loaded</d>' },
+    { t: 'output-text', h: '  <g>✓</g> Playwright         <d>loaded</d>' },
+    { t: 'output-text', h: '  <g>✓</g> k6 Performance     <d>loaded</d>' },
+    { t: 'output-text', h: '  <g>✓</g> Agente IA          <d>online</d>' },
+    { t: 'output-text', h: '  <g>✓</g> Azure DevOps       <d>connected</d>' },
+    { t: 'empty' },
+    { t: 'success',     h: '  Sistema operacional. Bem-vindo, QA Engineer.' },
+    { t: 'empty' },
+    { t: 'info',        h: '  Digite  odirlei --help  para ver os comandos.' },
+    { t: 'empty' },
+  ]);
+}, 300);
+</script>
+</body>
+</html>
+"></iframe>
+    <iframe id="status"   class="frame" srcdoc="<!DOCTYPE html>
+<html lang=&quot;pt-BR&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>QA Status — Odirlei Alves</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#030609;--green:#00ffb3;--blue:#00c8ff;--purple:#b57bff;
+  --yellow:#ffd166;--red:#ff5555;--orange:#ff9f43;
+  --text:#cbd5e1;--dim:#475569;--border:rgba(0,255,180,0.1);
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:'Space Mono',monospace;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,255,180,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,180,0.02) 1px,transparent 1px);
+  background-size:40px 40px;}
+.page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 48px;}
+
+.header{padding:24px 0 20px;border-bottom:1px solid var(--border);margin-bottom:24px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-icon{width:40px;height:40px;border-radius:8px;background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.brand-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--green);}
+.brand-sub{font-size:10px;color:var(--dim);letter-spacing:.08em;margin-top:1px;}
+.overall-status{display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:6px;border:1px solid rgba(0,255,180,0.25);background:rgba(0,255,180,0.06);}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.status-text{font-size:11px;color:var(--green);letter-spacing:.08em;}
+.last-update{font-size:10px;color:var(--dim);margin-top:10px;}
+.last-update span{color:rgba(0,255,180,0.4);}
+
+.section-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;}
+
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
+@media(max-width:500px){.metrics-row{grid-template-columns:repeat(2,1fr);}}
+.metric-card{background:rgba(7,12,20,0.8);border:1px solid rgba(0,255,180,0.08);border-radius:8px;padding:14px;text-align:center;}
+.metric-val{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1;}
+.metric-label{font-size:9px;color:var(--dim);margin-top:4px;letter-spacing:.08em;text-transform:uppercase;}
+
+.uptime-section{margin-bottom:24px;}
+.uptime-bar{display:flex;gap:2px;margin-bottom:6px;}
+.uptime-day{flex:1;height:28px;border-radius:3px;cursor:default;transition:transform .15s;}
+.uptime-day:hover{transform:scaleY(1.2);}
+.uptime-meta{display:flex;justify-content:space-between;font-size:9px;color:var(--dim);}
+
+.repos-section{margin-bottom:28px;}
+.repos-grid{display:flex;flex-direction:column;gap:10px;}
+.repo-card{background:rgba(7,12,20,0.8);border:1px solid rgba(0,255,180,0.08);border-radius:10px;padding:16px 18px;transition:border-color .2s,transform .2s;cursor:pointer;text-decoration:none;display:block;animation:fadeUp .4s ease both;color:inherit;}
+.repo-card:hover{border-color:rgba(0,255,180,0.28);transform:translateY(-2px);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.repo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.repo-left{flex:1;}
+.repo-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--green);margin-bottom:3px;}
+.repo-desc{font-size:11px;color:var(--dim);line-height:1.55;}
+.repo-status{display:flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:4px;flex-shrink:0;white-space:nowrap;}
+.repo-status.online{background:rgba(0,255,180,0.08);border:1px solid rgba(0,255,180,0.2);color:var(--green);}
+.repo-status.stable{background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);color:var(--blue);}
+.repo-status.wip{background:rgba(255,209,102,0.08);border:1px solid rgba(255,209,102,0.2);color:var(--yellow);}
+.repo-status-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.repo-status.online .repo-status-dot{animation:pdot 2s ease-in-out infinite;}
+.repo-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:10px;color:var(--dim);padding-top:10px;border-top:1px solid rgba(255,255,255,0.04);}
+.repo-meta span{color:var(--text);}
+.repo-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.repo-tag{font-size:9px;padding:2px 7px;border-radius:3px;letter-spacing:.06em;text-transform:uppercase;}
+
+.feed-section{margin-bottom:28px;}
+.feed{display:flex;flex-direction:column;}
+.feed-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);animation:fadeUp .3s ease both;}
+.feed-icon{width:28px;height:28px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px;}
+.feed-body{flex:1;}
+.feed-title{font-size:11px;line-height:1.5;color:var(--text);}
+.feed-title b{color:var(--green);font-weight:700;}
+.feed-time{font-size:9px;color:var(--dim);margin-top:2px;}
+
+.footer{text-align:center;font-size:10px;color:var(--dim);padding-top:24px;border-top:1px solid var(--border);}
+.footer span{color:rgba(0,255,180,0.35);}
+</style>
+</head>
+<body>
+<div class=&quot;page&quot;>
+
+  <div class=&quot;header&quot;>
+    <div class=&quot;header-top&quot;>
+      <div class=&quot;brand&quot;>
+        <div class=&quot;brand-icon&quot;>📡</div>
+        <div>
+          <div class=&quot;brand-name&quot;>QA Status Board</div>
+          <div class=&quot;brand-sub&quot;>Odirlei Alves · github.com/Dilei27</div>
+        </div>
+      </div>
+      <div class=&quot;overall-status&quot;>
+        <div class=&quot;status-dot&quot;></div>
+        <div class=&quot;status-text&quot;>Todos sistemas operacionais</div>
+      </div>
+    </div>
+    <div class=&quot;last-update&quot;>Última verificação: <span id=&quot;last-update&quot;>—</span></div>
+  </div>
+
+  <div class=&quot;section-title&quot;>Visão Geral</div>
+  <div class=&quot;metrics-row&quot;>
+    <div class=&quot;metric-card&quot;><div class=&quot;metric-val&quot; style=&quot;color:#00ffb3&quot; id=&quot;m-repos&quot;>0</div><div class=&quot;metric-label&quot;>Repositórios</div></div>
+    <div class=&quot;metric-card&quot;><div class=&quot;metric-val&quot; style=&quot;color:#00c8ff&quot; id=&quot;m-stars&quot;>0</div><div class=&quot;metric-label&quot;>Stars</div></div>
+    <div class=&quot;metric-card&quot;><div class=&quot;metric-val&quot; style=&quot;color:#b57bff&quot; id=&quot;m-langs&quot;>0</div><div class=&quot;metric-label&quot;>Linguagens</div></div>
+    <div class=&quot;metric-card&quot;><div class=&quot;metric-val&quot; style=&quot;color:#ffd166&quot; id=&quot;m-active&quot;>0</div><div class=&quot;metric-label&quot;>Ativos (30d)</div></div>
+  </div>
+
+  <div class=&quot;uptime-section&quot;>
+    <div class=&quot;section-title&quot;>Histórico de Atividade · 90 dias</div>
+    <div class=&quot;uptime-bar&quot; id=&quot;uptime-bar&quot;></div>
+    <div class=&quot;uptime-meta&quot;><span>90 dias atrás</span><span id=&quot;uptime-pct&quot; style=&quot;color:var(--green)&quot;>—</span><span>hoje</span></div>
+  </div>
+
+  <div class=&quot;repos-section&quot;>
+    <div class=&quot;section-title&quot;>Repositórios <span id=&quot;live-badge&quot; style=&quot;color:var(--green);font-size:9px;margin-left:6px&quot;></span></div>
+    <div class=&quot;repos-grid&quot; id=&quot;repos-grid&quot;></div>
+  </div>
+
+  <div class=&quot;feed-section&quot;>
+    <div class=&quot;section-title&quot;>Atividade Recente</div>
+    <div class=&quot;feed&quot; id=&quot;feed&quot;></div>
+  </div>
+
+  <div class=&quot;footer&quot;><span>///</span> QA Neural Command Center · Odirlei Alves <span>///</span><br>Dados via GitHub API · Fallback estático quando offline</div>
+</div>
+
+<script>
+// ── STATIC FALLBACK DATA (real repos from Dilei27) ────────────
+var STATIC_REPOS = [
+  { name:'qa-command-center', description:'Portfolio interativo com Grafo Neural, Terminal, Agente QA e Status Page — QA Neural Command Center', language:'HTML', pushed_at:'2025-05-24T00:00:00Z', created_at:'2024-01-01T00:00:00Z', stargazers_count:2, forks_count:0, open_issues_count:0, html_url:'https://github.com/Dilei27/qa-command-center', fork:false },
+  { name:'robot-framework-qa', description:'Framework de automação modular com Robot Framework + Sikuli para ERP desktop legado', language:'Python', pushed_at:'2025-04-10T00:00:00Z', created_at:'2023-06-01T00:00:00Z', stargazers_count:1, forks_count:0, open_issues_count:0, html_url:'https://github.com/Dilei27/robot-framework-qa', fork:false },
+  { name:'agente-qa-ia', description:'Agente autônomo que recebe User Stories e gera tasks de teste, critérios de aceite e classificação de automação via LLM + RAG', language:'Python', pushed_at:'2025-03-20T00:00:00Z', created_at:'2024-03-01T00:00:00Z', stargazers_count:3, forks_count:1, open_issues_count:1, html_url:'https://github.com/Dilei27/agente-qa-ia', fork:false },
+  { name:'playwright-e2e-suite', description:'Suite de testes E2E multi-browser com Playwright, Page Object Model e integração GitHub Actions', language:'TypeScript', pushed_at:'2025-02-15T00:00:00Z', created_at:'2023-09-01T00:00:00Z', stargazers_count:1, forks_count:0, open_issues_count:0, html_url:'https://github.com/Dilei27/playwright-e2e-suite', fork:false },
+  { name:'k6-performance-pipeline', description:'Pipeline de testes de performance com k6, thresholds de SLA, cenários spike/ramp e dashboard Grafana', language:'JavaScript', pushed_at:'2025-01-28T00:00:00Z', created_at:'2023-11-01T00:00:00Z', stargazers_count:2, forks_count:1, open_issues_count:0, html_url:'https://github.com/Dilei27/k6-performance-pipeline', fork:false },
+  { name:'quality-architecture-templates', description:'Templates de processos QA: critérios de aceite, planos de teste, métricas e governança do discovery à entrega', language:'Python', pushed_at:'2024-11-05T00:00:00Z', created_at:'2023-04-01T00:00:00Z', stargazers_count:4, forks_count:2, open_issues_count:0, html_url:'https://github.com/Dilei27/quality-architecture-templates', fork:false },
+];
+
+var TAG_MAP = {
+  'HTML':       {label:'HTML',       c:'#ff6b6b'},
+  'Python':     {label:'Python',     c:'#ff9f43'},
+  'JavaScript': {label:'JavaScript', c:'#ffd166'},
+  'TypeScript': {label:'TypeScript', c:'#00c8ff'},
+  'Java':       {label:'Java',       c:'#ff9f43'},
+};
+
+var EXTRA_TAGS = {
+  'qa-command-center':            [{label:'D3.js',c:'#ff6b6b'},{label:'Claude API',c:'#b57bff'},{label:'Portfolio',c:'#00ffb3'}],
+  'robot-framework-qa':           [{label:'Robot',c:'#00c8ff'},{label:'Sikuli',c:'#00c8ff'},{label:'Desktop',c:'#ffd166'}],
+  'agente-qa-ia':                 [{label:'LLM',c:'#b57bff'},{label:'RAG',c:'#b57bff'},{label:'LangChain',c:'#b57bff'}],
+  'playwright-e2e-suite':         [{label:'Playwright',c:'#00c8ff'},{label:'POM',c:'#ff9f43'},{label:'CI/CD',c:'#ffd166'}],
+  'k6-performance-pipeline':      [{label:'k6',c:'#ff6b6b'},{label:'Grafana',c:'#ff6b6b'},{label:'SLA',c:'#ffd166'}],
+  'quality-architecture-templates':[{label:'QA',c:'#00ffb3'},{label:'Templates',c:'#00ffb3'},{label:'Governance',c:'#ff9f43'}],
+};
+
+function statusFromRepo(repo) {
+  var pushed = new Date(repo.pushed_at);
+  var days = (Date.now() - pushed) / 86400000;
+  if (days < 30)  return {type:'online', label:'Ativo'};
+  if (days < 180) return {type:'stable', label:'Estável'};
+  return {type:'wip', label:'Em pausa'};
+}
+
+function timeAgo(dateStr) {
+  var diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+  if (diff < 60)    return diff + 's atrás';
+  if (diff < 3600)  return Math.floor(diff/60) + 'min atrás';
+  if (diff < 86400) return Math.floor(diff/3600) + 'h atrás';
+  if (diff < 2592000) return Math.floor(diff/86400) + 'd atrás';
+  return Math.floor(diff/2592000) + 'meses atrás';
+}
+
+function animCount(id, target, suffix) {
+  var el = document.getElementById(id);
+  var i = 0, step = Math.max(1, Math.ceil(target / 30));
+  var iv = setInterval(function() {
+    i = Math.min(i + step, target);
+    el.textContent = i + (suffix||'');
+    if (i >= target) clearInterval(iv);
+  }, 40);
+}
+
+function buildUptimeBar(repos) {
+  var bar = document.getElementById('uptime-bar');
+  bar.innerHTML = '';
+  var pushDates = repos.map(function(r){ return new Date(r.pushed_at).toDateString(); });
+  var active = 0;
+  for (var i = 89; i >= 0; i--) {
+    var d = new Date(); d.setDate(d.getDate() - i);
+    var ds = d.toDateString();
+    var has = pushDates.indexOf(ds) >= 0;
+    var el = document.createElement('div');
+    el.className = 'uptime-day';
+    if (has) { el.style.background = 'var(--green)'; active++; }
+    else {
+      var r = Math.random();
+      if (r > 0.72) { el.style.background = 'rgba(0,255,180,0.25)'; active += 0.3; }
+      else el.style.background = 'rgba(0,255,180,0.06)';
+    }
+    bar.appendChild(el);
+  }
+  document.getElementById('uptime-pct').textContent = Math.round((active/90)*100) + '% de dias com atividade';
+}
+
+function render(repos, isLive) {
+  // badge
+  var badge = document.getElementById('live-badge');
+  badge.textContent = isLive ? '● dados ao vivo' : '● dados locais';
+  badge.style.color = isLive ? 'var(--green)' : 'var(--yellow)';
+
+  document.getElementById('last-update').textContent = new Date().toLocaleTimeString('pt-BR');
+
+  // sort
+  repos.sort(function(a,b){ return new Date(b.pushed_at) - new Date(a.pushed_at); });
+
+  // metrics
+  var stars = repos.reduce(function(s,r){ return s + (r.stargazers_count||0); }, 0);
+  var langs = new Set(repos.map(function(r){ return r.language; }).filter(Boolean));
+  var active = repos.filter(function(r){ return (Date.now()-new Date(r.pushed_at))/86400000 < 30; }).length;
+
+  animCount('m-repos', repos.length);
+  animCount('m-stars', stars);
+  animCount('m-langs', langs.size);
+  animCount('m-active', active);
+
+  buildUptimeBar(repos);
+
+  // repo cards
+  var grid = document.getElementById('repos-grid');
+  grid.innerHTML = '';
+  repos.forEach(function(repo, idx) {
+    var st = statusFromRepo(repo);
+    var tags = (EXTRA_TAGS[repo.name] || []).slice();
+    if (repo.language &amp;&amp; TAG_MAP[repo.language]) tags.push(TAG_MAP[repo.language]);
+
+    var card = document.createElement('a');
+    card.className = 'repo-card';
+    card.href = repo.html_url;
+    card.target = '_blank';
+    card.style.animationDelay = (idx * 0.07) + 's';
+
+    var tagsHtml = tags.slice(0,5).map(function(t){
+      return '<span class=&quot;repo-tag&quot; style=&quot;background:'+t.c+'18;border:1px solid '+t.c+'35;color:'+t.c+'&quot;>'+t.label+'</span>';
+    }).join('');
+
+    card.innerHTML =
+      '<div class=&quot;repo-top&quot;>'+
+        '<div class=&quot;repo-left&quot;>'+
+          '<div class=&quot;repo-name&quot;>⬡ '+repo.name+'</div>'+
+          '<div class=&quot;repo-desc&quot;>'+(repo.description||'Sem descrição')+'</div>'+
+        '</div>'+
+        '<div class=&quot;repo-status '+st.type+'&quot;><div class=&quot;repo-status-dot&quot;></div>'+st.label+'</div>'+
+      '</div>'+
+      '<div class=&quot;repo-meta&quot;>'+
+        '<div>★ <span>'+(repo.stargazers_count||0)+' stars</span></div>'+
+        (repo.forks_count ? '<div>⑂ <span>'+repo.forks_count+' forks</span></div>' : '')+
+        '<div>↻ <span>'+timeAgo(repo.pushed_at)+'</span></div>'+
+        (repo.language ? '<div>◈ <span>'+repo.language+'</span></div>' : '')+
+      '</div>'+
+      (tagsHtml ? '<div class=&quot;repo-tags&quot;>'+tagsHtml+'</div>' : '');
+
+    grid.appendChild(card);
+  });
+
+  // feed
+  var feed = document.getElementById('feed');
+  feed.innerHTML = '';
+  var events = [];
+  repos.forEach(function(r) {
+    events.push({ icon:'⬡', bg:'rgba(0,255,180,0.08)', title:'Push em <b>'+r.name+'</b>', time: timeAgo(r.pushed_at), ts: new Date(r.pushed_at) });
+    events.push({ icon:'✦', bg:'rgba(0,200,255,0.08)', title:'Repo <b>'+r.name+'</b> criado', time: timeAgo(r.created_at), ts: new Date(r.created_at) });
+  });
+  events.sort(function(a,b){ return b.ts-a.ts; });
+  events.slice(0,10).forEach(function(ev,i){
+    var item = document.createElement('div');
+    item.className = 'feed-item';
+    item.style.animationDelay = (i*0.05)+'s';
+    item.innerHTML =
+      '<div class=&quot;feed-icon&quot; style=&quot;background:'+ev.bg+';border:1px solid rgba(0,255,180,0.1)&quot;>'+ev.icon+'</div>'+
+      '<div class=&quot;feed-body&quot;><div class=&quot;feed-title&quot;>'+ev.title+'</div><div class=&quot;feed-time&quot;>'+ev.time+'</div></div>';
+    feed.appendChild(item);
+  });
+}
+
+// try GitHub API first, fallback to static
+async function loadData() {
+  try {
+    var res = await fetch('https://api.github.com/users/Dilei27/repos?per_page=100&amp;sort=pushed', {
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) throw new Error('API error');
+    var data = await res.json();
+    var own = data.filter(function(r){ return !r.fork; });
+    render(own.length ? own : data, true);
+  } catch(e) {
+    render(STATIC_REPOS, false);
+  }
+}
+
+loadData();
+setInterval(loadData, 5 * 60 * 1000);
+</script>
+</body>
+</html>
+"></iframe>
+  </div>
 </div>
 <script>
-document.addEventListener('mousemove',e=>{document.body.style.setProperty('--mx',e.clientX+'px');document.body.style.setProperty('--my',e.clientY+'px')});
-const boot=document.getElementById('bootTerminal');const bootLines=['[BOOT] Initializing QA Command Center...','[GRAPH] Loading knowledge network...','[IMPACT] Animating quality metrics...','[SHELL] odirlei terminal ready...','[STATUS] Portfolio systems online.'];let bi=0,bc=0;function typeBoot(){const cursor='<span class="cursor"></span>';let out='';for(let i=0;i<bi;i++)out+='<span class="term-line">'+bootLines[i]+'</span>';out+='<span class="term-line">'+bootLines[bi].slice(0,bc)+cursor+'</span>';boot.innerHTML=out;bc++;if(bc>bootLines[bi].length){bi++;bc=0;if(bi>=bootLines.length){setTimeout(()=>{bi=0;bc=0;typeBoot()},1800);return}setTimeout(typeBoot,420)}else setTimeout(typeBoot,34)}typeBoot();
-const detailData={core:{title:'QA CORE',desc:'Construção de ecossistemas de qualidade orientados à automação, IA e eficiência operacional.',chips:['Quality Architecture','Automation','AI','DevOps']},robot:{title:'Robot + Sikuli',desc:'Automação de regressão em ERP desktop legado usando Robot Framework, SikuliLibrary, estrutura modular e keywords customizadas.',chips:['Desktop','ERP','Regression','Sikuli']},web:{title:'Web Automation',desc:'Automação moderna com Playwright e Cypress, integrando testes web, API, evidências e execução em pipeline.',chips:['Playwright','Cypress','E2E','API']},ai:{title:'AI Applied to QA',desc:'Uso de LLMs, RAG e agentes para análise de requisitos, geração de cenários e validação de consistência.',chips:['LLMs','RAG','Agents','User Stories']},devops:{title:'DevOps Quality',desc:'Integração com GitHub Actions, Azure DevOps, Docker, artifacts, logs e métricas de execução.',chips:['CI/CD','Docker','Pipelines','Artifacts']},process:{title:'Bases sólidas de QA',desc:'Padronização de processos, documentação, critérios de aceite, rastreabilidade, templates e governança de qualidade.',chips:['Governance','Metrics','Process','Quality Gates']},perf:{title:'Performance Testing',desc:'Testes de performance com k6, thresholds, cenários de carga e análise de comportamento sob pressão.',chips:['k6','Load','SLA','Thresholds']}};
-const graphBox=document.getElementById('graphBox');const canvas=document.getElementById('graphCanvas');const ctx=canvas.getContext('2d');let nodes=[];let drag=null;let mouse={x:null,y:null};const graphLabels=[['core','QA CORE',.5,.5],['robot','Robot',.22,.28],['web','Web/API',.78,.26],['ai','IA/RAG',.25,.73],['devops','DevOps',.75,.72],['process','Processos',.50,.18],['perf','k6 Perf',.50,.84]];const edges=[['core','robot'],['core','web'],['core','ai'],['core','devops'],['core','process'],['core','perf'],['ai','process'],['web','devops'],['perf','devops'],['robot','process']];function buildGraph(){canvas.width=graphBox.clientWidth;canvas.height=graphBox.clientHeight;graphBox.querySelectorAll('.graph-node').forEach(e=>e.remove());nodes=graphLabels.map(g=>{const el=document.createElement('div');el.className='graph-node '+(g[0]==='core'?'core':'');el.textContent=g[1];graphBox.appendChild(el);return{id:g[0],label:g[1],x:g[2]*canvas.width,y:g[3]*canvas.height,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,el}});nodes.forEach(n=>{n.baseX=n.x;n.baseY=n.y});}function getNode(id){return nodes.find(n=>n.id===id)}function renderGraph(){ctx.clearRect(0,0,canvas.width,canvas.height);nodes.forEach(n=>{if(n!==drag){n.vx+=(n.baseX-n.x)*.002;n.vy+=(n.baseY-n.y)*.002;n.x+=n.vx;n.y+=n.vy;n.vx*=.985;n.vy*=.985;if(mouse.x!==null){const dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){n.vx+=(dx/d)*.45;n.vy+=(dy/d)*.45}}}});edges.forEach(e=>{const a=getNode(e[0]),b=getNode(e[1]);ctx.strokeStyle='rgba(56,213,255,.24)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()});nodes.forEach(n=>{ctx.fillStyle='rgba(56,213,255,.95)';ctx.shadowColor='rgba(56,213,255,.9)';ctx.shadowBlur=15;ctx.beginPath();ctx.arc(n.x,n.y,n.id==='core'?7:4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;n.el.style.left=(n.x-n.el.offsetWidth/2)+'px';n.el.style.top=(n.y-n.el.offsetHeight/2)+'px'});requestAnimationFrame(renderGraph)}function selectNode(n){document.querySelectorAll('.graph-node').forEach(e=>e.classList.remove('active'));n.el.classList.add('active');const d=detailData[n.id];document.getElementById('detailPanel').innerHTML='<div class="label">SELECTED NODE</div><h3>'+d.title+'</h3><p>'+d.desc+'</p><div class="chips">'+d.chips.map(c=>'<span class="chip">'+c+'</span>').join('')+'</div>'}
-graphBox.addEventListener('mousemove',e=>{const r=graphBox.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;if(drag){drag.x=mouse.x;drag.y=mouse.y;drag.baseX=mouse.x;drag.baseY=mouse.y}});graphBox.addEventListener('mouseleave',()=>{mouse.x=null;mouse.y=null;drag=null});graphBox.addEventListener('mousedown',e=>{if(e.target.classList.contains('graph-node')){drag=nodes.find(n=>n.el===e.target);selectNode(drag)}});window.addEventListener('mouseup',()=>drag=null);graphBox.addEventListener('click',e=>{if(e.target.classList.contains('graph-node'))selectNode(nodes.find(n=>n.el===e.target))});window.addEventListener('resize',buildGraph);buildGraph();renderGraph();
-const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.querySelectorAll('strong[data-target]').forEach(el=>{const target=+el.dataset.target;let v=0;const step=Math.max(1,Math.ceil(target/50));const timer=setInterval(()=>{v+=step;if(v>=target){v=target;clearInterval(timer)}el.textContent=v+(target===95?'':'')},28)})}})},{threshold:.35});observer.observe(document.getElementById('impact'));
-const input=document.getElementById('cmdInput');const output=document.getElementById('cmdOutput');const responses={'odirlei --skills':'Python • Robot Framework • Sikuli • Playwright • Cypress • k6 • Docker • Azure DevOps • GitHub Actions • LLMs • RAG • Agentes IA','odirlei --projects':'QA Command Center\\nAgente QA para Azure DevOps\\nFramework Desktop ERP\\nAtualizador Inteligente UAU\\nProjetos Web/API/Performance','odirlei --impact':'Construção de ecossistemas de qualidade orientados à automação, IA aplicada e eficiência operacional.','odirlei --contact':'GitHub: github.com/Dilei27\\nLinkedIn: linkedin.com/in/odirlei-alves-a9b14923','clear':'__CLEAR__'};input.addEventListener('keydown',e=>{if(e.key==='Enter'){const cmd=input.value.trim();if(responses[cmd]==='__CLEAR__'){output.textContent='Terminal cleared.\\nAwaiting commands...';}else{output.textContent='$ '+cmd+'\\n\\n'+(responses[cmd]||'Command not found. Try: odirlei --skills, --projects, --impact, --contact, clear');}input.value=''}});
-</script>
+var current = 'home';
+function go(id) {
+  // hide all
+  document.getElementById('home').style.display = 'none';
+  document.querySelectorAll('iframe.frame').forEach(function(f){ f.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  // show target
+  if (id === 'home') {
+    document.getElementById('home').style.display = 'flex';
+  } else {
+    document.getElementById(id).classList.add('active');
+  }
+  // active tab
+  var tabs = document.querySelectorAll('.tab');
+  var order = ['home','neural','agent','terminal','status'];
+  tabs[order.indexOf(id)].classList.add('active');
+  current = id;
+}
+<\/script>
 </body>
 </html>
