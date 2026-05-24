@@ -1687,5 +1687,57 @@ function go(id) {
   current = id;
 }
 <\/script>
+<style>
+
+/* =========================================
+   QA COMMAND CENTER
+   TERMINAL MOBILE FIX
+========================================= */
+
+@media (max-width:768px){
+
+    .terminal-header{
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:flex-start !important;
+        justify-content:flex-start !important;
+        gap:10px !important;
+        width:100% !important;
+        padding:14px !important;
+    }
+
+    .terminal-user{
+        width:100% !important;
+        font-size:13px !important;
+    }
+
+    .terminal-header .commands{
+        width:100% !important;
+        max-width:100% !important;
+        display:flex !important;
+        flex-wrap:wrap !important;
+        gap:8px !important;
+        white-space:normal !important;
+        word-break:break-word !important;
+        overflow-wrap:break-word !important;
+        line-height:1.8 !important;
+        font-size:12px !important;
+        padding:10px 12px !important;
+        border-radius:12px !important;
+        background:rgba(0,255,180,0.04) !important;
+        border:1px solid rgba(0,255,180,0.08) !important;
+        box-sizing:border-box !important;
+    }
+
+    .terminal-header .commands span{
+        display:inline-flex !important;
+        padding:4px 8px !important;
+        border-radius:8px !important;
+        background:rgba(255,255,255,0.03) !important;
+    }
+
+}
+
+</style>
 </body>
 </html>
