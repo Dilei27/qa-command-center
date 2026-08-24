@@ -1,0 +1,4801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odirlei Alves | Quality Engineering Universe</title>
+
+<style>
+:root{
+  --bg:#020508;
+  --panel:#050b12;
+  --panel2:#08111b;
+  --line:rgba(138,174,198,.11);
+  --text:#e8f6fb;
+  --muted:#8195a8;
+  --steel:#7897aa;
+  --cyan:#55d8ff;
+  --cold:#d9f4fb;
+  --green:#36f2a6;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(54vw 68vh at 82% 10%,rgba(41,112,178,.17),transparent 72%),
+    radial-gradient(34vw 50vh at 6% 90%,rgba(50,109,165,.09),transparent 72%),
+    linear-gradient(135deg,#020508 0%,#040a12 46%,#07111b 100%);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),rgba(0,0,0,.12));
+}
+
+.wrap{
+  width:min(1240px,calc(100% - 40px));
+  margin:auto;
+  position:relative;
+  z-index:1;
+}
+
+/* NAV */
+
+.nav{
+  margin:22px 0 38px;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(3,8,13,.76);
+  backdrop-filter:blur(20px);
+  position:sticky;
+  top:18px;
+  z-index:50;
+}
+
+.logo{
+  font-size:17px;
+  font-weight:900;
+  letter-spacing:.08em;
+  color:#d8f3fb;
+}
+
+.logo small{
+  color:#5f8296;
+  font-size:8px;
+  letter-spacing:.18em;
+  display:block;
+  margin-top:3px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:17px;
+}
+
+.nav a{
+  color:#7891a2;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+}
+
+.nav a:hover{
+  color:#c7eff8;
+}
+
+.language-switch{
+  display:flex;
+  gap:5px;
+  padding:4px;
+  border:1px solid var(--line);
+  border-radius:999px;
+}
+
+.language-switch button{
+  border:0;
+  background:transparent;
+  color:#627b8c;
+  cursor:pointer;
+  padding:5px 8px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900;
+}
+
+.language-switch button.active{
+  background:rgba(85,216,255,.09);
+  color:#bdebf6;
+}
+
+/* HERO */
+
+.hero{
+  min-height:82vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:44px;
+  align-items:center;
+  padding:20px 0 72px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 14px;
+  border-radius:999px;
+  border:1px solid rgba(111,178,207,.20);
+  background:rgba(85,216,255,.035);
+  color:#9bc8d8;
+  font-size:10px;
+  letter-spacing:.11em;
+  font-weight:850;
+}
+
+.pulse{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#b9edf7;
+  box-shadow:0 0 11px rgba(85,216,255,.40);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  50%{opacity:.45;transform:scale(.82)}
+}
+
+h1{
+  margin-top:23px;
+  font-size:clamp(46px,6.5vw,86px);
+  line-height:.96;
+  letter-spacing:-.055em;
+  white-space:nowrap;
+}
+
+.gradient{
+  background:linear-gradient(90deg,#f2fbff,#b6dce9 48%,#6da4c1);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.subtitle{
+  margin-top:19px;
+  color:#b3cfdd;
+  font-size:clamp(18px,2vw,25px);
+  font-weight:820;
+}
+
+.desc{
+  max-width:680px;
+  margin-top:18px;
+  color:#8095a7;
+  font-size:15px;
+  line-height:1.8;
+}
+
+.actions{
+  margin-top:29px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 17px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#a9c4d3;
+  border:1px solid rgba(131,178,201,.15);
+  background:rgba(255,255,255,.025);
+  font-size:11px;
+  font-weight:850;
+  letter-spacing:.04em;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  color:#e9faff;
+  border-color:rgba(85,216,255,.34);
+}
+
+.btn.primary{
+  color:#dff8ff;
+  border-color:rgba(85,216,255,.25);
+  background:
+    linear-gradient(135deg,rgba(58,135,173,.20),rgba(24,64,89,.17));
+  box-shadow:0 0 30px rgba(85,216,255,.055);
+}
+
+.hero-micro{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:16px;
+  color:#5f7d92;
+  font-size:9px;
+  letter-spacing:.14em;
+}
+
+.hero-micro b{
+  color:#a9dff1;
+  font-weight:800;
+}
+
+/* HORIZON × JARVIS DISCOVERY */
+
+.stage{
+  height:590px;
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  border:1px solid rgba(138,174,198,.11);
+  background:
+    radial-gradient(circle at 50% 48%,rgba(72,114,143,.055),transparent 29%),
+    linear-gradient(180deg,rgba(4,8,13,.82),rgba(3,7,11,.92));
+  box-shadow:
+    inset 0 0 100px rgba(95,130,155,.025),
+    0 28px 90px rgba(0,0,0,.22);
+}
+
+.stage::before{
+  content:"";
+  position:absolute;
+  inset:13%;
+  border:1px solid rgba(201,229,242,.055);
+  border-radius:50%;
+  animation:coreBreath 6.8s ease-in-out infinite;
+}
+
+@keyframes coreBreath{
+  50%{
+    opacity:.55;
+    transform:scale(1.015);
+  }
+}
+
+#heroCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:3;
+}
+
+.scan{
+  position:absolute;
+  z-index:4;
+  top:0;
+  bottom:0;
+  width:24%;
+  left:-30%;
+  pointer-events:none;
+  opacity:.12;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(173,225,244,.30),
+    transparent
+  );
+  animation:scan 10s ease-in-out infinite;
+}
+
+@keyframes scan{
+  0%{left:-30%}
+  55%,100%{left:115%}
+}
+
+.stage-title{
+  position:absolute;
+  left:20px;
+  top:18px;
+  z-index:5;
+  color:#6f8c9e;
+  font-size:8px;
+  letter-spacing:.19em;
+  font-weight:850;
+}
+
+.stage-hint{
+  position:absolute;
+  left:20px;
+  top:36px;
+  z-index:5;
+  color:#4f6473;
+  font-size:7px;
+  letter-spacing:.1em;
+}
+
+.horizon-status{
+  position:absolute;
+  z-index:5;
+  top:16px;
+  right:18px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.horizon-status i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#2d4658;
+}
+
+.horizon-status i:first-child{
+  background:#87c8df;
+  box-shadow:0 0 9px rgba(85,216,255,.25);
+}
+
+.horizon-status span{
+  margin-left:5px;
+  color:#587080;
+  font-size:7px;
+  letter-spacing:.16em;
+  font-weight:800;
+}
+
+.core-label{
+  position:absolute;
+  z-index:6;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+}
+
+.core-label small{
+  display:block;
+  color:#7291a3;
+  font-size:7px;
+  letter-spacing:.21em;
+  font-weight:850;
+  margin-bottom:5px;
+}
+
+.core-label strong{
+  display:block;
+  color:#e8f6fb;
+  font-size:13px;
+  letter-spacing:.12em;
+  text-shadow:0 0 18px rgba(181,231,247,.12);
+}
+
+.core-label span{
+  display:block;
+  color:#557080;
+  font-size:7px;
+  letter-spacing:.13em;
+  margin-top:5px;
+}
+
+.profile-constellation-label{
+  position:absolute;
+  z-index:5;
+  pointer-events:none;
+  color:#516979;
+  font-size:7px;
+  letter-spacing:.13em;
+  transition:.35s;
+}
+
+.profile-constellation-label.active{
+  color:#a7d8e8;
+  text-shadow:0 0 13px rgba(85,216,255,.18);
+}
+
+.profile-constellation-label.career{
+  left:12%;
+  top:34%;
+}
+
+.profile-constellation-label.capability{
+  right:10%;
+  top:34%;
+  text-align:right;
+}
+
+.profile-constellation-label.project{
+  left:14%;
+  bottom:31%;
+}
+
+.profile-constellation-label.delivery{
+  right:11%;
+  bottom:31%;
+  text-align:right;
+}
+
+.telemetry{
+  position:absolute;
+  z-index:6;
+  left:20px;
+  bottom:18px;
+  color:#536b7c;
+  font-size:8px;
+  line-height:1.7;
+  letter-spacing:.08em;
+}
+
+.telemetry b{
+  color:#a9c5d3;
+}
+
+.horizon-legend{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:14px;
+  color:#4d6372;
+  font-size:7px;
+  letter-spacing:.12em;
+  white-space:nowrap;
+}
+
+.horizon-legend span::before{
+  content:"";
+  display:inline-block;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#5c7889;
+  margin-right:5px;
+  vertical-align:1px;
+}
+
+.horizon-legend span.active::before{
+  background:#c9f5ff;
+  box-shadow:0 0 8px rgba(85,216,255,.35);
+}
+
+.core-callout{
+  position:absolute;
+  z-index:6;
+  color:#536a79;
+  font-size:7px;
+  letter-spacing:.11em;
+  line-height:1.55;
+}
+
+.core-callout b{
+  color:#9fb9c7;
+}
+
+.core-callout::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    rgba(164,207,226,.20),
+    transparent
+  );
+}
+
+.c1{
+  left:7%;
+  top:22%;
+}
+
+.c1::after{
+  width:75px;
+  left:105%;
+}
+
+.c2{
+  right:5%;
+  top:22%;
+  text-align:right;
+}
+
+.c2::after{
+  width:70px;
+  right:105%;
+  transform:rotate(180deg);
+}
+
+.c3{
+  right:6%;
+  bottom:17%;
+  text-align:right;
+}
+
+.c3::after{
+  width:75px;
+  right:105%;
+  transform:rotate(180deg);
+}
+
+/* SECTIONS */
+
+section{
+  padding:82px 0;
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:40px;
+  align-items:end;
+  margin-bottom:30px;
+}
+
+.section-head h2{
+  font-size:clamp(32px,4vw,52px);
+  letter-spacing:-.04em;
+}
+
+.section-head p{
+  color:#7e93a5;
+  line-height:1.75;
+  font-size:14px;
+}
+
+/* CAREER SYSTEM */
+
+.career-system{
+  position:relative;
+  padding-left:40px;
+}
+
+.career-rail{
+  position:absolute;
+  left:10px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(
+    to bottom,
+    rgba(85,216,255,.08),
+    rgba(85,216,255,.58),
+    rgba(85,216,255,.10)
+  );
+}
+
+.career-energy{
+  position:absolute;
+  left:8px;
+  top:0;
+  width:5px;
+  height:34px;
+  border-radius:999px;
+  background:linear-gradient(
+    to bottom,
+    transparent,
+    #c7f6ff,
+    #55d8ff,
+    transparent
+  );
+  box-shadow:0 0 16px rgba(85,216,255,.65);
+  animation:careerFlow 5.2s ease-in-out infinite;
+}
+
+@keyframes careerFlow{
+  0%{top:0;opacity:0}
+  12%{opacity:1}
+  86%{opacity:1}
+  100%{top:calc(100% - 34px);opacity:0}
+}
+
+.career-node{
+  position:relative;
+  margin-bottom:18px;
+  padding:22px;
+  border:1px solid rgba(99,177,223,.15);
+  border-radius:18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18,37,57,.30),
+      rgba(5,11,18,.56)
+    ),
+    rgba(255,255,255,.012);
+  transition:.25s;
+  overflow:hidden;
+}
+
+.career-node::before{
+  content:"";
+  position:absolute;
+  left:-36px;
+  top:30px;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#1c3d58;
+  border:1px solid rgba(103,214,255,.40);
+}
+
+.career-node.active{
+  border-color:rgba(85,216,255,.34);
+  box-shadow:
+    0 0 34px rgba(44,156,210,.08),
+    inset 0 0 40px rgba(41,133,184,.03);
+}
+
+.career-node.active::before{
+  background:#bff5ff;
+  box-shadow:
+    0 0 18px rgba(85,216,255,.72),
+    0 0 0 5px rgba(85,216,255,.045);
+}
+
+.node-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.node-index{
+  color:#5ac8e9;
+  font-size:9px;
+  letter-spacing:.16em;
+  font-weight:850;
+}
+
+.node-title{
+  font-size:21px;
+  margin-top:6px;
+}
+
+.node-role{
+  color:#89dff7;
+  font-size:10px;
+  letter-spacing:.12em;
+  margin-top:5px;
+  font-weight:820;
+}
+
+.node-period{
+  color:#72889c;
+  font-size:10px;
+  letter-spacing:.09em;
+  white-space:nowrap;
+}
+
+.node-mission{
+  margin-top:14px;
+  color:#91a7ba;
+  font-size:13px;
+  line-height:1.68;
+}
+
+.node-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+
+.node-block{
+  border-top:1px solid rgba(104,185,225,.12);
+  padding-top:11px;
+}
+
+.node-block small{
+  color:#5caecd;
+  font-size:8px;
+  letter-spacing:.15em;
+  font-weight:850;
+}
+
+.node-block p{
+  margin-top:6px;
+  color:#7e94a8;
+  font-size:11px;
+  line-height:1.58;
+}
+
+.node-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:14px;
+}
+
+.node-tags span{
+  padding:6px 9px;
+  border-radius:999px;
+  background:rgba(83,216,255,.045);
+  border:1px solid rgba(83,216,255,.12);
+  color:#a9cfe0;
+  font-size:9px;
+  letter-spacing:.05em;
+}
+
+.career-evolution{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.evo{
+  padding:18px;
+  border:1px solid rgba(102,181,224,.13);
+  border-radius:16px;
+  background:rgba(255,255,255,.018);
+}
+.evo small{
+  color:#59bfe0;
+  font-size:8px;
+  letter-spacing:.15em;
+}
+.evo strong{
+  display:block;
+  margin-top:8px;
+  color:#cdefff;
+  font-size:16px;
+}
+.evo p{
+  margin-top:7px;
+  color:#758a9f;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.education-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:14px;
+}
+.edu-card{
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.02);
+}
+.edu-card small{
+  color:#60c7e6;
+  font-size:9px;
+  letter-spacing:.14em;
+}
+.edu-card h3{
+  font-size:18px;
+  margin:9px 0 7px;
+}
+.edu-card p{
+  color:#8195a8;
+  font-size:12px;
+  line-height:1.6;
+}
+.lang-level{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:12px;
+}
+.lang-level i{
+  width:28px;
+  height:3px;
+  border-radius:99px;
+  background:#21384c;
+}
+.lang-level i.on{
+  background:#4db7df;
+  box-shadow:0 0 10px rgba(85,216,255,.14);
+}
+
+@media(max-width:980px){
+  .career-system{padding-left:30px}
+  .career-rail{left:8px}
+  .career-energy{left:6px}
+  .career-node::before{left:-27px}
+  .career-evolution,.education-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .node-top{display:block}
+  .node-period{display:block;margin-top:8px}
+  .node-grid{grid-template-columns:1fr}
+}
+
+/* ===== V6 // HORIZON × JARVIS — LIVING PROFILE CORE ===== */
+
+.stage{
+  border-color:rgba(138,174,198,.11);
+  background:
+    radial-gradient(circle at 50% 48%,rgba(72,114,143,.055),transparent 29%),
+    linear-gradient(180deg,rgba(4,8,13,.82),rgba(3,7,11,.92));
+  box-shadow:
+    inset 0 0 100px rgba(95,130,155,.025),
+    0 28px 90px rgba(0,0,0,.22);
+}
+.stage::before{
+  inset:13%;
+  border-color:rgba(201,229,242,.055);
+  box-shadow:none;
+  animation:coreBreath 6.8s ease-in-out infinite;
+}
+.stage::after{
+  background:
+    linear-gradient(90deg,transparent 0 11%,rgba(178,209,226,.025) 11.1% 11.25%,transparent 11.35% 88%,rgba(178,209,226,.022) 88.1% 88.25%,transparent 88.35%),
+    linear-gradient(transparent 0 13%,rgba(178,209,226,.022) 13.1% 13.25%,transparent 13.35% 86%,rgba(178,209,226,.02) 86.1% 86.25%,transparent 86.35%);
+}
+.jf-beam{display:none}
+.scan{
+  opacity:.12;
+  background:linear-gradient(90deg,transparent,rgba(173,225,244,.30),transparent);
+  animation:scan 10s ease-in-out infinite;
+}
+.instrument{
+  width:78px;
+  height:78px;
+  border-color:rgba(179,214,233,.09);
+  color:#607789;
+  background:rgba(5,11,17,.24);
+}
+.instrument::before{border-color:rgba(175,213,233,.10)}
+.instrument::after{border-color:rgba(175,213,233,.045)}
+.instrument span{color:#8ba9ba;font-weight:760}
+.stage-title{
+  color:#6f8c9e;
+  letter-spacing:.19em;
+}
+.stage-hint{color:#4f6473}
+.telemetry{color:#536b7c}
+.telemetry b{color:#a9c5d3}
+.core-callout{color:#536a79}
+.core-callout b{color:#9fb9c7}
+.core-callout::after{
+  background:linear-gradient(90deg,rgba(164,207,226,.20),transparent);
+}
+
+.horizon-status{
+  position:absolute;
+  z-index:5;
+  top:16px;
+  right:18px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.horizon-status i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#2d4658;
+}
+.horizon-status i:nth-child(1){
+  background:#87c8df;
+  box-shadow:0 0 9px rgba(85,216,255,.25);
+}
+.horizon-status span{
+  margin-left:5px;
+  color:#587080;
+  font-size:7px;
+  letter-spacing:.16em;
+  font-weight:800;
+}
+
+.core-label{
+  position:absolute;
+  z-index:6;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+}
+.core-label small{
+  display:block;
+  color:#7291a3;
+  font-size:7px;
+  letter-spacing:.21em;
+  font-weight:850;
+  margin-bottom:5px;
+}
+.core-label strong{
+  display:block;
+  color:#e8f6fb;
+  font-size:13px;
+  letter-spacing:.12em;
+  text-shadow:0 0 18px rgba(181,231,247,.12);
+}
+.core-label span{
+  display:block;
+  color:#557080;
+  font-size:7px;
+  letter-spacing:.13em;
+  margin-top:5px;
+}
+
+.profile-constellation-label{
+  position:absolute;
+  z-index:5;
+  pointer-events:none;
+  color:#516979;
+  font-size:7px;
+  letter-spacing:.13em;
+  transition:opacity .35s,color .35s,text-shadow .35s;
+}
+.profile-constellation-label.active{
+  color:#a7d8e8;
+  text-shadow:0 0 13px rgba(85,216,255,.18);
+}
+.profile-constellation-label.career{left:12%;top:34%}
+.profile-constellation-label.capability{
+  right:10%;
+  top:34%;
+  text-align:right;
+}
+.profile-constellation-label.project{
+  left:14%;
+  bottom:31%;
+}
+.profile-constellation-label.delivery{
+  right:11%;
+  bottom:31%;
+  text-align:right;
+}
+
+.horizon-legend{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:14px;
+  color:#4d6372;
+  font-size:7px;
+  letter-spacing:.12em;
+  white-space:nowrap;
+}
+.horizon-legend span::before{
+  content:"";
+  display:inline-block;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#5c7889;
+  margin-right:5px;
+  vertical-align:1px;
+}
+.horizon-legend span.active::before{
+  background:#c9f5ff;
+  box-shadow:0 0 8px rgba(85,216,255,.35);
+}
+
+@media(max-width:600px){
+  .horizon-legend{gap:7px;font-size:6px}
+  .profile-constellation-label{font-size:6px}
+}
+
+/* ===== V6.3 // QUALITY FACILITATOR PIPELINE ===== */
+
+.facilitator-intro{
+  position:relative;
+  margin:6px 0 26px;
+  padding:18px 20px 18px 22px;
+  border-left:2px solid rgba(85,216,255,.42);
+  background:
+    linear-gradient(90deg,rgba(85,216,255,.05),transparent 72%);
+}
+.facilitator-intro small,
+.facilitator-close small{
+  display:block;
+  color:#62bedb;
+  font-size:9px;
+  letter-spacing:.16em;
+  font-weight:850;
+}
+.facilitator-intro strong{
+  display:block;
+  margin-top:8px;
+  max-width:920px;
+  color:#d5edf5;
+  font-size:clamp(17px,2vw,22px);
+  line-height:1.45;
+}
+
+.quality-pipeline{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.quality-pipeline::before{
+  content:"";
+  position:absolute;
+  left:6%;
+  right:6%;
+  top:23px;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(85,216,255,.30) 12%,
+    rgba(85,216,255,.18) 50%,
+    rgba(85,216,255,.30) 88%,
+    transparent
+  );
+  pointer-events:none;
+}
+
+.quality-step{
+  position:relative;
+  min-height:184px;
+  padding:50px 16px 16px;
+  border:1px solid rgba(102,181,224,.13);
+  border-radius:17px;
+  background:
+    linear-gradient(180deg,rgba(13,29,43,.34),rgba(5,11,18,.50)),
+    rgba(255,255,255,.012);
+  overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.quality-step::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 50% 0%,rgba(85,216,255,.09),transparent 50%);
+  transition:opacity .25s ease;
+}
+.quality-step:hover{
+  transform:translateY(-3px);
+  border-color:rgba(85,216,255,.34);
+  box-shadow:0 12px 34px rgba(0,0,0,.16);
+}
+.quality-step:hover::after{opacity:1}
+
+.step-index{
+  position:absolute;
+  top:14px;
+  left:15px;
+  color:#4c7890;
+  font-size:8px;
+  letter-spacing:.16em;
+  font-weight:850;
+}
+.step-core{
+  position:absolute;
+  top:18px;
+  left:50%;
+  width:10px;
+  height:10px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#9ee9fb;
+  border:1px solid rgba(210,248,255,.70);
+  box-shadow:
+    0 0 0 5px rgba(85,216,255,.035),
+    0 0 16px rgba(85,216,255,.28);
+}
+.step-copy small{
+  color:#60c7e6;
+  font-size:9px;
+  letter-spacing:.14em;
+  font-weight:850;
+}
+.step-copy h3{
+  margin-top:8px;
+  color:#d6eff7;
+  font-size:17px;
+  line-height:1.25;
+}
+.step-copy p{
+  margin-top:8px;
+  color:#8ea4b6;
+  font-size:14px;
+  line-height:1.62;
+}
+
+.facilitator-close{
+  margin-top:18px;
+  padding:17px 20px;
+  border:1px solid rgba(85,216,255,.15);
+  border-radius:15px;
+  background:
+    linear-gradient(90deg,rgba(85,216,255,.045),rgba(255,255,255,.012));
+}
+.facilitator-close strong{
+  display:block;
+  margin-top:7px;
+  color:#cdebf5;
+  font-size:16px;
+  line-height:1.55;
+}
+
+@media(max-width:980px){
+  .quality-pipeline{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .quality-pipeline::before{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .quality-pipeline{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .quality-step{
+    min-height:0;
+    padding:18px 16px 16px 52px;
+  }
+  .step-index{
+    top:18px;
+    left:15px;
+  }
+  .step-core{
+    top:22px;
+    left:36px;
+  }
+  .facilitator-intro strong{
+    font-size:17px;
+  }
+  .step-copy p{
+    font-size:14px;
+  }
+}
+
+
+/* ===== V6.4 // CV ACCESS ===== */
+
+.nav-cv{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:64px;
+  height:34px;
+  padding:0 12px;
+  border:1px solid rgba(85,216,255,.26);
+  border-radius:10px;
+  background:
+    linear-gradient(135deg,rgba(85,216,255,.09),rgba(45,92,119,.10));
+  color:#d7f4fb !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  letter-spacing:.10em;
+  box-shadow:0 0 20px rgba(85,216,255,.045);
+}
+.nav-cv:hover{
+  border-color:rgba(85,216,255,.48);
+  background:
+    linear-gradient(135deg,rgba(85,216,255,.14),rgba(45,92,119,.13));
+}
+
+.cv-access{
+  margin-top:18px;
+  padding:15px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  border:1px solid rgba(85,216,255,.18);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 0% 50%,rgba(85,216,255,.07),transparent 36%),
+    linear-gradient(135deg,rgba(9,22,32,.78),rgba(4,10,16,.82));
+  box-shadow:
+    inset 0 0 34px rgba(85,216,255,.025),
+    0 12px 30px rgba(0,0,0,.12);
+  position:relative;
+  overflow:hidden;
+}
+.cv-access::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:2px;
+  background:linear-gradient(
+    to bottom,
+    transparent,
+    rgba(85,216,255,.76),
+    transparent
+  );
+}
+
+.cv-access-copy{
+  min-width:0;
+}
+.cv-access-copy small{
+  display:block;
+  color:#64c6e6;
+  font-size:8px;
+  letter-spacing:.17em;
+  font-weight:900;
+}
+.cv-access-copy strong{
+  display:block;
+  margin-top:5px;
+  color:#e1f6fb;
+  font-size:16px;
+  line-height:1.2;
+}
+.cv-access-copy span{
+  display:block;
+  margin-top:4px;
+  color:#7f96a8;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.cv-access-actions{
+  display:flex;
+  gap:9px;
+  flex-shrink:0;
+}
+.cv-btn{
+  min-width:148px;
+  min-height:58px;
+  padding:10px 12px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  grid-template-rows:auto auto;
+  column-gap:9px;
+  align-items:center;
+  text-decoration:none;
+  border:1px solid rgba(130,180,204,.17);
+  border-radius:12px;
+  background:rgba(255,255,255,.022);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+.cv-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(85,216,255,.38);
+  background:rgba(85,216,255,.045);
+}
+.cv-btn.primary{
+  border-color:rgba(85,216,255,.31);
+  background:
+    linear-gradient(135deg,rgba(45,119,153,.18),rgba(12,31,44,.22));
+  box-shadow:0 0 24px rgba(85,216,255,.055);
+}
+.cv-lang{
+  grid-row:1 / 3;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:38px;
+  height:30px;
+  padding:0 7px;
+  border:1px solid rgba(85,216,255,.18);
+  border-radius:8px;
+  color:#91dbef;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.cv-btn b{
+  color:#d9f2f8;
+  font-size:10px;
+  line-height:1.2;
+  letter-spacing:.08em;
+}
+.cv-btn em{
+  grid-row:1 / 3;
+  font-style:normal;
+  color:#8fdcf0;
+  font-size:18px;
+}
+.cv-btn::after{
+  content:"PDF";
+  grid-column:2;
+  color:#566f81;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.14em;
+  margin-top:3px;
+}
+
+@media(max-width:980px){
+  .cv-access{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .cv-access-actions{
+    width:100%;
+  }
+  .cv-btn{
+    flex:1;
+  }
+}
+
+@media(max-width:600px){
+  .nav-cv{
+    min-width:54px;
+    height:32px;
+    padding:0 9px;
+  }
+  .cv-access{
+    padding:14px;
+  }
+  .cv-access-actions{
+    flex-direction:column;
+  }
+  .cv-btn{
+    width:100%;
+    min-height:54px;
+  }
+  .cv-access-copy strong{
+    font-size:15px;
+  }
+  .cv-access-copy span{
+    font-size:12px;
+  }
+}
+
+
+/* ===== V6.5 // HORIZON NAV INTELLIGENCE + GRAPH INTERACTION ===== */
+
+.hz-tooltip{
+  position:fixed;
+  z-index:9999;
+  width:min(310px,calc(100vw - 28px));
+  padding:11px 13px 12px;
+  border:1px solid rgba(85,216,255,.22);
+  border-radius:12px;
+  background:
+    linear-gradient(180deg,rgba(5,13,20,.96),rgba(3,8,13,.97));
+  box-shadow:
+    0 16px 42px rgba(0,0,0,.32),
+    inset 0 0 28px rgba(85,216,255,.025);
+  backdrop-filter:blur(16px);
+  pointer-events:none;
+  opacity:0;
+  transform:translate3d(0,8px,0) scale(.985);
+  transition:opacity .14s ease,transform .14s ease;
+}
+.hz-tooltip.show{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+.hz-tooltip::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:10px;
+  bottom:10px;
+  width:2px;
+  border-radius:99px;
+  background:linear-gradient(transparent,#61dcff,transparent);
+  box-shadow:0 0 10px rgba(85,216,255,.35);
+}
+.hz-tooltip small{
+  display:block;
+  color:#64c8e6;
+  font-size:8px;
+  line-height:1.2;
+  letter-spacing:.18em;
+  font-weight:900;
+}
+.hz-tooltip strong{
+  display:block;
+  margin-top:5px;
+  color:#dff5fb;
+  font-size:12px;
+  line-height:1.25;
+  letter-spacing:.02em;
+}
+.hz-tooltip p{
+  margin:6px 0 0;
+  color:#91a7b8;
+  font-size:11px;
+  line-height:1.5;
+}
+
+#heroCanvas{
+  cursor:crosshair;
+}
+
+.graph-detail{
+  position:absolute;
+  z-index:8;
+  left:18px;
+  right:18px;
+  bottom:46px;
+  min-height:76px;
+  padding:12px 14px 13px;
+  border:1px solid rgba(85,216,255,.16);
+  border-radius:13px;
+  background:
+    linear-gradient(180deg,rgba(5,13,20,.90),rgba(3,8,13,.95));
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.22),
+    inset 0 0 26px rgba(85,216,255,.02);
+  backdrop-filter:blur(12px);
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .18s ease,transform .18s ease;
+}
+.graph-detail.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.graph-detail small{
+  display:block;
+  color:#61c9e8;
+  font-size:8px;
+  letter-spacing:.18em;
+  font-weight:900;
+}
+.graph-detail strong{
+  display:block;
+  margin-top:5px;
+  color:#e2f6fb;
+  font-size:14px;
+  line-height:1.25;
+}
+.graph-detail p{
+  margin-top:5px;
+  color:#89a0b2;
+  font-size:11px;
+  line-height:1.45;
+}
+
+@media(max-width:600px){
+  .hz-tooltip{display:none}
+  .graph-detail{
+    left:12px;
+    right:12px;
+    bottom:40px;
+  }
+}
+
+</style>
+
+<!-- V7 // QUALITY ENGINEERING UNIVERSE preview overrides -->
+<style id="v7-preview-overrides">
+.hero{
+  grid-template-columns:.86fr 1.14fr;
+  gap:34px;
+}
+
+.stage{
+  height:630px;
+  border-color:rgba(85,216,255,.18);
+  background:
+    radial-gradient(circle at 50% 50%,rgba(0,116,255,.08),transparent 28%),
+    radial-gradient(circle at 72% 26%,rgba(92,255,164,.035),transparent 22%),
+    radial-gradient(circle at 50% 14%,rgba(179,86,255,.04),transparent 18%),
+    linear-gradient(180deg,rgba(2,8,15,.94),rgba(2,6,12,.98));
+  box-shadow:
+    inset 0 0 120px rgba(31,132,196,.035),
+    0 30px 90px rgba(0,0,0,.26);
+}
+
+.stage::before{
+  inset:7%;
+  border-color:rgba(87,180,235,.06);
+  box-shadow:
+    0 0 0 45px rgba(24,92,145,.012),
+    0 0 0 90px rgba(24,92,145,.008);
+}
+
+.stage-title{
+  color:#a6dceb;
+  font-size:10px;
+  letter-spacing:.15em;
+}
+
+.stage-title::after{
+  content:" // QUALITY ENGINEERING UNIVERSE";
+  color:#4acdf4;
+}
+
+.stage-hint{color:#4f8498;font-size:8px}
+.core-label{display:none}
+.instrument{opacity:.42}
+.core-callout{opacity:.72}
+
+.horizon-legend{
+  bottom:14px;
+  padding:7px 10px;
+  border:1px solid rgba(85,216,255,.08);
+  border-radius:999px;
+  background:rgba(2,8,14,.58);
+  backdrop-filter:blur(8px);
+}
+
+.graph-detail{
+  left:auto;
+  right:16px;
+  top:82px;
+  bottom:auto;
+  width:220px;
+  min-height:150px;
+  padding:14px 15px 15px;
+  border-color:rgba(177,94,255,.28);
+  background:
+    radial-gradient(circle at 92% 0%,rgba(177,94,255,.11),transparent 38%),
+    linear-gradient(180deg,rgba(7,9,20,.95),rgba(3,8,14,.96));
+  box-shadow:
+    0 16px 44px rgba(0,0,0,.32),
+    inset 0 0 30px rgba(177,94,255,.035);
+}
+
+.graph-detail small{color:#b97cff}
+.graph-detail strong{color:#f0e8ff;font-size:15px}
+.graph-detail p{color:#99a9bb;font-size:11px;line-height:1.55}
+
+.profile-constellation-label{font-size:8px;color:#5d8294}
+.profile-constellation-label.active{color:#c4f2ff}
+
+@media(max-width:1080px){
+  .hero{grid-template-columns:1fr}
+  .stage{height:610px}
+}
+
+@media(max-width:600px){
+  .stage{height:520px}
+  .graph-detail{
+    top:auto;
+    left:12px;
+    right:12px;
+    bottom:42px;
+    width:auto;
+    min-height:0;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="ambient"></div>
+
+<div class="wrap">
+
+<nav class="nav">
+  <div class="logo">
+    ODIRLEI ALVES
+    <small>PROFESSIONAL QA PROFILE</small>
+  </div>
+
+  <div class="nav-right">
+    <a href="#experience" data-i18n="navExp" data-tip-label="EXPERIENCE" data-tip="Explore minha trajetória, responsabilidades e evolução em Quality Engineering.">Experiência</a>
+    <a href="#how" data-i18n="navHow" data-tip-label="HOW I WORK" data-tip="Discovery → Strategy → Architecture → Delivery. Veja meu processo de engenharia.">Como trabalho</a>
+    <a href="#projects" data-i18n="navProjects" data-tip-label="PROJECTS" data-tip="Soluções reais que transformam problemas de QA em ferramentas e sistemas.">Projetos</a>
+
+    <a
+      href="https://dilei27.github.io/project-jun-fan/"
+      target="_blank"
+      class="jf" data-tip-label="PROJECT JUN FAN" data-tip="Entre na camada de conhecimento, projetos, arquitetura e experimentação."
+    >
+      Project Jun Fan ↗
+    </a>
+
+    <a
+      class="nav-cv" data-tip-label="CURRICULUM" data-tip="Baixe meu currículo profissional em PDF."
+      href="assets/cv/Odirlei-Alves-CV-PT.pdf"
+      download
+      data-i18n-title="navCvTitle"
+      title="Baixar currículo"
+    >
+      CV ↓
+    </a>
+
+    <div class="lang">
+      <button class="active" data-lang="pt">PT</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<main class="hero">
+
+  <div>
+    <div class="statusline">
+      <span class="pulse"></span>
+      <span data-i18n="status">
+        PROFILE ONLINE · QA / AI / AUTOMATION / DEVOPS
+      </span>
+    </div>
+
+    <h1>
+      <span class="name">ODIRLEI ALVES</span>
+    </h1>
+
+    <div class="role" data-i18n="role">
+      QA Engineer · AI Automation · DevOps · Quality Architecture
+    </div>
+
+    <p class="lead" data-i18n="lead">
+      Perfil profissional para empresas e tech leads entenderem rapidamente
+      minha experiência, forma de trabalhar, impacto e profundidade técnica —
+      com o Project Jun Fan como camada de prova e exploração.
+    </p>
+
+    <div class="actions">
+
+      <a
+        class="action primary"
+        href="https://dilei27.github.io/project-jun-fan/"
+        target="_blank"
+        id="enterJunFan"
+        data-i18n="enter"
+      >
+        ENTER PROJECT JUN FAN →
+      </a>
+
+      <a class="action" href="#experience" data-i18n="experienceCta">
+        Ver experiência
+      </a>
+
+      <a
+        class="action"
+        href="https://www.linkedin.com/in/odirlei-alves-a9b14923"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+
+      <a
+        class="action"
+        href="https://github.com/Dilei27"
+        target="_blank"
+      >
+        GitHub
+      </a>
+
+    </div>
+
+    <div class="cv-access">
+      <div class="cv-access-copy">
+        <small>CURRICULUM // DOWNLOAD</small>
+        <strong data-i18n="cvAccessTitle">Currículo profissional</strong>
+        <span data-i18n="cvAccessText">Versões em português e inglês prontas para download.</span>
+      </div>
+
+      <div class="cv-access-actions">
+        <a
+          class="cv-btn primary"
+          href="assets/cv/Odirlei-Alves-CV-PT.pdf"
+          download
+        >
+          <span class="cv-lang">PT-BR</span>
+          <b data-i18n="cvPtLabel">BAIXAR CURRÍCULO</b>
+          <em>↓</em>
+        </a>
+
+        <a
+          class="cv-btn"
+          href="assets/cv/Odirlei-Alves-CV-EN.pdf"
+          download
+        >
+          <span class="cv-lang">EN</span>
+          <b data-i18n="cvEnLabel">DOWNLOAD CV</b>
+          <em>↓</em>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-micro">
+      <span>CAREER ENGINE <b>ONLINE</b></span>
+      <span>PROFILE MODE <b>RECRUITER</b></span>
+      <span>KNOWLEDGE LINK <b>ACTIVE</b></span>
+    </div>
+
+    <div class="bridge">
+      <small>JUN FAN // DISCOVERY LINK</small>
+
+      <strong data-i18n="bridgeTitle">
+        Este profile mostra quem eu sou. O Jun Fan mostra como eu construo.
+      </strong>
+
+      <p data-i18n="bridgeText">
+        Projetos, arquitetura, decisões, automações, documentação e
+        inteligência aplicada em um sistema navegável.
+      </p>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+
+    <canvas id="heroCanvas"></canvas>
+
+    <div class="jf-beam"></div>
+    <div class="scan"></div>
+
+    <div class="horizon-status">
+      <i></i>
+      <i></i>
+      <i></i>
+      <span>HORIZON / LIVE</span>
+    </div>
+
+    <div class="core-label">
+      <small>JF PROFILE CORE</small>
+      <strong>ODIRLEI</strong>
+      <span>KNOWLEDGE ACTIVE</span>
+    </div>
+
+    <div
+      class="profile-constellation-label career"
+      data-constellation="career"
+    >
+      CAREER
+    </div>
+
+    <div
+      class="profile-constellation-label capability"
+      data-constellation="capability"
+    >
+      CAPABILITIES
+    </div>
+
+    <div
+      class="profile-constellation-label project"
+      data-constellation="project"
+    >
+      PROJECTS
+    </div>
+
+    <div
+      class="profile-constellation-label delivery"
+      data-constellation="delivery"
+    >
+      DELIVERY
+    </div>
+
+    <div class="horizon-legend">
+      <span class="active">CORE</span>
+      <span>RELATION</span>
+      <span>ACTIVE PATH</span>
+    </div>
+
+    <div class="instrument left">
+      <span>PROFILE<br>LINK</span>
+    </div>
+
+    <div class="instrument right">
+      <span>JF-01<br>READY</span>
+    </div>
+
+    <div class="stage-title">
+      JF-01 // PROFESSIONAL DISCOVERY CORE
+    </div>
+
+    <div class="core-callout c1">
+      <b>CAREER</b><br>
+      2021 → CURRENT
+    </div>
+
+    <div class="core-callout c2">
+      <b>QUALITY SYSTEM</b><br>
+      ARCHITECTURE / DELIVERY
+    </div>
+
+    <div class="core-callout c3">
+      <b>KNOWLEDGE LINK</b><br>
+      PROJECT JUN FAN
+    </div>
+
+    <div class="telemetry">
+      <div>STATE <b id="stateTxt">READY</b></div>
+      <div>DOMAIN <b id="domainTxt">QUALITY</b></div>
+      <div>LINK <b>PROJECT JUN FAN</b></div>
+    </div>
+
+    
+    <div class="graph-detail" id="graphDetail">
+      <small id="graphDetailType">QUALITY ENGINEERING UNIVERSE</small>
+      <strong id="graphDetailTitle">Explore o grafo</strong>
+      <p id="graphDetailText">Passe o mouse sobre os nós para descobrir contexto, tecnologias, decisões e impacto.</p>
+    </div>
+
+<div class="stage-hint">
+      career telemetry / knowledge bridge / live discovery
+    </div>
+
+  </div>
+
+</main>
+
+<section>
+  <div class="section-head">
+    <h2 data-i18n="telemetryTitle">
+      Career Telemetry
+    </h2>
+
+    <p data-i18n="telemetryDesc">
+      Uma leitura executiva da minha atuação antes de entrar nos detalhes da carreira.
+    </p>
+  </div>
+
+  <div class="telemetry-grid">
+
+    <div class="telemetry-card">
+      <small>DOMAIN</small>
+      <strong>QA</strong>
+      <p data-i18n="card1">
+        Estratégia, regressão, integração, exploratório e arquitetura de qualidade.
+      </p>
+    </div>
+
+    <div class="telemetry-card">
+      <small>ENGINE</small>
+      <strong>AI</strong>
+      <p data-i18n="card2">
+        LLMs, agentes, prompts e automação assistida aplicada ao QA.
+      </p>
+    </div>
+
+    <div class="telemetry-card">
+      <small>DELIVERY</small>
+      <strong>CI/CD</strong>
+      <p data-i18n="card3">
+        Azure DevOps, GitHub Actions, Docker, pipelines, artifacts e observabilidade.
+      </p>
+    </div>
+
+    <div class="telemetry-card">
+      <small>SCOPE</small>
+      <strong>E2E</strong>
+      <p data-i18n="card4">
+        Desktop, Web, API, performance e evolução para Mobile.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+
+  <div class="section-head">
+    <h2 data-i18n="expTitle">
+      Experiência Profissional
+    </h2>
+
+    <p data-i18n="expDesc">
+      Minha carreira apresentada como um sistema em evolução:
+      base, automação e arquitetura de qualidade.
+    </p>
+  </div>
+
+  <div class="career-system">
+
+    <div class="career-rail"></div>
+    <div class="career-energy"></div>
+
+    <article
+      class="career-node"
+      data-career="GLOBALTEC"
+      data-domain="ARCHITECTURE"
+    >
+
+      <div class="node-top">
+        <div>
+          <div class="node-index">CAREER NODE // 03</div>
+
+          <h3 class="node-title">
+            Globaltec S/A
+          </h3>
+
+          <div class="node-role" data-i18n="gRole">
+            SENIOR QA ANALYST · AUTOMATION LEAD
+          </div>
+        </div>
+
+        <div class="node-period">
+          MAY 2023 → CURRENT
+        </div>
+      </div>
+
+      <p class="node-mission" data-i18n="gMission">
+        Liderança técnica de automação e evolução da qualidade em um ERP
+        complexo, conectando Desktop, Web/API, CI/CD e IA aplicada ao QA.
+      </p>
+
+      <div class="node-grid">
+
+        <div class="node-block">
+          <small>MISSION</small>
+
+          <p data-i18n="gMission2">
+            Estruturar automação escalável, processos de QA,
+            rastreabilidade e integração com pipelines.
+          </p>
+        </div>
+
+        <div class="node-block">
+          <small>ENGINEERING IMPACT</small>
+
+          <p data-i18n="gImpact">
+            Automação de ERP legado, APIs, atualizações de versão,
+            performance e agentes/LLMs para acelerar análise
+            e geração de cenários.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="node-tags">
+        <span>Robot Framework</span>
+        <span>Sikuli</span>
+        <span>Python</span>
+        <span>Azure DevOps</span>
+        <span>API</span>
+        <span>k6</span>
+        <span>LLMs</span>
+        <span>AI Agents</span>
+      </div>
+
+    </article>
+
+    <article
+      class="career-node"
+      data-career="BANKME"
+      data-domain="AUTOMATION"
+    >
+
+      <div class="node-top">
+        <div>
+          <div class="node-index">CAREER NODE // 02</div>
+
+          <h3 class="node-title">
+            Bankme
+          </h3>
+
+          <div class="node-role" data-i18n="bRole">
+            QA ANALYST · MID-LEVEL
+          </div>
+        </div>
+
+        <div class="node-period">
+          JUN 2022 → FEB 2023
+        </div>
+      </div>
+
+      <p class="node-mission" data-i18n="bMission">
+        Expansão para automação Web/API e observabilidade,
+        combinando Cypress, Postman, RabbitMQ, Datadog
+        e gestão estruturada de testes.
+      </p>
+
+      <div class="node-grid">
+
+        <div class="node-block">
+          <small>COVERAGE</small>
+
+          <p data-i18n="bCoverage">
+            Testes funcionais, regressivos, exploratórios,
+            usabilidade e stress, com cenários BDD e validações de API.
+          </p>
+        </div>
+
+        <div class="node-block">
+          <small>OBSERVABILITY</small>
+
+          <p data-i18n="bObs">
+            Análise de eventos via RabbitMQ e investigação
+            de comportamento/logs com Datadog.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="node-tags">
+        <span>Cypress</span>
+        <span>Postman</span>
+        <span>RabbitMQ</span>
+        <span>Datadog</span>
+        <span>BDD</span>
+        <span>Jira</span>
+        <span>Zephyr</span>
+        <span>Confluence</span>
+      </div>
+
+    </article>
+
+    <article
+      class="career-node"
+      data-career="BLUE SERVICE"
+      data-domain="FOUNDATION"
+    >
+
+      <div class="node-top">
+        <div>
+          <div class="node-index">CAREER NODE // 01</div>
+
+          <h3 class="node-title">
+            Blue Service BPM Platform
+          </h3>
+
+          <div class="node-role" data-i18n="bsRole">
+            JUNIOR QA ANALYST
+          </div>
+        </div>
+
+        <div class="node-period">
+          MAY 2021 → JUN 2022
+        </div>
+      </div>
+
+      <p class="node-mission" data-i18n="bsMission">
+        Fundação da carreira em QA com testes Web e Mobile/iOS,
+        validação funcional, exploratório, suporte técnico,
+        análise de logs e acompanhamento de pipelines.
+      </p>
+
+      <div class="node-grid">
+
+        <div class="node-block">
+          <small>FOUNDATION</small>
+
+          <p data-i18n="bsFoundation">
+            Testes manuais Web/Mobile, validação funcional
+            e exploração de cenários reais de uso.
+          </p>
+        </div>
+
+        <div class="node-block">
+          <small>ENGINEERING CONTEXT</small>
+
+          <p data-i18n="bsContext">
+            Suporte ao time, análise de logs em GCP
+            e execução/monitoramento de pipelines.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="node-tags">
+        <span>Web</span>
+        <span>Mobile iOS</span>
+        <span>Exploratory</span>
+        <span>Functional</span>
+        <span>GCP Logs</span>
+        <span>Pipelines</span>
+      </div>
+
+    </article>
+
+  </div>
+
+  <div class="career-evolution">
+
+    <div class="evo">
+      <small>2021 // FOUNDATION</small>
+      <strong data-i18n="evo1Title">Product Understanding</strong>
+      <p data-i18n="evo1">
+        Web · Mobile · Exploratory · Functional · GCP
+      </p>
+    </div>
+
+    <div class="evo">
+      <small>2022 // AUTOMATION</small>
+      <strong data-i18n="evo2Title">
+        Automation & Observability
+      </strong>
+      <p data-i18n="evo2">
+        Cypress · API · RabbitMQ · Datadog · BDD
+      </p>
+    </div>
+
+    <div class="evo">
+      <small>2023+ // ARCHITECTURE</small>
+      <strong data-i18n="evo3Title">
+        Quality Engineering
+      </strong>
+      <p data-i18n="evo3">
+        Desktop Automation · Python · Azure DevOps · AI · CI/CD
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="education">
+
+  <div class="section-head">
+    <h2 data-i18n="eduTitle">
+      Formação & Idiomas
+    </h2>
+
+    <p data-i18n="eduDesc">
+      Base acadêmica e comunicação técnica para atuação
+      em engenharia de qualidade.
+    </p>
+  </div>
+
+  <div class="education-grid">
+
+    <div class="edu-card">
+      <small>EDUCATION NODE</small>
+
+      <h3 data-i18n="eduCourse">
+        Análise e Desenvolvimento de Sistemas
+      </h3>
+
+      <p>
+        Universidade Cruzeiro do Sul · 2020 → 2022
+      </p>
+    </div>
+
+    <div class="edu-card">
+      <small>LANGUAGE SIGNAL</small>
+
+      <h3>English</h3>
+
+      <p data-i18n="englishText">
+        Intermediário — leitura e escrita técnica sólidas;
+        conversação em desenvolvimento.
+      </p>
+
+      <div class="lang-level">
+        <i class="on"></i>
+        <i class="on"></i>
+        <i class="on"></i>
+        <i></i>
+        <i></i>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="how">
+
+  <div class="section-head">
+    <h2 data-i18n="howTitle">
+      Como eu trabalho
+    </h2>
+
+    <p data-i18n="howDesc">
+      Quality Engineering como facilitador de entrega: meu papel não é ser a última barreira antes da produção,
+      mas criar processo, arquitetura, automação e feedback para que o time construa qualidade desde o início.
+    </p>
+  </div>
+
+  <div class="facilitator-intro">
+    <small>QUALITY FACILITATION // DELIVERY SYSTEM</small>
+    <strong data-i18n="facilitatorLead">
+      Eu primeiro descubro o sistema. Depois desenho a estratégia. Só então automatizo.
+    </strong>
+  </div>
+
+  <div class="quality-pipeline" aria-label="Fluxo de atuação em Quality Engineering">
+
+    <article class="quality-step" data-domain="DISCOVERY">
+      <span class="step-index">01</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>DISCOVERY / SPIKE</small>
+        <h3>Understand the system</h3>
+        <p data-i18n="qp1">
+          Entendo produto, arquitetura, riscos, legado, integrações e restrições antes de definir a solução.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="DISCOVERY">
+      <span class="step-index">02</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>MAPPING</small>
+        <h3>Structure the context</h3>
+        <p data-i18n="qp2">
+          Transformo fluxos, regras de negócio, APIs, dados, ambientes e dependências em conhecimento estruturado.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="QUALITY">
+      <span class="step-index">03</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>STRATEGY</small>
+        <h3>Prioritize by risk</h3>
+        <p data-i18n="qp3">
+          Defino cobertura e prioridades pelo risco e impacto, não pela quantidade de testes.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="ARCHITECTURE">
+      <span class="step-index">04</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>ARCHITECTURE</small>
+        <h3>Design for scale</h3>
+        <p data-i18n="qp4">
+          Estruturo soluções reutilizáveis, desacopladas e sustentáveis antes de escalar a automação.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="AUTOMATION">
+      <span class="step-index">05</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>AUTOMATION</small>
+        <h3>Automate with purpose</h3>
+        <p data-i18n="qp5">
+          Automatizo onde existe retorno real para o ciclo de entrega, manutenção e redução de risco.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="DEVOPS">
+      <span class="step-index">06</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>CI/CD</small>
+        <h3>Connect quality to delivery</h3>
+        <p data-i18n="qp6">
+          Levo qualidade para dentro do fluxo de engenharia e dos pipelines, em vez de deixá-la isolada no final.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="DEVOPS">
+      <span class="step-index">07</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>OBSERVABILITY</small>
+        <h3>Generate useful feedback</h3>
+        <p data-i18n="qp7">
+          Falhas precisam gerar evidência, contexto, métricas e diagnóstico — não apenas um status vermelho.
+        </p>
+      </div>
+    </article>
+
+    <article class="quality-step" data-domain="AI">
+      <span class="step-index">08</span>
+      <div class="step-core"></div>
+      <div class="step-copy">
+        <small>EVOLUTION</small>
+        <h3>Improve continuously</h3>
+        <p data-i18n="qp8">
+          Resultados alimentam continuamente estratégia, arquitetura, cobertura e novas formas de acelerar o time.
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="facilitator-close">
+    <small>QUALITY ENGINEERING PRINCIPLE</small>
+    <strong data-i18n="facilitatorClose">
+      QA deixa de ser o executor final dos testes e passa a ser o facilitador do sistema de qualidade.
+    </strong>
+  </div>
+
+</section>
+
+
+<section id="ai-quality">
+
+  <div class="section-head">
+    <h2>AI × Quality Engineering</h2>
+
+    <p data-i18n="aiQualityDesc">
+      IA aplicada como camada operacional do processo de qualidade,
+      não apenas como ferramenta isolada de produtividade.
+    </p>
+  </div>
+
+  <div class="ai-grid">
+
+    <article class="ai-card" data-domain="AI">
+      <small>AI SIGNAL // REQUIREMENTS</small>
+      <h3 data-i18n="ai1Title">Requirement Intelligence</h3>
+      <p data-i18n="ai1">
+        LLMs apoiando análise de User Stories, identificação de lacunas,
+        critérios de aceite e expansão de cobertura.
+      </p>
+    </article>
+
+    <article class="ai-card" data-domain="AI">
+      <small>AI SIGNAL // TEST DESIGN</small>
+      <h3 data-i18n="ai2Title">Test Generation</h3>
+      <p data-i18n="ai2">
+        Engenharia de prompts para transformar contexto funcional e técnico
+        em cenários, massas e estratégias de teste.
+      </p>
+    </article>
+
+    <article class="ai-card" data-domain="DISCOVERY">
+      <small>AI SIGNAL // AGENTS</small>
+      <h3 data-i18n="ai3Title">Agentic QA</h3>
+      <p data-i18n="ai3">
+        Evolução para agentes capazes de descobrir contexto, organizar
+        conhecimento e participar de etapas do ciclo de qualidade.
+      </p>
+    </article>
+
+  </div>
+
+</section>
+
+
+<section id="projects">
+
+  <div class="section-head">
+    <h2 data-i18n="projectsTitle">
+      Projetos & Sistemas
+    </h2>
+
+    <p data-i18n="projectsDesc">
+      Projetos que mostram como transformo problemas de QA em ferramentas,
+      automações e sistemas utilizáveis.
+    </p>
+  </div>
+
+  <div class="project-grid">
+
+    <article class="project-card featured" data-domain="DISCOVERY">
+
+      <div class="project-top">
+        <span class="project-id">JF-01</span>
+        <span class="project-state">LIVE SYSTEM</span>
+      </div>
+
+      <h3>Project Jun Fan</h3>
+
+      <p data-i18n="projectJunFan">
+        Plataforma pessoal de conhecimento e projetos com identidade
+        HORIZON × JARVIS, Knowledge Graph, experiências interativas
+        e arquitetura orientada a descoberta.
+      </p>
+
+      <div class="project-tags">
+        <span>Knowledge Graph</span>
+        <span>AI</span>
+        <span>Architecture</span>
+        <span>Interactive UI</span>
+      </div>
+
+      <a
+        href="https://dilei27.github.io/project-jun-fan/"
+        target="_blank"
+        class="project-link"
+        data-i18n="exploreJunFan"
+      >
+        EXPLORE SYSTEM →
+      </a>
+
+    </article>
+
+
+    <article class="project-card" data-domain="AUTOMATION">
+
+      <div class="project-top">
+        <span class="project-id">QA-02</span>
+        <span class="project-state">ENGINEERING</span>
+      </div>
+
+      <h3>Desktop Discovery Engine</h3>
+
+      <p data-i18n="projectDDE">
+        Engine para observar execução manual em aplicações desktop,
+        capturar ações, contexto visual e elementos de UI e gerar
+        conhecimento reutilizável para automação.
+      </p>
+
+      <div class="project-tags">
+        <span>Python</span>
+        <span>UI Automation</span>
+        <span>Recorder</span>
+        <span>Robot Framework</span>
+      </div>
+
+    </article>
+
+
+    <article class="project-card" data-domain="DEVOPS">
+
+      <div class="project-top">
+        <span class="project-id">QA-03</span>
+        <span class="project-state">OPERATIONS</span>
+      </div>
+
+      <h3>QA Command Center</h3>
+
+      <p data-i18n="projectCommand">
+        Camada operacional para visualizar execuções, status,
+        pipelines, falhas e indicadores de automação de forma centralizada.
+      </p>
+
+      <div class="project-tags">
+        <span>CI/CD</span>
+        <span>Azure DevOps</span>
+        <span>Metrics</span>
+        <span>Observability</span>
+      </div>
+
+    </article>
+
+
+    <article class="project-card" data-domain="AI">
+
+      <div class="project-top">
+        <span class="project-id">AI-04</span>
+        <span class="project-state">EVOLUTION</span>
+      </div>
+
+      <h3 data-i18n="projectAgentTitle">
+        AI Quality Ecosystem
+      </h3>
+
+      <p data-i18n="projectAgent">
+        Visão de agentes especializados cobrindo documentação,
+        planejamento, descoberta, automação, execução,
+        análise e evolução contínua do ciclo de qualidade.
+      </p>
+
+      <div class="project-tags">
+        <span>LLMs</span>
+        <span>Agents</span>
+        <span>QA</span>
+        <span>Orchestration</span>
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="junfan-bridge" data-domain="DISCOVERY">
+
+  <div class="jf-symbol">
+    <span>君</span>
+    <small>JUN FAN</small>
+  </div>
+
+  <div class="jf-copy">
+
+    <small>KNOWLEDGE SYSTEM // JF-01</small>
+
+    <h2 data-i18n="jfTitle">
+      O currículo termina aqui.<br>
+      O sistema começa no Jun Fan.
+    </h2>
+
+    <p data-i18n="jfDesc">
+      Este profile resume minha trajetória profissional.
+      O Project Jun Fan abre a camada seguinte:
+      projetos, arquitetura, experimentos, conhecimento,
+      decisões e sistemas que estou construindo.
+    </p>
+
+    <a
+      href="https://dilei27.github.io/project-jun-fan/"
+      target="_blank"
+      class="action primary"
+      data-i18n="enterSystem"
+    >
+      ENTER KNOWLEDGE SYSTEM →
+    </a>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <div>
+    <strong>ODIRLEI ALVES</strong>
+    <span>QA ENGINEER · AI · AUTOMATION · DEVOPS</span>
+  </div>
+
+  <div class="footer-links">
+
+    <a
+      href="https://www.linkedin.com/in/odirlei-alves-a9b14923"
+      target="_blank"
+    >
+      LinkedIn
+    </a>
+
+    <a
+      href="https://github.com/Dilei27"
+      target="_blank"
+    >
+      GitHub
+    </a>
+
+    <a
+      href="https://dilei27.github.io/project-jun-fan/"
+      target="_blank"
+    >
+      Project Jun Fan
+    </a>
+
+  </div>
+
+</footer>
+
+</div>
+
+
+<style>
+
+/* V6 CONTENT COMPONENTS */
+
+.statusline{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#7895a5;
+  font-size:9px;
+  letter-spacing:.13em;
+  font-weight:850;
+}
+
+.name{
+  background:linear-gradient(
+    90deg,
+    #f3fbff,
+    #b9dbe8 52%,
+    #709ab1
+  );
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.role{
+  margin-top:19px;
+  color:#b7d1de;
+  font-size:clamp(17px,2vw,24px);
+  font-weight:820;
+}
+
+.lead{
+  margin-top:17px;
+  max-width:680px;
+  color:#8297a8;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.bridge{
+  margin-top:24px;
+  padding:15px 17px;
+  border-left:1px solid rgba(91,190,222,.35);
+  background:linear-gradient(
+    90deg,
+    rgba(58,139,177,.045),
+    transparent
+  );
+}
+
+.bridge small{
+  color:#58a9c7;
+  font-size:8px;
+  letter-spacing:.16em;
+}
+
+.bridge strong{
+  display:block;
+  margin-top:8px;
+  color:#b8d5e2;
+  font-size:12px;
+}
+
+.bridge p{
+  margin-top:6px;
+  color:#667f90;
+  font-size:10px;
+  line-height:1.55;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.nav-right .jf{
+  color:#9fd7e7;
+}
+
+.lang{
+  display:flex;
+  gap:4px;
+  padding:3px;
+  border:1px solid rgba(123,166,188,.13);
+  border-radius:999px;
+}
+
+.lang button{
+  border:0;
+  padding:5px 8px;
+  cursor:pointer;
+  border-radius:999px;
+  background:transparent;
+  color:#607989;
+  font-size:8px;
+  font-weight:900;
+}
+
+.lang button.active{
+  color:#d3f4fb;
+  background:rgba(85,216,255,.08);
+}
+
+.action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 15px;
+  border-radius:11px;
+  border:1px solid rgba(123,169,192,.15);
+  background:rgba(255,255,255,.022);
+  color:#9eb8c7;
+  text-decoration:none;
+  font-size:9px;
+  letter-spacing:.07em;
+  font-weight:900;
+  transition:.25s;
+}
+
+.action:hover{
+  transform:translateY(-2px);
+  color:#e7f9fd;
+  border-color:rgba(85,216,255,.34);
+  box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+
+.action.primary{
+  color:#daf7ff;
+  background:linear-gradient(
+    135deg,
+    rgba(65,154,192,.18),
+    rgba(26,68,92,.13)
+  );
+  border-color:rgba(85,216,255,.25);
+}
+
+.instrument{
+  position:absolute;
+  z-index:5;
+  top:50%;
+  transform:translateY(-50%);
+  width:78px;
+  height:78px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid rgba(179,214,233,.09);
+  color:#607789;
+  background:rgba(5,11,17,.24);
+}
+
+.instrument::before,
+.instrument::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+
+.instrument::before{
+  inset:9px;
+  border:1px dashed rgba(175,213,233,.10);
+}
+
+.instrument::after{
+  inset:19px;
+  border:1px solid rgba(175,213,233,.045);
+}
+
+.instrument span{
+  text-align:center;
+  color:#8ba9ba;
+  font-size:6px;
+  letter-spacing:.13em;
+  line-height:1.5;
+  font-weight:760;
+}
+
+.instrument.left{left:20px}
+.instrument.right{right:20px}
+
+.telemetry-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.telemetry-card,
+.principle,
+.ai-card,
+.project-card{
+  position:relative;
+  overflow:hidden;
+  padding:21px;
+  border-radius:17px;
+  border:1px solid rgba(120,164,188,.12);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18,35,49,.21),
+      rgba(4,9,14,.40)
+    );
+  transition:.3s;
+}
+
+.telemetry-card:hover,
+.principle:hover,
+.ai-card:hover,
+.project-card:hover{
+  border-color:rgba(85,216,255,.28);
+  transform:translateY(-3px);
+  box-shadow:0 18px 50px rgba(0,0,0,.20);
+}
+
+.telemetry-card small,
+.principle small,
+.ai-card small,
+.project-id{
+  color:#5ea9c5;
+  font-size:8px;
+  letter-spacing:.15em;
+  font-weight:850;
+}
+
+.telemetry-card strong{
+  display:block;
+  margin-top:10px;
+  color:#d7eef6;
+  font-size:24px;
+}
+
+.telemetry-card p,
+.principle p,
+.ai-card p,
+.project-card p{
+  margin-top:10px;
+  color:#788e9f;
+  font-size:11px;
+  line-height:1.65;
+}
+
+.principles{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.principle h3,
+.ai-card h3{
+  margin-top:10px;
+  color:#c3dce7;
+  font-size:17px;
+}
+
+.ai-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.project-card{
+  min-height:245px;
+}
+
+.project-card.featured{
+  border-color:rgba(85,216,255,.23);
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(75,180,220,.09),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(19,41,58,.30),
+      rgba(4,9,14,.46)
+    );
+}
+
+.project-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.project-state{
+  color:#526b7a;
+  font-size:7px;
+  letter-spacing:.14em;
+}
+
+.project-card h3{
+  margin-top:24px;
+  color:#d3eaf3;
+  font-size:22px;
+}
+
+.project-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:18px;
+}
+
+.project-tags span{
+  padding:6px 8px;
+  border-radius:999px;
+  border:1px solid rgba(86,174,207,.12);
+  color:#7ca7b9;
+  background:rgba(85,216,255,.025);
+  font-size:8px;
+}
+
+.project-link{
+  display:inline-block;
+  margin-top:20px;
+  color:#8fd3e7;
+  text-decoration:none;
+  font-size:9px;
+  letter-spacing:.12em;
+  font-weight:900;
+}
+
+.junfan-bridge{
+  min-height:430px;
+  display:grid;
+  grid-template-columns:.55fr 1.45fr;
+  align-items:center;
+  gap:50px;
+  margin:70px 0;
+  padding:55px;
+  border-radius:26px;
+  border:1px solid rgba(112,169,197,.14);
+  background:
+    radial-gradient(
+      circle at 18% 50%,
+      rgba(73,167,204,.08),
+      transparent 29%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(7,17,26,.88),
+      rgba(3,8,13,.92)
+    );
+}
+
+.jf-symbol{
+  position:relative;
+  width:220px;
+  height:220px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid rgba(151,200,221,.11);
+}
+
+.jf-symbol::before,
+.jf-symbol::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+
+.jf-symbol::before{
+  inset:22px;
+  border:1px dashed rgba(139,195,218,.12);
+  animation:rotateRing 22s linear infinite;
+}
+
+.jf-symbol::after{
+  inset:50px;
+  border:1px solid rgba(139,195,218,.07);
+}
+
+@keyframes rotateRing{
+  to{transform:rotate(360deg)}
+}
+
+.jf-symbol span{
+  color:#dff5fa;
+  font-size:62px;
+  font-weight:300;
+  text-shadow:0 0 35px rgba(85,216,255,.12);
+}
+
+.jf-symbol small{
+  position:absolute;
+  bottom:38px;
+  color:#658697;
+  font-size:7px;
+  letter-spacing:.2em;
+}
+
+.jf-copy small{
+  color:#5eaac6;
+  font-size:8px;
+  letter-spacing:.18em;
+}
+
+.jf-copy h2{
+  margin-top:13px;
+  color:#d8edf5;
+  font-size:clamp(30px,4vw,50px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+}
+
+.jf-copy p{
+  max-width:680px;
+  margin:18px 0 25px;
+  color:#7b91a2;
+  line-height:1.75;
+  font-size:13px;
+}
+
+footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:55px 0 75px;
+  border-top:1px solid rgba(124,164,184,.10);
+}
+
+footer strong{
+  display:block;
+  color:#b9d4df;
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+footer span{
+  display:block;
+  margin-top:5px;
+  color:#526b7b;
+  font-size:8px;
+  letter-spacing:.13em;
+}
+
+.footer-links{
+  display:flex;
+  gap:15px;
+}
+
+.footer-links a{
+  color:#6e8999;
+  text-decoration:none;
+  font-size:9px;
+  font-weight:800;
+}
+
+.footer-links a:hover{
+  color:#b9e8f4;
+}
+
+@media(max-width:980px){
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    white-space:normal;
+  }
+
+  .stage{
+    height:520px;
+  }
+
+  .nav-right > a{
+    display:none;
+  }
+
+  .telemetry-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .principles,
+  .project-grid{
+    grid-template-columns:1fr;
+  }
+
+  .ai-grid{
+    grid-template-columns:1fr;
+  }
+
+  .section-head{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .junfan-bridge{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .wrap{
+    width:min(100% - 24px,1240px);
+  }
+
+  .nav{
+    top:9px;
+    margin-top:10px;
+  }
+
+  .logo{
+    font-size:12px;
+  }
+
+  .logo small{
+    font-size:6px;
+  }
+
+  .hero{
+    min-height:auto;
+    padding-top:35px;
+  }
+
+  h1{
+    font-size:44px;
+    letter-spacing:-.045em;
+  }
+
+  .actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .action.primary{
+    grid-column:1/-1;
+  }
+
+  .stage{
+    height:440px;
+    border-radius:20px;
+  }
+
+  .instrument{
+    display:none;
+  }
+
+  .core-callout{
+    opacity:.72;
+  }
+
+  .telemetry-grid{
+    grid-template-columns:1fr;
+  }
+
+  .junfan-bridge{
+    padding:30px 20px;
+  }
+
+  .jf-symbol{
+    width:170px;
+    height:170px;
+    margin:auto;
+  }
+
+  footer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+}
+
+</style>
+
+
+<script>
+
+/* LANGUAGE SYSTEM */
+
+const translations = {
+
+  pt:{
+
+    status:'PROFILE ONLINE · QA / AI / AUTOMATION / DEVOPS',
+
+    navExp:'Experiência',
+    navHow:'Como trabalho',
+    navProjects:'Projetos',
+
+    role:'QA Engineer · AI Automation · DevOps · Quality Architecture',
+
+    lead:'Perfil profissional para empresas e tech leads entenderem rapidamente minha experiência, forma de trabalhar, impacto e profundidade técnica — com o Project Jun Fan como camada de prova e exploração.',
+
+    enter:'ENTER PROJECT JUN FAN →',
+    experienceCta:'Ver experiência',
+
+    bridgeTitle:'Este profile mostra quem eu sou. O Jun Fan mostra como eu construo.',
+
+    bridgeText:'Projetos, arquitetura, decisões, automações, documentação e inteligência aplicada em um sistema navegável.',
+
+    telemetryTitle:'Career Telemetry',
+
+    telemetryDesc:'Uma leitura executiva da minha atuação antes de entrar nos detalhes da carreira.',
+
+    card1:'Estratégia, regressão, integração, exploratório e arquitetura de qualidade.',
+
+    card2:'LLMs, agentes, prompts e automação assistida aplicada ao QA.',
+
+    card3:'Azure DevOps, GitHub Actions, Docker, pipelines, artifacts e observabilidade.',
+
+    card4:'Desktop, Web, API, performance e evolução para Mobile.',
+
+    expTitle:'Experiência Profissional',
+
+    expDesc:'Minha carreira apresentada como um sistema em evolução: base, automação e arquitetura de qualidade.',
+
+    gRole:'SENIOR QA ANALYST · AUTOMATION LEAD',
+
+    gMission:'Liderança técnica de automação e evolução da qualidade em um ERP complexo, conectando Desktop, Web/API, CI/CD e IA aplicada ao QA.',
+
+    gMission2:'Estruturar automação escalável, processos de QA, rastreabilidade e integração com pipelines.',
+
+    gImpact:'Automação de ERP legado, APIs, atualizações de versão, performance e agentes/LLMs para acelerar análise e geração de cenários.',
+
+    bRole:'QA ANALYST · PLENO',
+
+    bMission:'Expansão para automação Web/API e observabilidade, combinando Cypress, Postman, RabbitMQ, Datadog e gestão estruturada de testes.',
+
+    bCoverage:'Testes funcionais, regressivos, exploratórios, usabilidade e stress, com cenários BDD e validações de API.',
+
+    bObs:'Análise de eventos via RabbitMQ e investigação de comportamento/logs com Datadog.',
+
+    bsRole:'QA ANALYST · JÚNIOR',
+
+    bsMission:'Fundação da carreira em QA com testes Web e Mobile/iOS, validação funcional, exploratório, suporte técnico, análise de logs e acompanhamento de pipelines.',
+
+    bsFoundation:'Testes manuais Web/Mobile, validação funcional e exploração de cenários reais de uso.',
+
+    bsContext:'Suporte ao time, análise de logs em GCP e execução/monitoramento de pipelines.',
+
+    evo1Title:'Product Understanding',
+    evo1:'Web · Mobile · Exploratory · Functional · GCP',
+
+    evo2Title:'Automation & Observability',
+    evo2:'Cypress · API · RabbitMQ · Datadog · BDD',
+
+    evo3Title:'Quality Engineering',
+    evo3:'Desktop Automation · Python · Azure DevOps · AI · CI/CD',
+
+    eduTitle:'Formação & Idiomas',
+
+    eduDesc:'Base acadêmica e comunicação técnica para atuação em engenharia de qualidade.',
+
+    eduCourse:'Análise e Desenvolvimento de Sistemas',
+
+    englishText:'Intermediário — leitura e escrita técnica sólidas; conversação em desenvolvimento.',
+
+    howTitle:'Como eu trabalho',
+
+    howDesc:'Qualidade para mim não começa no teste. Começa entendendo o produto, o risco, a arquitetura e o fluxo inteiro de entrega.',
+
+    how1Title:'Entender antes de automatizar',
+
+    how1:'Primeiro eu mapeio produto, regras, riscos, dependências e comportamento. A automação entra depois como consequência de uma base bem compreendida.',
+
+    how2Title:'Automação como engenharia',
+
+    how2:'Não busco apenas scripts que passam. Estruturo componentes reutilizáveis, evidências, métricas, recuperação de falhas e integração com pipelines.',
+
+    how3Title:'IA como multiplicador',
+
+    how3:'Uso LLMs, agentes e engenharia de prompts para acelerar análise, geração de cenários, documentação e evolução das soluções de QA.',
+
+    how4Title:'Qualidade integrada ao delivery',
+
+    how4:'Testes, CI/CD, logs, artifacts, métricas e observabilidade fazem parte do mesmo sistema de feedback para o time.',
+
+    aiQualityDesc:'IA aplicada como camada operacional do processo de qualidade, não apenas como ferramenta isolada de produtividade.',
+
+    ai1Title:'Inteligência de Requisitos',
+
+    ai1:'LLMs apoiando análise de User Stories, identificação de lacunas, critérios de aceite e expansão de cobertura.',
+
+    ai2Title:'Geração de Testes',
+
+    ai2:'Engenharia de prompts para transformar contexto funcional e técnico em cenários, massas e estratégias de teste.',
+
+    ai3Title:'QA com Agentes',
+
+    ai3:'Evolução para agentes capazes de descobrir contexto, organizar conhecimento e participar de etapas do ciclo de qualidade.',
+
+    projectsTitle:'Projetos & Sistemas',
+
+    projectsDesc:'Projetos que mostram como transformo problemas de QA em ferramentas, automações e sistemas utilizáveis.',
+
+    projectJunFan:'Plataforma pessoal de conhecimento e projetos com identidade HORIZON × JARVIS, Knowledge Graph, experiências interativas e arquitetura orientada a descoberta.',
+
+    exploreJunFan:'EXPLORE SYSTEM →',
+
+    projectDDE:'Engine para observar execução manual em aplicações desktop, capturar ações, contexto visual e elementos de UI e gerar conhecimento reutilizável para automação.',
+
+    projectCommand:'Camada operacional para visualizar execuções, status, pipelines, falhas e indicadores de automação de forma centralizada.',
+
+    projectAgentTitle:'AI Quality Ecosystem',
+
+    projectAgent:'Visão de agentes especializados cobrindo documentação, planejamento, descoberta, automação, execução, análise e evolução contínua do ciclo de qualidade.',
+
+    jfTitle:'O currículo termina aqui.<br>O sistema começa no Jun Fan.',
+
+    jfDesc:'Este profile resume minha trajetória profissional. O Project Jun Fan abre a camada seguinte: projetos, arquitetura, experimentos, conhecimento, decisões e sistemas que estou construindo.',
+
+    enterSystem:'ENTER KNOWLEDGE SYSTEM →',
+
+    facilitatorLead:'Eu primeiro descubro o sistema. Depois desenho a estratégia. Só então automatizo.',
+    facilitatorClose:'QA deixa de ser o executor final dos testes e passa a ser o facilitador do sistema de qualidade.',
+    qp1:'Entendo produto, arquitetura, riscos, legado, integrações e restrições antes de definir a solução.',
+    qp2:'Transformo fluxos, regras de negócio, APIs, dados, ambientes e dependências em conhecimento estruturado.',
+    qp3:'Defino cobertura e prioridades pelo risco e impacto, não pela quantidade de testes.',
+    qp4:'Estruturo soluções reutilizáveis, desacopladas e sustentáveis antes de escalar a automação.',
+    qp5:'Automatizo onde existe retorno real para o ciclo de entrega, manutenção e redução de risco.',
+    qp6:'Levo qualidade para dentro do fluxo de engenharia e dos pipelines, em vez de deixá-la isolada no final.',
+    qp7:'Falhas precisam gerar evidência, contexto, métricas e diagnóstico — não apenas um status vermelho.',
+    qp8:'Resultados alimentam continuamente estratégia, arquitetura, cobertura e novas formas de acelerar o time.',
+
+    cvAccessTitle:'Currículo profissional',
+    cvAccessText:'Versões em português e inglês prontas para download.',
+    cvPtLabel:'BAIXAR CURRÍCULO',
+    cvEnLabel:'DOWNLOAD CV',
+    navCvTitle:'Baixar currículo'
+
+  },
+
+  en:{
+
+    status:'PROFILE ONLINE · QA / AI / AUTOMATION / DEVOPS',
+
+    navExp:'Experience',
+    navHow:'How I work',
+    navProjects:'Projects',
+
+    role:'QA Engineer · AI Automation · DevOps · Quality Architecture',
+
+    lead:'Professional profile designed for companies and tech leads to quickly understand my experience, working style, impact and technical depth — with Project Jun Fan as the exploration and proof layer.',
+
+    enter:'ENTER PROJECT JUN FAN →',
+    experienceCta:'View experience',
+
+    bridgeTitle:'This profile shows who I am. Jun Fan shows how I build.',
+
+    bridgeText:'Projects, architecture, decisions, automation, documentation and applied intelligence inside a navigable system.',
+
+    telemetryTitle:'Career Telemetry',
+
+    telemetryDesc:'An executive view of my work before exploring the details of my career.',
+
+    card1:'Strategy, regression, integration, exploratory testing and quality architecture.',
+
+    card2:'LLMs, agents, prompt engineering and AI-assisted QA automation.',
+
+    card3:'Azure DevOps, GitHub Actions, Docker, pipelines, artifacts and observability.',
+
+    card4:'Desktop, Web, API, performance and expansion into Mobile.',
+
+    expTitle:'Professional Experience',
+
+    expDesc:'My career represented as an evolving system: foundation, automation and quality architecture.',
+
+    gRole:'SENIOR QA ANALYST · AUTOMATION LEAD',
+
+    gMission:'Technical leadership in automation and quality evolution for a complex ERP, connecting Desktop, Web/API, CI/CD and AI applied to QA.',
+
+    gMission2:'Structuring scalable automation, QA processes, traceability and pipeline integration.',
+
+    gImpact:'Legacy ERP automation, APIs, version-update automation, performance testing and agents/LLMs to accelerate analysis and test generation.',
+
+    bRole:'QA ANALYST · MID-LEVEL',
+
+    bMission:'Expansion into Web/API automation and observability using Cypress, Postman, RabbitMQ, Datadog and structured test management.',
+
+    bCoverage:'Functional, regression, exploratory, usability and stress testing, with BDD scenarios and API validation.',
+
+    bObs:'Event analysis through RabbitMQ and behavior/log investigation with Datadog.',
+
+    bsRole:'JUNIOR QA ANALYST',
+
+    bsMission:'Career foundation in QA with Web and Mobile/iOS testing, functional validation, exploratory testing, technical support, log analysis and pipeline monitoring.',
+
+    bsFoundation:'Manual Web/Mobile testing, functional validation and exploration of real usage scenarios.',
+
+    bsContext:'Team support, GCP log analysis and pipeline execution/monitoring.',
+
+    evo1Title:'Product Understanding',
+    evo1:'Web · Mobile · Exploratory · Functional · GCP',
+
+    evo2Title:'Automation & Observability',
+    evo2:'Cypress · API · RabbitMQ · Datadog · BDD',
+
+    evo3Title:'Quality Engineering',
+    evo3:'Desktop Automation · Python · Azure DevOps · AI · CI/CD',
+
+    eduTitle:'Education & Languages',
+
+    eduDesc:'Academic foundation and technical communication for quality engineering.',
+
+    eduCourse:'Systems Analysis and Development',
+
+    englishText:'Intermediate — solid technical reading and writing; conversational skills in development.',
+
+    howTitle:'How I work',
+
+    howDesc:'Quality does not start with testing. It starts by understanding the product, risk, architecture and the complete delivery flow.',
+
+    how1Title:'Understand before automating',
+
+    how1:'I first map the product, business rules, risks, dependencies and behavior. Automation comes afterward as a consequence of a well-understood foundation.',
+
+    how2Title:'Automation as engineering',
+
+    how2:'I do not aim for scripts that simply pass. I structure reusable components, evidence, metrics, failure recovery and pipeline integration.',
+
+    how3Title:'AI as a multiplier',
+
+    how3:'I use LLMs, agents and prompt engineering to accelerate analysis, test generation, documentation and the evolution of QA solutions.',
+
+    how4Title:'Quality integrated with delivery',
+
+    how4:'Testing, CI/CD, logs, artifacts, metrics and observability are part of the same feedback system for the team.',
+
+    aiQualityDesc:'AI used as an operational layer of the quality process, rather than an isolated productivity tool.',
+
+    ai1Title:'Requirement Intelligence',
+
+    ai1:'LLMs supporting User Story analysis, gap identification, acceptance criteria and coverage expansion.',
+
+    ai2Title:'Test Generation',
+
+    ai2:'Prompt engineering to transform functional and technical context into scenarios, test data and testing strategies.',
+
+    ai3Title:'Agentic QA',
+
+    ai3:'Evolution toward agents capable of discovering context, organizing knowledge and participating across the quality lifecycle.',
+
+    projectsTitle:'Projects & Systems',
+
+    projectsDesc:'Projects demonstrating how I transform QA problems into usable tools, automation and systems.',
+
+    projectJunFan:'Personal knowledge and project platform built with the HORIZON × JARVIS identity, Knowledge Graph, interactive experiences and discovery-oriented architecture.',
+
+    exploreJunFan:'EXPLORE SYSTEM →',
+
+    projectDDE:'An engine designed to observe manual execution in desktop applications, capture actions, visual context and UI elements, and generate reusable knowledge for automation.',
+
+    projectCommand:'An operational layer for centralized visualization of executions, status, pipelines, failures and automation indicators.',
+
+    projectAgentTitle:'AI Quality Ecosystem',
+
+    projectAgent:'A vision of specialized agents covering documentation, planning, discovery, automation, execution, analysis and continuous evolution of the quality lifecycle.',
+
+    jfTitle:'The résumé ends here.<br>The system begins in Jun Fan.',
+
+    jfDesc:'This profile summarizes my professional journey. Project Jun Fan opens the next layer: projects, architecture, experiments, knowledge, decisions and systems I am building.',
+
+    enterSystem:'ENTER KNOWLEDGE SYSTEM →',
+
+    facilitatorLead:'I discover the system first. Then I design the strategy. Only then do I automate.',
+    facilitatorClose:'QA stops being the final test executor and becomes the facilitator of the quality system.',
+    qp1:'I understand the product, architecture, risks, legacy, integrations and constraints before defining a solution.',
+    qp2:'I turn flows, business rules, APIs, data, environments and dependencies into structured knowledge.',
+    qp3:'I define coverage and priorities based on risk and impact, not on the number of tests.',
+    qp4:'I design reusable, decoupled and maintainable solutions before scaling automation.',
+    qp5:'I automate where it creates real value for delivery, maintainability and risk reduction.',
+    qp6:'I bring quality into the engineering workflow and pipelines instead of leaving it isolated at the end.',
+    qp7:'Failures should generate evidence, context, metrics and diagnosis — not just a red status.',
+    qp8:'Results continuously feed strategy, architecture, coverage and new ways to accelerate the team.',
+
+    cvAccessTitle:'Professional résumé',
+    cvAccessText:'Portuguese and English versions ready to download.',
+    cvPtLabel:'DOWNLOAD PT CV',
+    cvEnLabel:'DOWNLOAD CV',
+    navCvTitle:'Download résumé'
+
+  }
+
+};
+
+
+let currentLanguage='pt';
+
+function setLanguage(lang){
+
+  currentLanguage=lang;
+
+  document.documentElement.lang=
+    lang==='pt' ? 'pt-BR' : 'en';
+
+  document
+    .querySelectorAll('[data-i18n]')
+    .forEach(el=>{
+
+      const key=el.dataset.i18n;
+
+      if(translations[lang][key]!==undefined){
+
+        if(
+          key==='jfTitle'
+        ){
+          el.innerHTML=translations[lang][key];
+        }
+        else{
+          el.textContent=translations[lang][key];
+        }
+
+      }
+
+    });
+
+  const navCv=document.querySelector('.nav-cv');
+  if(navCv && translations[lang].navCvTitle){
+    navCv.title=translations[lang].navCvTitle;
+  }
+
+  document
+    .querySelectorAll('.lang button')
+    .forEach(btn=>{
+      btn.classList.toggle(
+        'active',
+        btn.dataset.lang===lang
+      );
+    });
+
+}
+
+document
+  .querySelectorAll('.lang button')
+  .forEach(btn=>{
+
+    btn.addEventListener('click',()=>{
+      setLanguage(btn.dataset.lang);
+    });
+
+  });
+
+
+/* HERO CORE // HORIZON × JARVIS LIVING PROFILE GRAPH */
+
+const hc=document.getElementById('heroCanvas');
+const hctx=hc.getContext('2d');
+
+let W;
+let H;
+let D=1;
+let t=0;
+let boost=0;
+let activeDomain='QUALITY';
+
+let pointer={
+  x:.5,
+  y:.5,
+  inside:false
+};
+
+
+const profileNodes=[
+  {id:'core',label:'OA',type:'core',x:.50,y:.50,r:9.5},
+  {id:'globaltec',label:'GLOBALTEC',type:'career',x:.17,y:.46,r:5.2},
+  {id:'bankme',label:'BANKME',type:'career',x:.83,y:.47,r:4.8},
+  {id:'automation',label:'AUTOMATION',type:'capability',x:.31,y:.27,r:5.0},
+  {id:'ai',label:'AI',type:'capability',x:.52,y:.18,r:5.2},
+  {id:'devops',label:'DEVOPS',type:'delivery',x:.72,y:.29,r:5.0},
+  {id:'architecture',label:'ARCHITECTURE',type:'delivery',x:.31,y:.72,r:5.0},
+  {id:'projects',label:'PROJECTS',type:'project',x:.70,y:.72,r:5.0},
+  {id:'junfan',label:'JUN FAN',type:'project',x:.50,y:.82,r:5.2},
+  {id:'blue',label:'BLUE SERVICE',type:'career',x:.11,y:.70,r:2.2}
+];
+
+
+const profileEdges=[
+
+  ['core','globaltec'],
+  ['globaltec','bankme'],
+  ['bankme','blue'],
+
+  ['core','automation'],
+  ['core','ai'],
+  ['core','devops'],
+  ['core','architecture'],
+
+  ['core','projects'],
+  ['projects','junfan'],
+
+  ['globaltec','automation'],
+  ['globaltec','ai'],
+  ['globaltec','devops'],
+
+  ['bankme','automation'],
+  ['bankme','devops'],
+
+  ['blue','projects'],
+
+  ['automation','architecture'],
+  ['ai','architecture'],
+  ['devops','architecture']
+
+];
+
+
+const domainMap={
+
+  QUALITY:[
+    'core'
+  ],
+
+  GLOBALTEC:[
+    'core',
+    'globaltec',
+    'automation',
+    'ai',
+    'devops',
+    'architecture'
+  ],
+
+  BANKME:[
+    'core',
+    'bankme',
+    'automation',
+    'devops'
+  ],
+
+  'BLUE SERVICE':[
+    'core',
+    'blue',
+    'projects'
+  ],
+
+  ARCHITECTURE:[
+    'core',
+    'architecture',
+    'devops',
+    'ai'
+  ],
+
+  AUTOMATION:[
+    'core',
+    'automation',
+    'globaltec',
+    'bankme'
+  ],
+
+  AI:[
+    'core',
+    'ai',
+    'architecture'
+  ],
+
+  DEVOPS:[
+    'core',
+    'devops',
+    'architecture'
+  ],
+
+  PERFORMANCE:[
+    'core',
+    'devops'
+  ],
+
+  DISCOVERY:[
+    'core',
+    'projects',
+    'junfan'
+  ],
+
+  OBSERVABILITY:[
+    'core',
+    'devops'
+  ],
+
+  FOUNDATION:[
+    'core',
+    'blue'
+  ]
+
+};
+
+
+function activeSet(){
+
+  return new Set(
+    domainMap[activeDomain] || ['core']
+  );
+
+}
+
+
+function resizeH(){
+
+  D=Math.min(
+    devicePixelRatio || 1,
+    2
+  );
+
+  W=hc.clientWidth;
+  H=hc.clientHeight;
+
+  hc.width=W*D;
+  hc.height=H*D;
+
+  hctx.setTransform(
+    D,
+    0,
+    0,
+    D,
+    0,
+    0
+  );
+
+}
+
+
+addEventListener(
+  'resize',
+  resizeH
+);
+
+resizeH();
+
+
+const stage=document.getElementById('stage');
+
+
+stage.addEventListener(
+  'mousemove',
+  e=>{
+
+    const r=
+      stage.getBoundingClientRect();
+
+    pointer.x=
+      (e.clientX-r.left)/r.width;
+
+    pointer.y=
+      (e.clientY-r.top)/r.height;
+
+    pointer.inside=true;
+
+  }
+);
+
+
+stage.addEventListener(
+  'mouseleave',
+  ()=>{
+    pointer.inside=false;
+  }
+);
+
+
+function P(n){
+
+  /*
+    V6.2 // LIVING GRAPH MOTION
+    Movimento orgânico deliberadamente suave:
+    - cada nó tem fase própria
+    - órbita curta em X/Y
+    - parallax mais perceptível no mouse
+    - nós ativos respiram em direção ao core
+  */
+
+  const idx = profileNodes.indexOf(n);
+  const phase = idx * 1.73 + n.x * 5.1 + n.y * 3.7;
+
+  const px =
+    pointer.inside
+      ? (pointer.x - .5) * (n.type === 'core' ? 5 : 11)
+      : 0;
+
+  const py =
+    pointer.inside
+      ? (pointer.y - .5) * (n.type === 'core' ? 4 : 9)
+      : 0;
+
+  if(n.type === 'core'){
+    return {
+      x: n.x * W + px + Math.sin(t * .35) * 1.2,
+      y: n.y * H + py + Math.cos(t * .31) * 1.0
+    };
+  }
+
+  const ampX = 5.5 + (idx % 3) * 1.4;
+  const ampY = 4.0 + (idx % 4) * 1.05;
+
+  const driftX =
+    Math.sin(t * (.34 + idx * .018) + phase) * ampX +
+    Math.sin(t * .16 + phase * 1.7) * 2.2;
+
+  const driftY =
+    Math.cos(t * (.29 + idx * .015) + phase * .9) * ampY +
+    Math.sin(t * .14 + phase * 1.2) * 1.8;
+
+  /*
+    Quando um domínio está ativo, os nós relacionados
+    "respiram" discretamente em direção ao core.
+  */
+  const active = activeSet().has(n.id);
+  const pull = active ? (2.5 + Math.sin(t * .55 + phase) * 1.7) : 0;
+
+  const baseX = n.x * W;
+  const baseY = n.y * H;
+  const coreX = .5 * W;
+  const coreY = .5 * H;
+
+  const dx = coreX - baseX;
+  const dy = coreY - baseY;
+  const len = Math.hypot(dx,dy) || 1;
+
+  return {
+    x: baseX + px + driftX + (dx / len) * pull,
+    y: baseY + py + driftY + (dy / len) * pull
+  };
+
+}
+
+
+function drawProfileCore(){
+
+  t+=.018;
+
+  boost*=.97;
+
+  hctx.clearRect(
+    0,
+    0,
+    W,
+    H
+  );
+
+
+  const act=activeSet();
+
+  const core=profileNodes[0];
+
+  const cp=P(core);
+
+
+  /* CORE ENVIRONMENT */
+
+  let halo=
+    hctx.createRadialGradient(
+      cp.x,
+      cp.y,
+      0,
+      cp.x,
+      cp.y,
+      Math.min(W,H)*.25
+    );
+
+  halo.addColorStop(
+    0,
+    `rgba(210,241,250,${.055+boost*.025})`
+  );
+
+  halo.addColorStop(
+    .16,
+    `rgba(78,159,197,${.045+boost*.025})`
+  );
+
+  halo.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
+
+  hctx.fillStyle=halo;
+
+  hctx.fillRect(
+    0,
+    0,
+    W,
+    H
+  );
+
+
+  /* STRUCTURAL RINGS */
+
+  for(let i=0;i<3;i++){
+
+    const rr=
+      Math.min(W,H)*
+      (.12+i*.055)+
+      Math.sin(t*.45+i)*3.2;
+
+    hctx.strokeStyle=
+      `rgba(183,215,230,${.045-i*.008})`;
+
+    hctx.lineWidth=.8;
+
+    hctx.beginPath();
+
+    hctx.arc(
+      cp.x,
+      cp.y,
+      rr,
+      0,
+      Math.PI*2
+    );
+
+    hctx.stroke();
+
+  }
+
+
+  /* SEMANTIC RELATIONS */
+
+  profileEdges.forEach(
+    (edge,i)=>{
+
+      const a=
+        profileNodes.find(
+          n=>n.id===edge[0]
+        );
+
+      const b=
+        profileNodes.find(
+          n=>n.id===edge[1]
+        );
+
+      const ap=P(a);
+      const bp=P(b);
+
+      const on=
+        act.has(a.id) &&
+        act.has(b.id);
+
+      const breathe=
+        .5+
+        .5*
+        Math.sin(
+          t*.7+
+          i*.61
+        );
+
+
+      /*
+        V6.1:
+        base graph remains visible,
+        active semantic paths rise to
+        cold-white / cyan.
+      */
+
+      hctx.strokeStyle=
+        on
+          ? `rgba(132,218,241,${.34+breathe*.12})`
+          : `rgba(122,164,188,${.14+breathe*.035})`;
+
+      hctx.lineWidth=
+        on ? 1.25 : .9;
+
+      hctx.beginPath();
+
+      hctx.moveTo(
+        ap.x,
+        ap.y
+      );
+
+      hctx.quadraticCurveTo(
+        (ap.x+bp.x)/2,
+        (ap.y+bp.y)/2-5,
+        bp.x,
+        bp.y
+      );
+
+      hctx.stroke();
+
+
+      /* ACTIVE ENERGY PACKET */
+
+      if(on){
+
+        const q=
+          (
+            t*.24+
+            i*.13
+          )%1;
+
+        const px=
+          ap.x+
+          (bp.x-ap.x)*q;
+
+        const py=
+          ap.y+
+          (bp.y-ap.y)*q;
+
+        hctx.fillStyle=
+          'rgba(218,249,255,.76)';
+
+        hctx.shadowColor=
+          'rgba(85,216,255,.34)';
+
+        hctx.shadowBlur=8;
+
+        hctx.beginPath();
+
+        hctx.arc(
+          px,
+          py,
+          1.8,
+          0,
+          Math.PI*2
+        );
+
+        hctx.fill();
+
+        /* second, softer packet keeps the graph visibly alive */
+        const q2=(q+.48)%1;
+        const px2=ap.x+(bp.x-ap.x)*q2;
+        const py2=ap.y+(bp.y-ap.y)*q2;
+
+        hctx.globalAlpha=.42;
+        hctx.beginPath();
+        hctx.arc(px2,py2,1.15,0,Math.PI*2);
+        hctx.fill();
+        hctx.globalAlpha=1;
+
+        hctx.shadowBlur=0;
+
+      }
+
+    }
+  );
+
+
+  /* NODES */
+
+  profileNodes.forEach(
+    n=>{
+
+      const p=P(n);
+
+      const on=
+        act.has(n.id);
+
+      const coreNode=
+        n.type==='core';
+
+
+      if(coreNode){
+
+        const rr=
+          24+
+          Math.sin(t*.9)*1.2;
+
+        let g=
+          hctx.createRadialGradient(
+            p.x,
+            p.y,
+            0,
+            p.x,
+            p.y,
+            rr
+          );
+
+        g.addColorStop(
+          0,
+          'rgba(247,253,255,.98)'
+        );
+
+        g.addColorStop(
+          .11,
+          'rgba(207,238,248,.90)'
+        );
+
+        g.addColorStop(
+          .29,
+          'rgba(105,166,194,.42)'
+        );
+
+        g.addColorStop(
+          .62,
+          'rgba(31,71,94,.16)'
+        );
+
+        g.addColorStop(
+          1,
+          'rgba(0,0,0,0)'
+        );
+
+        hctx.fillStyle=g;
+
+        hctx.beginPath();
+
+        hctx.arc(
+          p.x,
+          p.y,
+          rr,
+          0,
+          Math.PI*2
+        );
+
+        hctx.fill();
+
+
+        hctx.strokeStyle=
+          'rgba(211,238,247,.24)';
+
+        hctx.lineWidth=.9;
+
+        hctx.beginPath();
+
+        hctx.arc(
+          p.x,
+          p.y,
+          31+
+          Math.sin(t*.55),
+          0,
+          Math.PI*2
+        );
+
+        hctx.stroke();
+
+      }
+
+      else{
+
+        if(on){
+
+          let ng=
+            hctx.createRadialGradient(
+              p.x,
+              p.y,
+              0,
+              p.x,
+              p.y,
+              14
+            );
+
+          ng.addColorStop(
+            0,
+            'rgba(216,246,253,.18)'
+          );
+
+          ng.addColorStop(
+            1,
+            'rgba(0,0,0,0)'
+          );
+
+          hctx.fillStyle=ng;
+
+          hctx.beginPath();
+
+          hctx.arc(
+            p.x,
+            p.y,
+            14,
+            0,
+            Math.PI*2
+          );
+
+          hctx.fill();
+
+        }
+
+
+        hctx.fillStyle=
+          on
+            ? 'rgba(220,248,253,.96)'
+            : 'rgba(119,154,174,.76)';
+
+
+        hctx.shadowColor=
+          on
+            ? 'rgba(85,216,255,.28)'
+            : 'transparent';
+
+        hctx.shadowBlur=
+          on ? 8 : 0;
+
+
+        hctx.beginPath();
+
+        hctx.arc(
+          p.x,
+          p.y,
+          n.r,
+          0,
+          Math.PI*2
+        );
+
+        hctx.fill();
+
+        hctx.shadowBlur=0;
+
+
+        hctx.fillStyle=
+          on
+            ? 'rgba(174,218,232,.94)'
+            : 'rgba(105,137,155,.82)';
+
+
+        hctx.font=
+          '8px Inter, Segoe UI, sans-serif';
+
+        hctx.textAlign=
+          n.x<.5
+            ? 'right'
+            : 'left';
+
+
+        hctx.fillText(
+          n.label,
+          p.x+
+          (
+            n.x<.5
+              ? -8
+              : 8
+          ),
+          p.y+2
+        );
+
+      }
+
+    }
+  );
+
+
+  const types=
+    new Set(
+
+      profileNodes
+
+        .filter(
+          n=>act.has(n.id)
+        )
+
+        .map(
+          n=>n.type
+        )
+
+    );
+
+
+  document
+    .querySelectorAll(
+      '.profile-constellation-label'
+    )
+    .forEach(
+      el=>
+        el.classList.toggle(
+          'active',
+          types.has(
+            el.dataset.constellation
+          )
+        )
+    );
+
+
+  requestAnimationFrame(
+    drawProfileCore
+  );
+
+}
+
+
+drawProfileCore();
+
+
+const stateTxt=
+  document.getElementById(
+    'stateTxt'
+  );
+
+const domainTxt=
+  document.getElementById(
+    'domainTxt'
+  );
+
+
+function setProfileDomain(
+  domain,
+  state='CONTEXT ACTIVE'
+){
+
+  activeDomain=domain;
+
+  domainTxt.textContent=
+    domain;
+
+  stateTxt.textContent=
+    state;
+
+  boost=.65;
+
+}
+
+
+/* JUN FAN LINK */
+
+document
+  .getElementById(
+    'enterJunFan'
+  )
+  .addEventListener(
+    'mouseenter',
+    ()=>{
+      setProfileDomain(
+        'DISCOVERY',
+        'KNOWLEDGE LINK READY'
+      );
+    }
+  );
+
+
+document
+  .getElementById(
+    'enterJunFan'
+  )
+  .addEventListener(
+    'mouseleave',
+    ()=>{
+      setProfileDomain(
+        'QUALITY',
+        'READY'
+      );
+    }
+  );
+
+
+/* INTERACTIVE DOMAIN CARDS */
+
+document
+  .querySelectorAll(
+    '[data-domain]'
+  )
+  .forEach(
+    el=>{
+
+      el.addEventListener(
+        'mouseenter',
+        ()=>{
+
+          setProfileDomain(
+            el.dataset.domain,
+            'CONTEXT ACTIVE'
+          );
+
+        }
+      );
+
+      el.addEventListener(
+        'mouseleave',
+        ()=>{
+
+          setProfileDomain(
+            'QUALITY',
+            'READY'
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* CAREER SYSTEM → CORE SYNCHRONIZATION */
+
+const careerNodes=[
+  ...document.querySelectorAll(
+    '.career-node'
+  )
+];
+
+
+const careerObserver=
+  new IntersectionObserver(
+
+    entries=>{
+
+      entries.forEach(
+        entry=>{
+
+          if(entry.isIntersecting){
+
+            careerNodes.forEach(
+              n=>
+                n.classList.remove(
+                  'active'
+                )
+            );
+
+            entry.target
+              .classList
+              .add(
+                'active'
+              );
+
+            setProfileDomain(
+              entry.target.dataset.career,
+              'CAREER NODE ACTIVE'
+            );
+
+            boost=.85;
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:.55
+    }
+
+  );
+
+
+careerNodes.forEach(
+  node=>
+    careerObserver.observe(
+      node
+    )
+);
+
+
+const experienceSection=
+  document.getElementById(
+    'experience'
+  );
+
+
+const experienceExitObserver=
+  new IntersectionObserver(
+
+    entries=>{
+
+      entries.forEach(
+        entry=>{
+
+          if(
+            !entry.isIntersecting &&
+            window.scrollY<
+            experienceSection.offsetTop
+          ){
+
+            careerNodes.forEach(
+              n=>
+                n.classList.remove(
+                  'active'
+                )
+            );
+
+            setProfileDomain(
+              'QUALITY',
+              'READY'
+            );
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:.05
+    }
+
+  );
+
+
+experienceExitObserver.observe(
+  experienceSection
+);
+
+
+/* MOBILE TOUCH → SEMANTIC CORE */
+
+document
+  .querySelectorAll(
+    '[data-domain]'
+  )
+  .forEach(
+    el=>{
+
+      el.addEventListener(
+        'touchstart',
+        ()=>{
+
+          setProfileDomain(
+            el.dataset.domain,
+            'CONTEXT ACTIVE'
+          );
+
+        },
+
+        {
+          passive:true
+        }
+      );
+
+    }
+  );
+
+
+
+/* ===== V6.5 // NAV INTELLIGENCE ===== */
+
+const hzTooltip=document.getElementById('hzTooltip');
+const hzTipLabel=document.getElementById('hzTipLabel');
+const hzTipTitle=document.getElementById('hzTipTitle');
+const hzTipText=document.getElementById('hzTipText');
+
+function moveHzTooltip(ev){
+  if(!hzTooltip) return;
+  const gap=18;
+  const r=hzTooltip.getBoundingClientRect();
+
+  let x=ev.clientX+gap;
+  let y=ev.clientY+gap;
+
+  if(x+r.width>window.innerWidth-12){
+    x=ev.clientX-r.width-gap;
+  }
+  if(y+r.height>window.innerHeight-12){
+    y=ev.clientY-r.height-gap;
+  }
+
+  hzTooltip.style.left=Math.max(12,x)+'px';
+  hzTooltip.style.top=Math.max(12,y)+'px';
+}
+
+document
+  .querySelectorAll('[data-tip]')
+  .forEach(el=>{
+    el.addEventListener('mouseenter',ev=>{
+      hzTipLabel.textContent='NAVIGATION INTELLIGENCE // '+(el.dataset.tipLabel||'CONTEXT');
+      hzTipTitle.textContent=(el.textContent||'').trim().replace(/\s+/g,' ');
+      hzTipText.textContent=el.dataset.tip;
+      hzTooltip.classList.add('show');
+      hzTooltip.setAttribute('aria-hidden','false');
+      moveHzTooltip(ev);
+    });
+
+    el.addEventListener('mousemove',moveHzTooltip);
+
+    el.addEventListener('mouseleave',()=>{
+      hzTooltip.classList.remove('show');
+      hzTooltip.setAttribute('aria-hidden','true');
+    });
+  });
+
+
+/* ===== V6.5 // GRAPH DISCOVERY ===== */
+
+const graphDetail=document.getElementById('graphDetail');
+const graphDetailType=document.getElementById('graphDetailType');
+const graphDetailTitle=document.getElementById('graphDetailTitle');
+const graphDetailText=document.getElementById('graphDetailText');
+
+const graphNodeInfo={
+  core:{
+    type:'QUALITY ENGINEERING CORE',
+    title:'ODIRLEI ALVES',
+    text:'Facilitador de qualidade conectando estratégia, arquitetura, automação, IA e delivery.'
+  },
+  globaltec:{
+    type:'CAREER // SYSTEMS',
+    title:'Globaltec S/A',
+    text:'ERP complexo, automação Desktop, APIs, CI/CD, IA aplicada ao QA e liderança técnica de automação.'
+  },
+  bankme:{
+    type:'CAREER // FINTECH',
+    title:'Bankme',
+    text:'Automação Web/API, BDD, RabbitMQ, Datadog, observabilidade e qualidade orientada a produto.'
+  },
+  blue:{
+    type:'CAREER // FOUNDATION',
+    title:'Blue Service',
+    text:'Base em QA funcional, exploratório, Web/Mobile, suporte técnico, logs e pipelines.'
+  },
+  automation:{
+    type:'CAPABILITY // ENGINEERING',
+    title:'Automation & QA',
+    text:'Robot Framework, Sikuli, Selenium, APIs e engenharia de automação orientada a risco e retorno.'
+  },
+  ai:{
+    type:'CAPABILITY // INTELLIGENCE',
+    title:'AI & Intelligence',
+    text:'LLMs, agentes, prompt engineering e IA como camada operacional do processo de qualidade.'
+  },
+  devops:{
+    type:'DELIVERY // QUALITY OPS',
+    title:'DevOps & Quality Ops',
+    text:'CI/CD, pipelines, quality gates, artifacts, execução contínua e feedback rápido para o time.'
+  },
+  architecture:{
+    type:'DELIVERY // DESIGN',
+    title:'Architecture & Design',
+    text:'Padrões, reutilização, desacoplamento e soluções sustentáveis antes de escalar automação.'
+  },
+  projects:{
+    type:'PROJECTS // SOLUTIONS',
+    title:'Projects & Solutions',
+    text:'Ferramentas e sistemas próprios que transformam problemas de QA em soluções reutilizáveis.'
+  },
+  junfan:{
+    type:'PROJECT // KNOWLEDGE SYSTEM',
+    title:'Project Jun Fan',
+    text:'Discovery Engine, Knowledge Graph, experiências interativas e arquitetura orientada a descoberta.'
+  }
+};
+
+let hoverGraphNode=null;
+let pinnedGraphNode=null;
+
+function graphNodeAt(clientX,clientY){
+  const rect=hc.getBoundingClientRect();
+  const mx=clientX-rect.left;
+  const my=clientY-rect.top;
+
+  let best=null;
+  let bestDist=Infinity;
+
+  profileNodes.forEach(n=>{
+    const p=P(n);
+    const d=Math.hypot(mx-p.x,my-p.y);
+    const hit=Math.max(18,n.r*4.8);
+
+    if(d<hit && d<bestDist){
+      best=n;
+      bestDist=d;
+    }
+  });
+
+  return best;
+}
+
+function showGraphDetail(n,pinned=false){
+  if(!graphDetail) return;
+
+  if(!n){
+    graphDetail.classList.remove('show');
+    return;
+  }
+
+  const info=graphNodeInfo[n.id];
+  if(!info) return;
+
+  graphDetailType.textContent=info.type+(pinned?' // PINNED':' // HOVER');
+  graphDetailTitle.textContent=info.title;
+  graphDetailText.textContent=info.text;
+  graphDetail.classList.add('show');
+}
+
+hc.addEventListener('mousemove',ev=>{
+  const n=graphNodeAt(ev.clientX,ev.clientY);
+  hoverGraphNode=n;
+
+  hc.style.cursor=n?'pointer':'crosshair';
+
+  if(n){
+    const info=graphNodeInfo[n.id];
+    activeDomain=(
+      n.id==='automation' ? 'AUTOMATION' :
+      n.id==='ai' ? 'AI' :
+      n.id==='devops' ? 'DEVOPS' :
+      n.id==='architecture' ? 'ARCHITECTURE' :
+      n.id==='globaltec' ? 'GLOBALTEC' :
+      n.id==='bankme' ? 'BANKME' :
+      n.id==='blue' ? 'BLUE SERVICE' :
+      n.id==='junfan' || n.id==='projects' ? 'DISCOVERY' :
+      'QUALITY'
+    );
+    boost=.72;
+    if(!pinnedGraphNode) showGraphDetail(n,false);
+  }else if(!pinnedGraphNode){
+    activeDomain='QUALITY';
+    showGraphDetail(null);
+  }
+});
+
+hc.addEventListener('mouseleave',()=>{
+  hoverGraphNode=null;
+  if(!pinnedGraphNode){
+    activeDomain='QUALITY';
+    showGraphDetail(null);
+  }
+});
+
+hc.addEventListener('click',ev=>{
+  const n=graphNodeAt(ev.clientX,ev.clientY);
+
+  if(!n){
+    pinnedGraphNode=null;
+    showGraphDetail(null);
+    activeDomain='QUALITY';
+    return;
+  }
+
+  if(pinnedGraphNode && pinnedGraphNode.id===n.id){
+    pinnedGraphNode=null;
+    showGraphDetail(n,false);
+    return;
+  }
+
+  pinnedGraphNode=n;
+  showGraphDetail(n,true);
+  boost=.95;
+});
+
+
+/* enhance living motion without destabilizing layout */
+const originalP=P;
+P=function(n){
+  const p=originalP(n);
+  const idx=profileNodes.indexOf(n);
+  const phase=idx*1.31+n.x*4.2+n.y*3.1;
+
+  if(n.type!=='core'){
+    p.x+=Math.sin(t*.52+phase)*2.4;
+    p.y+=Math.cos(t*.43+phase)*1.9;
+  }else{
+    p.x+=Math.sin(t*.30)*.7;
+    p.y+=Math.cos(t*.27)*.7;
+  }
+
+  if((hoverGraphNode && hoverGraphNode.id===n.id) || (pinnedGraphNode && pinnedGraphNode.id===n.id)){
+    const cx=.5*W;
+    const cy=.5*H;
+    const dx=cx-p.x;
+    const dy=cy-p.y;
+    const len=Math.hypot(dx,dy)||1;
+    p.x+=(dx/len)*4;
+    p.y+=(dy/len)*4;
+  }
+
+  return p;
+};
+
+
+/* INITIAL STATE */
+
+setLanguage('pt');
+
+setProfileDomain(
+  'QUALITY',
+  'READY'
+);
+
+</script>
+
+
+
+<!-- Typography readability patch: descriptive content only -->
+<style id="readability-font-patch">
+/* Keep HUD/micro labels compact; enlarge content recruiters actually read. */
+.lead{
+  font-size:17px;
+  line-height:1.78;
+}
+
+.bridge strong{
+  font-size:15px;
+  line-height:1.45;
+}
+
+.bridge p{
+  font-size:14px;
+  line-height:1.65;
+}
+
+.section-head p{
+  font-size:16px;
+  line-height:1.72;
+}
+
+.telemetry-card p,
+.principle p,
+.ai-card p,
+.project-card p{
+  font-size:15px;
+  line-height:1.68;
+}
+
+.node-mission{
+  font-size:16px;
+  line-height:1.72;
+}
+
+.node-block p{
+  font-size:14px;
+  line-height:1.65;
+}
+
+.evo p{
+  font-size:14px;
+  line-height:1.58;
+}
+
+.edu-card p{
+  font-size:15px;
+  line-height:1.65;
+}
+
+.jf-copy p{
+  font-size:16px;
+  line-height:1.72;
+}
+
+/* Supporting readable UI text — still smaller than primary descriptions. */
+.node-tags span,
+.project-tags span{
+  font-size:10px;
+}
+
+.project-link,
+.action{
+  font-size:11px;
+}
+
+@media (max-width:600px){
+  .lead{font-size:16px;line-height:1.72}
+  .bridge strong{font-size:14px}
+  .bridge p{font-size:13px}
+  .section-head p{font-size:15px}
+  .telemetry-card p,
+  .principle p,
+  .ai-card p,
+  .project-card p{font-size:14px;line-height:1.65}
+  .node-mission{font-size:15px}
+  .node-block p,
+  .evo p{font-size:13px}
+  .edu-card p{font-size:14px}
+  .jf-copy p{font-size:15px}
+}
+</style>
+
+
+<div class="hz-tooltip" id="hzTooltip" aria-hidden="true">
+  <small id="hzTipLabel">NAVIGATION INTELLIGENCE</small>
+  <strong id="hzTipTitle">Context</strong>
+  <p id="hzTipText"></p>
+</div>
+
+</body>
+</html>
