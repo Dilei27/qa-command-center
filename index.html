@@ -1359,6 +1359,124 @@ section{
   }
 }
 
+
+/* ===== V6.5 // HORIZON NAV INTELLIGENCE + GRAPH INTERACTION ===== */
+
+.hz-tooltip{
+  position:fixed;
+  z-index:9999;
+  width:min(310px,calc(100vw - 28px));
+  padding:11px 13px 12px;
+  border:1px solid rgba(85,216,255,.22);
+  border-radius:12px;
+  background:
+    linear-gradient(180deg,rgba(5,13,20,.96),rgba(3,8,13,.97));
+  box-shadow:
+    0 16px 42px rgba(0,0,0,.32),
+    inset 0 0 28px rgba(85,216,255,.025);
+  backdrop-filter:blur(16px);
+  pointer-events:none;
+  opacity:0;
+  transform:translate3d(0,8px,0) scale(.985);
+  transition:opacity .14s ease,transform .14s ease;
+}
+.hz-tooltip.show{
+  opacity:1;
+  transform:translate3d(0,0,0) scale(1);
+}
+.hz-tooltip::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:10px;
+  bottom:10px;
+  width:2px;
+  border-radius:99px;
+  background:linear-gradient(transparent,#61dcff,transparent);
+  box-shadow:0 0 10px rgba(85,216,255,.35);
+}
+.hz-tooltip small{
+  display:block;
+  color:#64c8e6;
+  font-size:8px;
+  line-height:1.2;
+  letter-spacing:.18em;
+  font-weight:900;
+}
+.hz-tooltip strong{
+  display:block;
+  margin-top:5px;
+  color:#dff5fb;
+  font-size:12px;
+  line-height:1.25;
+  letter-spacing:.02em;
+}
+.hz-tooltip p{
+  margin:6px 0 0;
+  color:#91a7b8;
+  font-size:11px;
+  line-height:1.5;
+}
+
+#heroCanvas{
+  cursor:crosshair;
+}
+
+.graph-detail{
+  position:absolute;
+  z-index:8;
+  left:18px;
+  right:18px;
+  bottom:46px;
+  min-height:76px;
+  padding:12px 14px 13px;
+  border:1px solid rgba(85,216,255,.16);
+  border-radius:13px;
+  background:
+    linear-gradient(180deg,rgba(5,13,20,.90),rgba(3,8,13,.95));
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.22),
+    inset 0 0 26px rgba(85,216,255,.02);
+  backdrop-filter:blur(12px);
+  pointer-events:none;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .18s ease,transform .18s ease;
+}
+.graph-detail.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.graph-detail small{
+  display:block;
+  color:#61c9e8;
+  font-size:8px;
+  letter-spacing:.18em;
+  font-weight:900;
+}
+.graph-detail strong{
+  display:block;
+  margin-top:5px;
+  color:#e2f6fb;
+  font-size:14px;
+  line-height:1.25;
+}
+.graph-detail p{
+  margin-top:5px;
+  color:#89a0b2;
+  font-size:11px;
+  line-height:1.45;
+}
+
+@media(max-width:600px){
+  .hz-tooltip{display:none}
+  .graph-detail{
+    left:12px;
+    right:12px;
+    bottom:40px;
+  }
+}
+
 </style>
 </head>
 
@@ -1374,20 +1492,20 @@ section{
   </div>
 
   <div class="nav-right">
-    <a href="#experience" data-i18n="navExp">Experiência</a>
-    <a href="#how" data-i18n="navHow">Como trabalho</a>
-    <a href="#projects" data-i18n="navProjects">Projetos</a>
+    <a href="#experience" data-i18n="navExp" data-tip-label="EXPERIENCE" data-tip="Explore minha trajetória, responsabilidades e evolução em Quality Engineering.">Experiência</a>
+    <a href="#how" data-i18n="navHow" data-tip-label="HOW I WORK" data-tip="Discovery → Strategy → Architecture → Delivery. Veja meu processo de engenharia.">Como trabalho</a>
+    <a href="#projects" data-i18n="navProjects" data-tip-label="PROJECTS" data-tip="Soluções reais que transformam problemas de QA em ferramentas e sistemas.">Projetos</a>
 
     <a
       href="https://dilei27.github.io/project-jun-fan/"
       target="_blank"
-      class="jf"
+      class="jf" data-tip-label="PROJECT JUN FAN" data-tip="Entre na camada de conhecimento, projetos, arquitetura e experimentação."
     >
       Project Jun Fan ↗
     </a>
 
     <a
-      class="nav-cv"
+      class="nav-cv" data-tip-label="CURRICULUM" data-tip="Baixe meu currículo profissional em PDF."
       href="assets/cv/Odirlei-Alves-CV-PT.pdf"
       download
       data-i18n-title="navCvTitle"
@@ -1598,7 +1716,14 @@ section{
       <div>LINK <b>PROJECT JUN FAN</b></div>
     </div>
 
-    <div class="stage-hint">
+    
+    <div class="graph-detail" id="graphDetail">
+      <small id="graphDetailType">QUALITY ENGINEERING UNIVERSE</small>
+      <strong id="graphDetailTitle">Explore o grafo</strong>
+      <p id="graphDetailText">Passe o mouse sobre os nós para descobrir contexto, tecnologias, decisões e impacto.</p>
+    </div>
+
+<div class="stage-hint">
       career telemetry / knowledge bridge / live discovery
     </div>
 
@@ -4318,6 +4443,242 @@ document
   );
 
 
+
+/* ===== V6.5 // NAV INTELLIGENCE ===== */
+
+const hzTooltip=document.getElementById('hzTooltip');
+const hzTipLabel=document.getElementById('hzTipLabel');
+const hzTipTitle=document.getElementById('hzTipTitle');
+const hzTipText=document.getElementById('hzTipText');
+
+function moveHzTooltip(ev){
+  if(!hzTooltip) return;
+  const gap=18;
+  const r=hzTooltip.getBoundingClientRect();
+
+  let x=ev.clientX+gap;
+  let y=ev.clientY+gap;
+
+  if(x+r.width>window.innerWidth-12){
+    x=ev.clientX-r.width-gap;
+  }
+  if(y+r.height>window.innerHeight-12){
+    y=ev.clientY-r.height-gap;
+  }
+
+  hzTooltip.style.left=Math.max(12,x)+'px';
+  hzTooltip.style.top=Math.max(12,y)+'px';
+}
+
+document
+  .querySelectorAll('[data-tip]')
+  .forEach(el=>{
+    el.addEventListener('mouseenter',ev=>{
+      hzTipLabel.textContent='NAVIGATION INTELLIGENCE // '+(el.dataset.tipLabel||'CONTEXT');
+      hzTipTitle.textContent=(el.textContent||'').trim().replace(/\s+/g,' ');
+      hzTipText.textContent=el.dataset.tip;
+      hzTooltip.classList.add('show');
+      hzTooltip.setAttribute('aria-hidden','false');
+      moveHzTooltip(ev);
+    });
+
+    el.addEventListener('mousemove',moveHzTooltip);
+
+    el.addEventListener('mouseleave',()=>{
+      hzTooltip.classList.remove('show');
+      hzTooltip.setAttribute('aria-hidden','true');
+    });
+  });
+
+
+/* ===== V6.5 // GRAPH DISCOVERY ===== */
+
+const graphDetail=document.getElementById('graphDetail');
+const graphDetailType=document.getElementById('graphDetailType');
+const graphDetailTitle=document.getElementById('graphDetailTitle');
+const graphDetailText=document.getElementById('graphDetailText');
+
+const graphNodeInfo={
+  core:{
+    type:'QUALITY ENGINEERING CORE',
+    title:'ODIRLEI ALVES',
+    text:'Facilitador de qualidade conectando estratégia, arquitetura, automação, IA e delivery.'
+  },
+  globaltec:{
+    type:'CAREER // SYSTEMS',
+    title:'Globaltec S/A',
+    text:'ERP complexo, automação Desktop, APIs, CI/CD, IA aplicada ao QA e liderança técnica de automação.'
+  },
+  bankme:{
+    type:'CAREER // FINTECH',
+    title:'Bankme',
+    text:'Automação Web/API, BDD, RabbitMQ, Datadog, observabilidade e qualidade orientada a produto.'
+  },
+  blue:{
+    type:'CAREER // FOUNDATION',
+    title:'Blue Service',
+    text:'Base em QA funcional, exploratório, Web/Mobile, suporte técnico, logs e pipelines.'
+  },
+  automation:{
+    type:'CAPABILITY // ENGINEERING',
+    title:'Automation & QA',
+    text:'Robot Framework, Sikuli, Selenium, APIs e engenharia de automação orientada a risco e retorno.'
+  },
+  ai:{
+    type:'CAPABILITY // INTELLIGENCE',
+    title:'AI & Intelligence',
+    text:'LLMs, agentes, prompt engineering e IA como camada operacional do processo de qualidade.'
+  },
+  devops:{
+    type:'DELIVERY // QUALITY OPS',
+    title:'DevOps & Quality Ops',
+    text:'CI/CD, pipelines, quality gates, artifacts, execução contínua e feedback rápido para o time.'
+  },
+  architecture:{
+    type:'DELIVERY // DESIGN',
+    title:'Architecture & Design',
+    text:'Padrões, reutilização, desacoplamento e soluções sustentáveis antes de escalar automação.'
+  },
+  projects:{
+    type:'PROJECTS // SOLUTIONS',
+    title:'Projects & Solutions',
+    text:'Ferramentas e sistemas próprios que transformam problemas de QA em soluções reutilizáveis.'
+  },
+  junfan:{
+    type:'PROJECT // KNOWLEDGE SYSTEM',
+    title:'Project Jun Fan',
+    text:'Discovery Engine, Knowledge Graph, experiências interativas e arquitetura orientada a descoberta.'
+  }
+};
+
+let hoverGraphNode=null;
+let pinnedGraphNode=null;
+
+function graphNodeAt(clientX,clientY){
+  const rect=hc.getBoundingClientRect();
+  const mx=clientX-rect.left;
+  const my=clientY-rect.top;
+
+  let best=null;
+  let bestDist=Infinity;
+
+  profileNodes.forEach(n=>{
+    const p=P(n);
+    const d=Math.hypot(mx-p.x,my-p.y);
+    const hit=Math.max(18,n.r*4.8);
+
+    if(d<hit && d<bestDist){
+      best=n;
+      bestDist=d;
+    }
+  });
+
+  return best;
+}
+
+function showGraphDetail(n,pinned=false){
+  if(!graphDetail) return;
+
+  if(!n){
+    graphDetail.classList.remove('show');
+    return;
+  }
+
+  const info=graphNodeInfo[n.id];
+  if(!info) return;
+
+  graphDetailType.textContent=info.type+(pinned?' // PINNED':' // HOVER');
+  graphDetailTitle.textContent=info.title;
+  graphDetailText.textContent=info.text;
+  graphDetail.classList.add('show');
+}
+
+hc.addEventListener('mousemove',ev=>{
+  const n=graphNodeAt(ev.clientX,ev.clientY);
+  hoverGraphNode=n;
+
+  hc.style.cursor=n?'pointer':'crosshair';
+
+  if(n){
+    const info=graphNodeInfo[n.id];
+    activeDomain=(
+      n.id==='automation' ? 'AUTOMATION' :
+      n.id==='ai' ? 'AI' :
+      n.id==='devops' ? 'DEVOPS' :
+      n.id==='architecture' ? 'ARCHITECTURE' :
+      n.id==='globaltec' ? 'GLOBALTEC' :
+      n.id==='bankme' ? 'BANKME' :
+      n.id==='blue' ? 'BLUE SERVICE' :
+      n.id==='junfan' || n.id==='projects' ? 'DISCOVERY' :
+      'QUALITY'
+    );
+    boost=.72;
+    if(!pinnedGraphNode) showGraphDetail(n,false);
+  }else if(!pinnedGraphNode){
+    activeDomain='QUALITY';
+    showGraphDetail(null);
+  }
+});
+
+hc.addEventListener('mouseleave',()=>{
+  hoverGraphNode=null;
+  if(!pinnedGraphNode){
+    activeDomain='QUALITY';
+    showGraphDetail(null);
+  }
+});
+
+hc.addEventListener('click',ev=>{
+  const n=graphNodeAt(ev.clientX,ev.clientY);
+
+  if(!n){
+    pinnedGraphNode=null;
+    showGraphDetail(null);
+    activeDomain='QUALITY';
+    return;
+  }
+
+  if(pinnedGraphNode && pinnedGraphNode.id===n.id){
+    pinnedGraphNode=null;
+    showGraphDetail(n,false);
+    return;
+  }
+
+  pinnedGraphNode=n;
+  showGraphDetail(n,true);
+  boost=.95;
+});
+
+
+/* enhance living motion without destabilizing layout */
+const originalP=P;
+P=function(n){
+  const p=originalP(n);
+  const idx=profileNodes.indexOf(n);
+  const phase=idx*1.31+n.x*4.2+n.y*3.1;
+
+  if(n.type!=='core'){
+    p.x+=Math.sin(t*.52+phase)*2.4;
+    p.y+=Math.cos(t*.43+phase)*1.9;
+  }else{
+    p.x+=Math.sin(t*.30)*.7;
+    p.y+=Math.cos(t*.27)*.7;
+  }
+
+  if((hoverGraphNode && hoverGraphNode.id===n.id) || (pinnedGraphNode && pinnedGraphNode.id===n.id)){
+    const cx=.5*W;
+    const cy=.5*H;
+    const dx=cx-p.x;
+    const dy=cy-p.y;
+    const len=Math.hypot(dx,dy)||1;
+    p.x+=(dx/len)*4;
+    p.y+=(dy/len)*4;
+  }
+
+  return p;
+};
+
+
 /* INITIAL STATE */
 
 setLanguage('pt');
@@ -4414,6 +4775,13 @@ setProfileDomain(
   .jf-copy p{font-size:15px}
 }
 </style>
+
+
+<div class="hz-tooltip" id="hzTooltip" aria-hidden="true">
+  <small id="hzTipLabel">NAVIGATION INTELLIGENCE</small>
+  <strong id="hzTipTitle">Context</strong>
+  <p id="hzTipText"></p>
+</div>
 
 </body>
 </html>
