@@ -1168,6 +1168,197 @@ section{
   }
 }
 
+
+/* ===== V6.4 // CV ACCESS ===== */
+
+.nav-cv{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:64px;
+  height:34px;
+  padding:0 12px;
+  border:1px solid rgba(85,216,255,.26);
+  border-radius:10px;
+  background:
+    linear-gradient(135deg,rgba(85,216,255,.09),rgba(45,92,119,.10));
+  color:#d7f4fb !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  letter-spacing:.10em;
+  box-shadow:0 0 20px rgba(85,216,255,.045);
+}
+.nav-cv:hover{
+  border-color:rgba(85,216,255,.48);
+  background:
+    linear-gradient(135deg,rgba(85,216,255,.14),rgba(45,92,119,.13));
+}
+
+.cv-access{
+  margin-top:18px;
+  padding:15px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  border:1px solid rgba(85,216,255,.18);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 0% 50%,rgba(85,216,255,.07),transparent 36%),
+    linear-gradient(135deg,rgba(9,22,32,.78),rgba(4,10,16,.82));
+  box-shadow:
+    inset 0 0 34px rgba(85,216,255,.025),
+    0 12px 30px rgba(0,0,0,.12);
+  position:relative;
+  overflow:hidden;
+}
+.cv-access::before{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:2px;
+  background:linear-gradient(
+    to bottom,
+    transparent,
+    rgba(85,216,255,.76),
+    transparent
+  );
+}
+
+.cv-access-copy{
+  min-width:0;
+}
+.cv-access-copy small{
+  display:block;
+  color:#64c6e6;
+  font-size:8px;
+  letter-spacing:.17em;
+  font-weight:900;
+}
+.cv-access-copy strong{
+  display:block;
+  margin-top:5px;
+  color:#e1f6fb;
+  font-size:16px;
+  line-height:1.2;
+}
+.cv-access-copy span{
+  display:block;
+  margin-top:4px;
+  color:#7f96a8;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.cv-access-actions{
+  display:flex;
+  gap:9px;
+  flex-shrink:0;
+}
+.cv-btn{
+  min-width:148px;
+  min-height:58px;
+  padding:10px 12px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  grid-template-rows:auto auto;
+  column-gap:9px;
+  align-items:center;
+  text-decoration:none;
+  border:1px solid rgba(130,180,204,.17);
+  border-radius:12px;
+  background:rgba(255,255,255,.022);
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+}
+.cv-btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(85,216,255,.38);
+  background:rgba(85,216,255,.045);
+}
+.cv-btn.primary{
+  border-color:rgba(85,216,255,.31);
+  background:
+    linear-gradient(135deg,rgba(45,119,153,.18),rgba(12,31,44,.22));
+  box-shadow:0 0 24px rgba(85,216,255,.055);
+}
+.cv-lang{
+  grid-row:1 / 3;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:38px;
+  height:30px;
+  padding:0 7px;
+  border:1px solid rgba(85,216,255,.18);
+  border-radius:8px;
+  color:#91dbef;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.cv-btn b{
+  color:#d9f2f8;
+  font-size:10px;
+  line-height:1.2;
+  letter-spacing:.08em;
+}
+.cv-btn em{
+  grid-row:1 / 3;
+  font-style:normal;
+  color:#8fdcf0;
+  font-size:18px;
+}
+.cv-btn::after{
+  content:"PDF";
+  grid-column:2;
+  color:#566f81;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.14em;
+  margin-top:3px;
+}
+
+@media(max-width:980px){
+  .cv-access{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .cv-access-actions{
+    width:100%;
+  }
+  .cv-btn{
+    flex:1;
+  }
+}
+
+@media(max-width:600px){
+  .nav-cv{
+    min-width:54px;
+    height:32px;
+    padding:0 9px;
+  }
+  .cv-access{
+    padding:14px;
+  }
+  .cv-access-actions{
+    flex-direction:column;
+  }
+  .cv-btn{
+    width:100%;
+    min-height:54px;
+  }
+  .cv-access-copy strong{
+    font-size:15px;
+  }
+  .cv-access-copy span{
+    font-size:12px;
+  }
+}
+
 </style>
 </head>
 
@@ -1193,6 +1384,16 @@ section{
       class="jf"
     >
       Project Jun Fan ↗
+    </a>
+
+    <a
+      class="nav-cv"
+      href="assets/cv/Odirlei-Alves-CV-PT.pdf"
+      download
+      data-i18n-title="navCvTitle"
+      title="Baixar currículo"
+    >
+      CV ↓
     </a>
 
     <div class="lang">
@@ -1258,22 +1459,36 @@ section{
         GitHub
       </a>
 
-      <a
-        class="action"
-        href="assets/cv/Odirlei-Alves-CV-PT.pdf"
-        download
-      >
-        CV PT ↓
-      </a>
+    </div>
 
-      <a
-        class="action"
-        href="assets/cv/Odirlei-Alves-CV-EN.pdf"
-        download
-      >
-        CV EN ↓
-      </a>
+    <div class="cv-access">
+      <div class="cv-access-copy">
+        <small>CURRICULUM // DOWNLOAD</small>
+        <strong data-i18n="cvAccessTitle">Currículo profissional</strong>
+        <span data-i18n="cvAccessText">Versões em português e inglês prontas para download.</span>
+      </div>
 
+      <div class="cv-access-actions">
+        <a
+          class="cv-btn primary"
+          href="assets/cv/Odirlei-Alves-CV-PT.pdf"
+          download
+        >
+          <span class="cv-lang">PT-BR</span>
+          <b data-i18n="cvPtLabel">BAIXAR CURRÍCULO</b>
+          <em>↓</em>
+        </a>
+
+        <a
+          class="cv-btn"
+          href="assets/cv/Odirlei-Alves-CV-EN.pdf"
+          download
+        >
+          <span class="cv-lang">EN</span>
+          <b data-i18n="cvEnLabel">DOWNLOAD CV</b>
+          <em>↓</em>
+        </a>
+      </div>
     </div>
 
     <div class="hero-micro">
@@ -2842,7 +3057,13 @@ const translations = {
     qp5:'Automatizo onde existe retorno real para o ciclo de entrega, manutenção e redução de risco.',
     qp6:'Levo qualidade para dentro do fluxo de engenharia e dos pipelines, em vez de deixá-la isolada no final.',
     qp7:'Falhas precisam gerar evidência, contexto, métricas e diagnóstico — não apenas um status vermelho.',
-    qp8:'Resultados alimentam continuamente estratégia, arquitetura, cobertura e novas formas de acelerar o time.'
+    qp8:'Resultados alimentam continuamente estratégia, arquitetura, cobertura e novas formas de acelerar o time.',
+
+    cvAccessTitle:'Currículo profissional',
+    cvAccessText:'Versões em português e inglês prontas para download.',
+    cvPtLabel:'BAIXAR CURRÍCULO',
+    cvEnLabel:'DOWNLOAD CV',
+    navCvTitle:'Baixar currículo'
 
   },
 
@@ -2987,7 +3208,13 @@ const translations = {
     qp5:'I automate where it creates real value for delivery, maintainability and risk reduction.',
     qp6:'I bring quality into the engineering workflow and pipelines instead of leaving it isolated at the end.',
     qp7:'Failures should generate evidence, context, metrics and diagnosis — not just a red status.',
-    qp8:'Results continuously feed strategy, architecture, coverage and new ways to accelerate the team.'
+    qp8:'Results continuously feed strategy, architecture, coverage and new ways to accelerate the team.',
+
+    cvAccessTitle:'Professional résumé',
+    cvAccessText:'Portuguese and English versions ready to download.',
+    cvPtLabel:'DOWNLOAD PT CV',
+    cvEnLabel:'DOWNLOAD CV',
+    navCvTitle:'Download résumé'
 
   }
 
@@ -3023,6 +3250,11 @@ function setLanguage(lang){
       }
 
     });
+
+  const navCv=document.querySelector('.nav-cv');
+  if(navCv && translations[lang].navCvTitle){
+    navCv.title=translations[lang].navCvTitle;
+  }
 
   document
     .querySelectorAll('.lang button')
