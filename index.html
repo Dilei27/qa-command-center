@@ -1996,16 +1996,16 @@ section{
 
     <div class="evo">
       <small>2021 // FOUNDATION</small>
-      <strong data-i18n="evo1Title">Product Understanding</strong>
+      <strong data-i18n="evo1Title">Entendimento do Produto</strong>
       <p data-i18n="evo1">
-        Web · Mobile · Exploratory · Functional · GCP
+        Web · Mobile · Exploratório · Funcional · GCP
       </p>
     </div>
 
     <div class="evo">
       <small>2022 // AUTOMATION</small>
       <strong data-i18n="evo2Title">
-        Automation & Observability
+        Automação & Observabilidade
       </strong>
       <p data-i18n="evo2">
         Cypress · API · RabbitMQ · Datadog · BDD
@@ -2015,10 +2015,10 @@ section{
     <div class="evo">
       <small>2023+ // ARCHITECTURE</small>
       <strong data-i18n="evo3Title">
-        Quality Engineering
+        Engenharia de Qualidade
       </strong>
       <p data-i18n="evo3">
-        Desktop Automation · Python · Azure DevOps · AI · CI/CD
+        Automação Desktop · Python · Azure DevOps · IA · CI/CD
       </p>
     </div>
 
@@ -3100,14 +3100,14 @@ const translations = {
 
     bsContext:'Suporte ao time, análise de logs em GCP e execução/monitoramento de pipelines.',
 
-    evo1Title:'Product Understanding',
-    evo1:'Web · Mobile · Exploratory · Functional · GCP',
+    evo1Title:'Entendimento do Produto',
+    evo1:'Web · Mobile · Exploratório · Funcional · GCP',
 
-    evo2Title:'Automation & Observability',
+    evo2Title:'Automação & Observabilidade',
     evo2:'Cypress · API · RabbitMQ · Datadog · BDD',
 
-    evo3Title:'Quality Engineering',
-    evo3:'Desktop Automation · Python · Azure DevOps · AI · CI/CD',
+    evo3Title:'Engenharia de Qualidade',
+    evo3:'Automação Desktop · Python · Azure DevOps · IA · CI/CD',
 
     eduTitle:'Formação & Idiomas',
 
@@ -3318,7 +3318,7 @@ const translations = {
 
     projectAgent:'A vision of specialized agents covering documentation, planning, discovery, automation, execution, analysis and continuous evolution of the quality lifecycle.',
 
-    jfTitle:'The résumé ends here.<br>The system begins in Jun Fan.',
+    jfTitle:'The CV ends here.<br>The system begins in Jun Fan.',
 
     jfDesc:'This profile summarizes my professional journey. Project Jun Fan opens the next layer: projects, architecture, experiments, knowledge, decisions and systems I am building.',
 
@@ -3335,11 +3335,11 @@ const translations = {
     qp7:'Failures should generate evidence, context, metrics and diagnosis — not just a red status.',
     qp8:'Results continuously feed strategy, architecture, coverage and new ways to accelerate the team.',
 
-    cvAccessTitle:'Professional résumé',
+    cvAccessTitle:'Professional CV',
     cvAccessText:'Portuguese and English versions ready to download.',
     cvPtLabel:'DOWNLOAD PT CV',
     cvEnLabel:'DOWNLOAD CV',
-    navCvTitle:'Download résumé'
+    navCvTitle:'Download CV'
 
   }
 
@@ -4782,6 +4782,276 @@ setProfileDomain(
   <strong id="hzTipTitle">Context</strong>
   <p id="hzTipText"></p>
 </div>
+
+
+
+<!-- ===== V7 // JUN FAN GRAPH EVOLUTION + COMPLETE PT/EN HUD ===== -->
+<style id="v7-junfan-graph-patch">
+  .stage{isolation:isolate;background:
+    radial-gradient(circle at 50% 48%,rgba(60,164,210,.09),transparent 25%),
+    radial-gradient(circle at 30% 26%,rgba(85,216,255,.035),transparent 28%),
+    linear-gradient(180deg,rgba(4,8,13,.84),rgba(2,6,10,.96));
+    box-shadow:inset 0 0 130px rgba(85,216,255,.035),0 28px 90px rgba(0,0,0,.28)}
+  #graphFieldCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:.9}
+  #heroCanvas{z-index:3;filter:drop-shadow(0 0 5px rgba(85,216,255,.08))}
+  .stage::before{box-shadow:0 0 50px rgba(85,216,255,.035),inset 0 0 36px rgba(85,216,255,.025)}
+  .core-label strong{text-shadow:0 0 10px rgba(222,250,255,.34),0 0 28px rgba(85,216,255,.18)}
+  .profile-constellation-label{font-weight:850;letter-spacing:.16em}
+  .profile-constellation-label.active{color:#d4f7ff;text-shadow:0 0 8px rgba(85,216,255,.35),0 0 20px rgba(85,216,255,.16)}
+  .graph-detail{border-color:rgba(85,216,255,.24);box-shadow:0 16px 42px rgba(0,0,0,.32),inset 0 0 34px rgba(85,216,255,.035)}
+  @media(max-width:600px){#graphFieldCanvas{opacity:.7}.stage{height:520px}}
+</style>
+
+<script id="v7-junfan-graph-i18n">
+(function(){
+  /* ---------- COMPLETE PT / EN UI ---------- */
+  const uiCopy={
+    pt:{
+      logo:'PERFIL PROFISSIONAL DE QA',
+      status:'PERFIL ONLINE · QA / IA / AUTOMAÇÃO / DEVOPS',
+      role:'Engenheiro de QA · Automação com IA · DevOps · Arquitetura de Qualidade',
+      enter:'ENTRAR NO PROJECT JUN FAN →',
+      telemetryTitle:'Telemetria de Carreira',
+      cvKicker:'CURRÍCULO // DOWNLOAD',
+      bridgeKicker:'JUN FAN // LINK DE DESCOBERTA',
+      micro:['MOTOR DE CARREIRA','MODO DO PERFIL','LINK DE CONHECIMENTO'],
+      microState:['ONLINE','RECRUTADOR','ATIVO'],
+      horizon:'HORIZON / AO VIVO',
+      coreKicker:'NÚCLEO DO PERFIL JF',
+      coreState:'CONHECIMENTO ATIVO',
+      constellations:['CARREIRA','CAPACIDADES','PROJETOS','ENTREGA'],
+      legend:['NÚCLEO','RELAÇÃO','CAMINHO ATIVO'],
+      instrument:['LINK DO<br>PERFIL','JF-01<br>PRONTO'],
+      stageTitle:'JF-01 // NÚCLEO DE DESCOBERTA PROFISSIONAL',
+      callouts:[['CARREIRA','2021 → ATUAL'],['SISTEMA DE QUALIDADE','ARQUITETURA / ENTREGA'],['LINK DE CONHECIMENTO','PROJECT JUN FAN']],
+      telemetry:['ESTADO','DOMÍNIO','LINK'],
+      stageHint:'telemetria de carreira / ponte de conhecimento / descoberta ao vivo',
+      telemetryLabels:['DOMÍNIO','MOTOR','ENTREGA','ESCOPO'],
+      blocks:['MISSÃO','IMPACTO DE ENGENHARIA','COBERTURA','OBSERVABILIDADE','FUNDAÇÃO','CONTEXTO DE ENGENHARIA'],
+      evolution:['2021 // FUNDAÇÃO','2022 // AUTOMAÇÃO','2023+ // ARQUITETURA'],
+      education:['NÓ DE FORMAÇÃO','SINAL DE IDIOMA'],
+      english:'Inglês',
+      facilitator:'FACILITAÇÃO DE QUALIDADE // SISTEMA DE ENTREGA',
+      steps:[['DESCOBERTA / SPIKE','Entender o sistema'],['MAPEAMENTO','Estruturar o contexto'],['ESTRATÉGIA','Priorizar por risco'],['ARQUITETURA','Projetar para escala'],['AUTOMAÇÃO','Automatizar com propósito'],['CI/CD','Conectar qualidade à entrega'],['OBSERVABILIDADE','Gerar feedback útil'],['EVOLUÇÃO','Melhorar continuamente']],
+      principle:'PRINCÍPIO DE ENGENHARIA DE QUALIDADE',
+      aiSection:'IA × Engenharia de Qualidade',
+      aiSignals:['SINAL DE IA // REQUISITOS','SINAL DE IA // DESIGN DE TESTES','SINAL DE IA // AGENTES'],
+      projectStates:['SISTEMA ATIVO','ENGENHARIA','OPERAÇÕES','EVOLUÇÃO'],
+      knowledge:'SISTEMA DE CONHECIMENTO // JF-01',
+      navPrefix:'INTELIGÊNCIA DE NAVEGAÇÃO // ',
+      hover:'FOCO', pinned:'FIXADO', ready:'PRONTO', contextActive:'CONTEXTO ATIVO', careerActive:'NÓ DE CARREIRA ATIVO', knowledgeReady:'LINK DE CONHECIMENTO PRONTO'
+    },
+    en:{
+      logo:'PROFESSIONAL QA PROFILE',
+      status:'PROFILE ONLINE · QA / AI / AUTOMATION / DEVOPS',
+      role:'QA Engineer · AI Automation · DevOps · Quality Architecture',
+      enter:'ENTER PROJECT JUN FAN →',
+      telemetryTitle:'Career Telemetry',
+      cvKicker:'CURRICULUM // DOWNLOAD',
+      bridgeKicker:'JUN FAN // DISCOVERY LINK',
+      micro:['CAREER ENGINE','PROFILE MODE','KNOWLEDGE LINK'],
+      microState:['ONLINE','RECRUITER','ACTIVE'],
+      horizon:'HORIZON / LIVE',
+      coreKicker:'JF PROFILE CORE',
+      coreState:'KNOWLEDGE ACTIVE',
+      constellations:['CAREER','CAPABILITIES','PROJECTS','DELIVERY'],
+      legend:['CORE','RELATION','ACTIVE PATH'],
+      instrument:['PROFILE<br>LINK','JF-01<br>READY'],
+      stageTitle:'JF-01 // PROFESSIONAL DISCOVERY CORE',
+      callouts:[['CAREER','2021 → CURRENT'],['QUALITY SYSTEM','ARCHITECTURE / DELIVERY'],['KNOWLEDGE LINK','PROJECT JUN FAN']],
+      telemetry:['STATE','DOMAIN','LINK'],
+      stageHint:'career telemetry / knowledge bridge / live discovery',
+      telemetryLabels:['DOMAIN','ENGINE','DELIVERY','SCOPE'],
+      blocks:['MISSION','ENGINEERING IMPACT','COVERAGE','OBSERVABILITY','FOUNDATION','ENGINEERING CONTEXT'],
+      evolution:['2021 // FOUNDATION','2022 // AUTOMATION','2023+ // ARCHITECTURE'],
+      education:['EDUCATION NODE','LANGUAGE SIGNAL'],
+      english:'English',
+      facilitator:'QUALITY FACILITATION // DELIVERY SYSTEM',
+      steps:[['DISCOVERY / SPIKE','Understand the system'],['MAPPING','Structure the context'],['STRATEGY','Prioritize by risk'],['ARCHITECTURE','Design for scale'],['AUTOMATION','Automate with purpose'],['CI/CD','Connect quality to delivery'],['OBSERVABILITY','Generate useful feedback'],['EVOLUTION','Improve continuously']],
+      principle:'QUALITY ENGINEERING PRINCIPLE',
+      aiSection:'AI × Quality Engineering',
+      aiSignals:['AI SIGNAL // REQUIREMENTS','AI SIGNAL // TEST DESIGN','AI SIGNAL // AGENTS'],
+      projectStates:['LIVE SYSTEM','ENGINEERING','OPERATIONS','EVOLUTION'],
+      knowledge:'KNOWLEDGE SYSTEM // JF-01',
+      navPrefix:'NAVIGATION INTELLIGENCE // ',
+      hover:'HOVER', pinned:'PINNED', ready:'READY', contextActive:'CONTEXT ACTIVE', careerActive:'CAREER NODE ACTIVE', knowledgeReady:'KNOWLEDGE LINK READY'
+    }
+  };
+
+  const nodeInfo={
+    pt:{
+      core:['NÚCLEO DE ENGENHARIA DE QUALIDADE','ODIRLEI ALVES','Facilitador de qualidade conectando estratégia, arquitetura, automação, IA e entrega.'],
+      globaltec:['CARREIRA // SISTEMAS','Globaltec S/A','ERP complexo, automação Desktop, APIs, CI/CD, IA aplicada ao QA e liderança técnica de automação.'],
+      bankme:['CARREIRA // FINTECH','Bankme','Automação Web/API, BDD, RabbitMQ, Datadog, observabilidade e qualidade orientada a produto.'],
+      blue:['CARREIRA // FUNDAÇÃO','Blue Service','Base em QA funcional, exploratório, Web/Mobile, suporte técnico, logs e pipelines.'],
+      automation:['CAPACIDADE // ENGENHARIA','Automação & QA','Robot Framework, Sikuli, Cypress, Playwright, APIs e automação orientada a risco e retorno.'],
+      ai:['CAPACIDADE // INTELIGÊNCIA','IA & Inteligência','LLMs, agentes, engenharia de prompts e IA como camada operacional do processo de qualidade.'],
+      devops:['ENTREGA // QUALITY OPS','DevOps & Quality Ops','CI/CD, pipelines, quality gates, artefatos, execução contínua e feedback rápido.'],
+      architecture:['ENTREGA // DESIGN','Arquitetura & Design','Padrões, reutilização, desacoplamento e soluções sustentáveis antes de escalar automação.'],
+      projects:['PROJETOS // SOLUÇÕES','Projetos & Soluções','Ferramentas e sistemas próprios transformando problemas de QA em soluções reutilizáveis.'],
+      junfan:['PROJETO // SISTEMA DE CONHECIMENTO','Project Jun Fan','Knowledge Graph, experiências interativas e arquitetura orientada a descoberta.'],
+      api:['CAPACIDADE // API','API Testing','Postman, collections, contratos, integrações e validação automatizada de serviços.'],
+      robot:['CAPACIDADE // DESKTOP','Robot Framework','Automação E2E de ERP legado com Robot Framework, Sikuli e abstrações próprias.'],
+      python:['CAPACIDADE // CÓDIGO','Python','Extensões, drivers, utilitários, tratamento de dados e engenharia de apoio à automação.'],
+      azure:['ENTREGA // CI/CD','Azure DevOps','Pipelines, agentes self-hosted, Test Plans, evidências e integração contínua.'],
+      dde:['PROJETO // DISCOVERY','Desktop Discovery Engine','Engine para observar execução manual, capturar contexto e gerar conhecimento reutilizável para automação.'],
+      command:['PROJETO // OPERAÇÕES','QA Command Center','Visibilidade operacional de execuções, status, falhas e indicadores de qualidade.'],
+      web:['CAPACIDADE // WEB','Web Automation','Cypress, Playwright, Selenium e estratégias E2E para aplicações web.'],
+      observability:['ENTREGA // TELEMETRIA','Observabilidade','Logs, métricas, eventos e diagnóstico para transformar falha em feedback acionável.']
+    },
+    en:{
+      core:['QUALITY ENGINEERING CORE','ODIRLEI ALVES','Quality facilitator connecting strategy, architecture, automation, AI and delivery.'],
+      globaltec:['CAREER // SYSTEMS','Globaltec S/A','Complex ERP, Desktop automation, APIs, CI/CD, AI-assisted QA and technical automation leadership.'],
+      bankme:['CAREER // FINTECH','Bankme','Web/API automation, BDD, RabbitMQ, Datadog, observability and product-oriented quality.'],
+      blue:['CAREER // FOUNDATION','Blue Service','Foundation in functional and exploratory QA, Web/Mobile, technical support, logs and pipelines.'],
+      automation:['CAPABILITY // ENGINEERING','Automation & QA','Robot Framework, Sikuli, Cypress, Playwright, APIs and risk-oriented automation engineering.'],
+      ai:['CAPABILITY // INTELLIGENCE','AI & Intelligence','LLMs, agents, prompt engineering and AI as an operational layer of the quality process.'],
+      devops:['DELIVERY // QUALITY OPS','DevOps & Quality Ops','CI/CD, pipelines, quality gates, artifacts, continuous execution and fast feedback.'],
+      architecture:['DELIVERY // DESIGN','Architecture & Design','Patterns, reuse, decoupling and sustainable solutions before scaling automation.'],
+      projects:['PROJECTS // SOLUTIONS','Projects & Solutions','Tools and systems that transform QA problems into reusable solutions.'],
+      junfan:['PROJECT // KNOWLEDGE SYSTEM','Project Jun Fan','Knowledge Graph, interactive experiences and discovery-oriented architecture.'],
+      api:['CAPABILITY // API','API Testing','Postman, collections, contracts, integrations and automated service validation.'],
+      robot:['CAPABILITY // DESKTOP','Robot Framework','E2E legacy ERP automation with Robot Framework, Sikuli and custom abstractions.'],
+      python:['CAPABILITY // CODE','Python','Extensions, drivers, utilities, data handling and automation support engineering.'],
+      azure:['DELIVERY // CI/CD','Azure DevOps','Pipelines, self-hosted agents, Test Plans, evidence and continuous integration.'],
+      dde:['PROJECT // DISCOVERY','Desktop Discovery Engine','Engine that observes manual execution, captures context and generates reusable automation knowledge.'],
+      command:['PROJECT // OPERATIONS','QA Command Center','Operational visibility for executions, status, failures and quality indicators.'],
+      web:['CAPABILITY // WEB','Web Automation','Cypress, Playwright, Selenium and E2E strategies for web applications.'],
+      observability:['DELIVERY // TELEMETRY','Observability','Logs, metrics, events and diagnostics that turn failures into actionable feedback.']
+    }
+  };
+
+  function txt(sel,val){const el=document.querySelector(sel); if(el && val!==undefined) el.textContent=val;}
+  function html(sel,val){const el=document.querySelector(sel); if(el && val!==undefined) el.innerHTML=val;}
+  function all(sel,vals,htmlMode=false){document.querySelectorAll(sel).forEach((el,i)=>{if(vals[i]!==undefined){htmlMode?el.innerHTML=vals[i]:el.textContent=vals[i];}})}
+
+  function applyFullLanguage(lang){
+    const c=uiCopy[lang]||uiCopy.pt;
+    txt('.logo small',c.logo);
+    txt('.statusline [data-i18n="status"]',c.status);
+    txt('.role',c.role);
+    txt('#enterJunFan',c.enter);
+    txt('[data-i18n="telemetryTitle"]',c.telemetryTitle);
+    txt('.cv-access-copy small',c.cvKicker);
+    txt('.bridge small',c.bridgeKicker);
+    document.querySelectorAll('.hero-micro span').forEach((el,i)=>{if(c.micro[i]) el.innerHTML=c.micro[i]+' <b>'+c.microState[i]+'</b>';});
+    txt('.horizon-status span',c.horizon);
+    txt('.core-label small',c.coreKicker); txt('.core-label span',c.coreState);
+    all('.profile-constellation-label',c.constellations);
+    all('.horizon-legend span',c.legend);
+    all('.instrument span',c.instrument,true);
+    txt('.stage-title',c.stageTitle);
+    document.querySelectorAll('.core-callout').forEach((el,i)=>{if(c.callouts[i]) el.innerHTML='<b>'+c.callouts[i][0]+'</b><br>'+c.callouts[i][1];});
+    document.querySelectorAll('.telemetry > div').forEach((el,i)=>{const b=el.querySelector('b'); if(b) el.childNodes[0].nodeValue=c.telemetry[i]+' ';});
+    txt('.stage-hint',c.stageHint);
+    all('.telemetry-card small',c.telemetryLabels);
+    all('.node-block small',c.blocks);
+    all('.career-evolution .evo small',c.evolution);
+    all('.education-grid .edu-card > small',c.education);
+    txt('.education-grid .edu-card:nth-child(2) h3',c.english);
+    txt('.facilitator-intro small',c.facilitator);
+    document.querySelectorAll('.quality-step').forEach((el,i)=>{if(c.steps[i]){txt('.quality-step:nth-child('+(i+1)+') small',c.steps[i][0]);txt('.quality-step:nth-child('+(i+1)+') h3',c.steps[i][1]);}});
+    txt('.facilitator-close small',c.principle);
+    txt('#ai-quality .section-head h2',c.aiSection);
+    all('.ai-card small',c.aiSignals);
+    all('.project-state',c.projectStates);
+    txt('.jf-copy small',c.knowledge);
+
+    if(window.graphNodeInfo){
+      Object.keys(nodeInfo[lang]).forEach(id=>{const v=nodeInfo[lang][id]; if(graphNodeInfo[id]){graphNodeInfo[id].type=v[0];graphNodeInfo[id].title=v[1];graphNodeInfo[id].text=v[2];}});
+    }
+    if(window.pinnedGraphNode) showGraphDetail(window.pinnedGraphNode,true);
+    else if(window.hoverGraphNode) showGraphDetail(window.hoverGraphNode,false);
+  }
+
+  const baseSetLanguage=window.setLanguage;
+  window.setLanguage=function(lang){baseSetLanguage(lang);applyFullLanguage(lang);};
+  document.querySelectorAll('.lang button').forEach(btn=>btn.addEventListener('click',()=>setTimeout(()=>applyFullLanguage(btn.dataset.lang),0)));
+  applyFullLanguage(window.currentLanguage||'pt');
+
+  /* ---------- DENSER, LIVING JUN FAN-LIKE GRAPH ---------- */
+  const extras=[
+    {id:'api',label:'API',type:'capability',x:.86,y:.28,r:2.6,z:.72},
+    {id:'robot',label:'ROBOT',type:'capability',x:.88,y:.55,r:2.8,z:.86},
+    {id:'python',label:'PYTHON',type:'capability',x:.70,y:.18,r:2.4,z:.62},
+    {id:'azure',label:'AZURE',type:'delivery',x:.85,y:.72,r:2.6,z:.78},
+    {id:'dde',label:'DDE',type:'project',x:.31,y:.88,r:2.8,z:.88},
+    {id:'command',label:'COMMAND',type:'project',x:.12,y:.84,r:2.4,z:.58},
+    {id:'web',label:'WEB',type:'capability',x:.92,y:.40,r:2.2,z:.48},
+    {id:'observability',label:'OBSERVABILITY',type:'delivery',x:.67,y:.88,r:2.2,z:.55}
+  ];
+  extras.forEach(n=>{if(!profileNodes.some(x=>x.id===n.id)) profileNodes.push(n);});
+  profileNodes.forEach((n,i)=>{if(n.z===undefined)n.z=.45+((i*37)%50)/100;});
+
+  const extraEdges=[
+    ['automation','robot'],['automation','web'],['automation','api'],['automation','python'],
+    ['api','globaltec'],['api','bankme'],['robot','globaltec'],['python','robot'],['python','ai'],
+    ['devops','azure'],['azure','globaltec'],['azure','observability'],['devops','observability'],
+    ['architecture','dde'],['projects','dde'],['projects','command'],['junfan','dde'],['junfan','command'],
+    ['ai','dde'],['dde','robot'],['command','devops'],['web','bankme'],['observability','bankme']
+  ];
+  extraEdges.forEach(e=>{if(!profileEdges.some(x=>x[0]===e[0]&&x[1]===e[1]))profileEdges.push(e);});
+
+  Object.assign(domainMap,{
+    QUALITY:['core','automation','api','robot','web','architecture','devops','observability'],
+    AUTOMATION:['core','automation','robot','web','api','python','globaltec','bankme'],
+    AI:['core','ai','python','architecture','dde'],
+    DEVOPS:['core','devops','azure','observability','architecture','command'],
+    ARCHITECTURE:['core','architecture','devops','ai','dde','python'],
+    DISCOVERY:['core','projects','junfan','dde','command','ai'],
+    OBSERVABILITY:['core','devops','observability','azure','bankme'],
+    PERFORMANCE:['core','devops','api','observability']
+  });
+
+  Object.keys(nodeInfo.pt).forEach(id=>{if(!graphNodeInfo[id])graphNodeInfo[id]={type:'',title:'',text:''};});
+  applyFullLanguage(window.currentLanguage||'pt');
+
+  const baseP=window.P;
+  window.P=function(n){
+    const p=baseP(n); const idx=profileNodes.indexOf(n); const z=n.z||.6; const ph=idx*.91+n.x*5+n.y*7;
+    const depth=(z-.5);
+    p.x+=(pointer.x-.5)*depth*16;
+    p.y+=(pointer.y-.5)*depth*12;
+    p.x+=Math.sin(t*(.22+z*.18)+ph)*(2+z*3.5);
+    p.y+=Math.cos(t*(.19+z*.16)+ph*.8)*(1.5+z*2.8);
+    return p;
+  };
+
+  /* ambient particles / depth field behind main graph */
+  const stageEl=document.getElementById('stage');
+  const field=document.createElement('canvas'); field.id='graphFieldCanvas'; stageEl.insertBefore(field,hc);
+  const fx=field.getContext('2d'); let fW=0,fH=0,fD=1;
+  const particles=Array.from({length:64},(_,i)=>({x:((i*47)%101)/100,y:((i*83)%97)/96,z:.2+((i*29)%80)/100,p:(i*1.37)%6.28}));
+  function resizeField(){fD=Math.min(devicePixelRatio||1,2);fW=field.clientWidth;fH=field.clientHeight;field.width=fW*fD;field.height=fH*fD;fx.setTransform(fD,0,0,fD,0,0);}
+  resizeField();addEventListener('resize',resizeField);
+  function drawField(){
+    fx.clearRect(0,0,fW,fH);
+    const cx=fW*.5,cy=fH*.5;
+    particles.forEach((q,i)=>{const drift=Math.sin(t*.18+q.p)*4*q.z; const x=q.x*fW+drift+(pointer.inside?(pointer.x-.5)*14*q.z:0);const y=q.y*fH+Math.cos(t*.14+q.p)*3*q.z+(pointer.inside?(pointer.y-.5)*10*q.z:0);const a=.05+q.z*.16*(.65+.35*Math.sin(t*.7+q.p));fx.fillStyle='rgba(145,218,239,'+a+')';fx.beginPath();fx.arc(x,y,.45+q.z*1.05,0,Math.PI*2);fx.fill();if(i%7===0){fx.strokeStyle='rgba(85,216,255,'+(a*.22)+')';fx.beginPath();fx.moveTo(x,y);fx.lineTo(cx,cy);fx.stroke();}});
+    requestAnimationFrame(drawField);
+  }
+  drawField();
+
+  /* neighbor-aware hover: direct relations light up, making exploration feel semantic */
+  const baseActiveSet=window.activeSet;
+  window.activeSet=function(){
+    const s=baseActiveSet(); const focus=window.pinnedGraphNode||window.hoverGraphNode;
+    if(focus){s.add(focus.id); profileEdges.forEach(e=>{if(e[0]===focus.id)s.add(e[1]);if(e[1]===focus.id)s.add(e[0]);});}
+    return s;
+  };
+
+  const originalShow=window.showGraphDetail;
+  window.showGraphDetail=function(n,pinned=false){
+    if(!n){originalShow(n,pinned);return;}
+    const info=graphNodeInfo[n.id]; if(!info)return;
+    const c=uiCopy[window.currentLanguage||'pt'];
+    graphDetailType.textContent=info.type+' // '+(pinned?c.pinned:c.hover);
+    graphDetailTitle.textContent=info.title;
+    graphDetailText.textContent=info.text;
+    graphDetail.classList.add('show');
+  };
+})();
+</script>
 
 </body>
 </html>
